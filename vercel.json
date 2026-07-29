@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|Opera Mini).*"
+        }
+      ],
+      "destination": "/movil.dc.html"
+    },
+    { "source": "/", "destination": "/desktop.dc.html" },
+    { "source": "/escritorio", "destination": "/desktop.dc.html" },
+    { "source": "/movil", "destination": "/movil.dc.html" }
+  ],
+  "headers": [
+    {
+      "source": "/uploads/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    }
+  ]
+}
