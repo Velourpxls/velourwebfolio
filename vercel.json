@@ -15,6 +15,10 @@
     { "source": "/escritorio", "destination": "/desktop.dc.html" },
     { "source": "/movil", "destination": "/movil.dc.html" }
   ],
+  "redirects": [
+    { "source": "/desktop.dc.html", "destination": "/", "permanent": false },
+    { "source": "/index.html", "destination": "/", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/uploads/(.*)",
