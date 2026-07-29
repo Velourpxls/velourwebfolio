@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Velour — Productora audiovisual · Madrid</title>
+<meta name="description" content="Velour es un colectivo de personas con visión artística, enfocadas en la producción de proyectos audiovisuales y con sede en Madrid.">
+<link rel="icon" href="uploads/Isotipio_Blanco@2x.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Velour — Productora audiovisual · Madrid">
+<meta property="og:description" content="Documental, podcast, videoclip y fashion film. You are a pixel away from arête.">
+<meta property="og:image" content="uploads/Isotipio_Blanco@2x.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0a0a">
+<script>
+(function(){
+  try {
+    if (window.matchMedia('(min-width: 821px)').matches) {
+      location.replace('index.html' + location.search + location.hash);
+    }
+  } catch (e) {}
+})();
+</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<style>
+@font-face{font-family:'Schengen';src:url('uploads/ABCSchengenAVariable-Trial.ttf') format('truetype');font-weight:100 900;font-display:swap}
+html,body{margin:0;background:#0a0a0a;font-family:'Schengen',sans-serif;font-weight:200;overscroll-behavior:none}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.ytwrap{position:absolute;inset:0;overflow:hidden;background:#0a0a0a}
+.loop{position:relative;overflow:hidden;background:#141414;cursor:pointer}
+.loop .vs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px);font-size:9px;letter-spacing:.18em;color:#4a4a4a;text-align:center;padding:8px}
+.loop .lp-name{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;background:rgba(8,8,8,.6);opacity:0;transition:opacity .35s ease;color:#f4f4f4;font-weight:200;z-index:3;font-size:12px}
+.loop.presel .lp-name{opacity:1}
+.langbtn{cursor:pointer;font-size:11px;letter-spacing:.14em;color:#9a9a9a;transition:color .25s}
+.langbtn.on{color:#f4f4f4}
+.herologo{transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:auto;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center}
+.herologo.grown{transform:scale(1.12)}
+.herologo.grown.push-up{transform:translateY(-16vh) scale(1)}
+.florimg{mix-blend-mode:screen;transition:opacity .22s ease}
+.florimg.off{opacity:0;pointer-events:none}
+.soundbtn{cursor:pointer;font-size:11px;letter-spacing:.14em;color:#c9c9c9;border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:6px 14px;display:inline-flex;align-items:center;gap:8px;background:rgba(10,10,10,.32)}
+.rv{opacity:0;pointer-events:none;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.rv.on{opacity:1;pointer-events:auto}
+.rv-bot{transform:translateY(20px)}
+.rv-bot.on{transform:translateY(0)}
+.rvlabel{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#c0c0c0}
+.carousel{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%)}
+.carousel::-webkit-scrollbar{display:none}
+.infobar a,.infobar span{white-space:nowrap}
+.herologo.pixed{opacity:0}
+.words{opacity:0;transition:opacity .5s ease .14s;pointer-events:none}
+.words.on{opacity:1}
+.words .navw{pointer-events:none}
+.words.on .navw{pointer-events:auto}
+.navw{font-size:19px;letter-spacing:.02em;color:#f0f0f0;cursor:pointer;transition:color .2s,letter-spacing .3s;padding:6px}
+.navw.sel{color:#fff;letter-spacing:.1em;text-decoration:underline;text-underline-offset:7px;text-decoration-thickness:1px}
+.words.wglitch .navw{animation:wjit .07s steps(2,end) infinite}
+@keyframes wjit{0%{transform:translate(0,0);opacity:1}25%{transform:translate(-7px,3px) skewX(9deg);opacity:.35}50%{transform:translate(6px,-4px);opacity:.9}75%{transform:translate(-4px,-2px) skewX(-7deg);opacity:.5}100%{transform:translate(4px,2px);opacity:1}}
+</style>
+</helmet>
+
+<div style="background:#0a0a0a;color:#ededed;font-family:'Schengen',sans-serif;min-height:100vh">
+
+  <!-- ============================= HOME móvil ============================= -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div style="position:relative;height:100vh;height:100dvh;min-height:560px;overflow:hidden;width:min(100vw,430px);margin:0 auto;box-shadow:0 0 0 1px #1c1c1c">
+
+    <div class="ytwrap"><div ref="{{ ytRef }}" style="position:absolute;inset:0"></div></div>
+    <div ref="{{ overlayRef }}" onClick="{{ bgTap }}" style="position:absolute;inset:0;background:#0a0a0a;opacity:.28;transition:opacity .55s ease"></div>
+
+    <!-- ABAJO: carrusel horizontal de proyectos -->
+    <div class="rv rv-bot {{ workClass }}" style="position:absolute;left:0;right:0;bottom:76px;z-index:4;display:flex;flex-direction:column;gap:10px">
+      <div class="rvlabel" style="padding:0 18px">Proyectos</div>
+      <div class="carousel" ref="{{ scrollRef }}" style="display:flex;gap:12px;padding:8px 18px">
+        <sc-for list="{{ tenProjects }}" as="p" hint-placeholder-count="0">
+          <div class="loop {{ p.selCls }}" style="width:72vw;max-width:340px;aspect-ratio:16/9;flex:none;scroll-snap-align:center" onClick="{{ p.tap }}">
+            <div class="vs">loop · {{ p.slot }}</div>
+            <div ref="{{ p.frameRef }}" style="position:absolute;inset:0;background-size:cover;background-position:center"></div>
+            <div class="lp-name">{{ p.name }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="rvlabel" style="padding:0 18px;color:#8a8a8a;letter-spacing:.18em">{{ tapHint }}</div>
+    </div>
+
+    <!-- EQUIPO (us) -->
+    <div class="rv rv-bot {{ usClass }}" style="position:absolute;left:0;right:0;bottom:76px;z-index:4;display:flex;flex-direction:column;gap:10px">
+      <div class="rvlabel" style="padding:0 18px">Team</div>
+      <div class="carousel" style="display:flex;gap:14px;padding:8px 18px;align-items:flex-start">
+        <sc-for list="{{ team }}" as="tm" hint-placeholder-count="0">
+          <div style="flex:none;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:{{ tm.w }}">
+            <div class="loop" ref="{{ tm.ref }}" style="width:100%;aspect-ratio:1/1;cursor:default;background-size:cover;background-position:center"></div>
+            <div style="font-weight:500;font-size:11px;letter-spacing:.03em;color:#f6f6f6">{{ tm.name }}</div>
+            <div style="font-weight:200;font-size:8.5px;line-height:1.5;letter-spacing:.09em;text-transform:uppercase;color:#9c9c9c;text-wrap:pretty">{{ tm.role }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- contacto bajo el logo -->
+    <div class="rv rv-bot {{ contactClass }}" style="position:absolute;left:50%;bottom:16%;transform:translateX(-50%);z-index:4;text-align:center">
+      <div class="rvlabel" style="margin-bottom:12px">Contact</div>
+      <div class="infobar" style="display:flex;flex-direction:column;gap:8px;align-items:center">
+        <a href="mailto:info@velourpixel.com" style="font-size:17px;color:#f2f2f2">info@velourpixel.com</a>
+        <span style="font-size:15px;color:#dcdcdc">+34 600 855 079</span>
+        <a href="https://instagram.com/velourpixels" target="_blank" style="font-size:13px;letter-spacing:.1em;color:#c4c4c4">@velourpixels</a>
+        <span style="font-size:13px;color:#9a9a9a">Madrid</span>
+      </div>
+    </div>
+
+    <!-- about bajo el logo -->
+    <div class="rv rv-bot {{ aboutClass }}" style="position:absolute;left:24px;right:24px;bottom:15%;z-index:4">
+      <div class="rvlabel" style="margin-bottom:12px">About</div>
+      <div style="font-size:16px;line-height:1.7;color:#dcdcdc;text-wrap:pretty">{{ aboutText }}</div>
+    </div>
+
+    <!-- logo centrado -->
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:5">
+      <div class="herologo {{ shiftClass }}" onClick="{{ revealOn }}">
+        <img ref="{{ logoRef }}" src="uploads/Workdmark_Blanca@2x.png" alt="Logo" style="width:var(--logo,180px);height:auto;opacity:0">
+        <img class="florimg {{ pixClass }}" ref="{{ florRef }}" src="uploads/Isotipio_Blanco@2x.png" alt="Logo inicial" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(30vw,130px);height:auto;filter:drop-shadow(0 2px 20px rgba(0,0,0,.6))">
+      </div>
+    </div>
+
+    <canvas ref="{{ pixRef }}" style="position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none"></canvas>
+
+    <!-- palabras flotantes -->
+    <div class="words {{ onClass }} {{ wGlitchClass }}" style="position:absolute;inset:0;z-index:6">
+      <sc-for list="{{ navWords }}" as="nw" hint-placeholder-count="0">
+        <span class="navw {{ nw.selClass }}" ref="{{ nw.wref }}" onClick="{{ nw.click }}" style="position:absolute">{{ nw.label }}</span>
+      </sc-for>
+    </div>
+
+    <div class="rv {{ onClass }}" style="position:absolute;top:18px;left:16px;z-index:6">
+      <span class="soundbtn" onClick="{{ goBack }}">← {{ back }}</span>
+    </div>
+    <div style="position:absolute;bottom:18px;left:16px;z-index:6">
+      <span class="soundbtn" onClick="{{ toggleSound }}">◗ {{ soundLabel }}</span>
+    </div>
+    <div style="position:absolute;top:22px;right:16px;display:flex;gap:12px;align-items:center;z-index:6">
+      <span class="langbtn {{ esClass }}" onClick="{{ setEs }}">ES</span>
+      <span style="color:#3a3a3a">/</span>
+      <span class="langbtn {{ enClass }}" onClick="{{ setEn }}">EN</span>
+    </div>
+
+  </div>
+  </sc-if>
+
+  <!-- ============================= FICHA móvil ============================= -->
+  <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh;width:min(100vw,430px);margin:0 auto;box-shadow:0 0 0 1px #1c1c1c;position:relative">
+    <div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none">
+      <div ref="{{ fichaBgRef }}" style="position:absolute;inset:0;filter:blur(24px) saturate(1.1) brightness(.5);transform:scale(1.14)"></div>
+      <div style="position:absolute;inset:0;background:rgba(8,8,8,.42)"></div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px;position:relative;z-index:1">
+      <div class="langbtn on" onClick="{{ goHome }}">← {{ back }}</div>
+      <img src="uploads/Workdmark_Blanca@2x.png" alt="Logo" style="height:16px;width:auto;opacity:.92">
+    </div>
+    <div style="padding:4px 18px 40px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1">
+      <div class="loop" ref="{{ mainVideoRef }}" style="aspect-ratio:16/9;cursor:default;background:#000">
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:300;letter-spacing:-.01em;color:#f4f4f4">{{ curTitle }}</div>
+        <div style="font-size:15px;line-height:1.65;color:#a8a8a8;margin-top:10px;text-wrap:pretty;white-space:pre-line">{{ curSummary }}</div>
+      </div>
+      <sc-if value="{{ showFrames }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <sc-for list="{{ fichaFrames }}" as="f" hint-placeholder-count="6">
+          <div ref="{{ f.ref }}" style="aspect-ratio:16/9;background:#000;position:relative;overflow:hidden;background-size:cover;background-position:center;transition:opacity .5s ease"></div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;heroLogoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:180,&quot;min&quot;:100,&quot;max&quot;:260,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ajustes&quot;,&quot;label&quot;:&quot;Ancho del logo en portada&quot;}}">
+class Component extends DCLogic {
+  state = { lang: "es", view: "home", proj: 0, muted: true, revealed: false, panel: null, navMode: "main", cat: null, wGlitch: false, preSel: null };
+  w = [];
+  wref = (i) => (el) => { this.w[i] = el; };
+  glitchSwap = (patch) => {
+    this.setState({ wGlitch: true });
+    clearTimeout(this._gs1); clearTimeout(this._gs2); clearInterval(this._scr);
+    const chars = "▙▚▛▜▝■□▪#/\\|<>_-=+*";
+    this._scr = setInterval(() => {
+      (this.w || []).forEach((el) => {
+        if (!el || !el.isConnected) return;
+        el.textContent = (el.textContent || "").split("").map((ch) =>
+          ch === " " ? ch : (Math.random() < 0.45 ? chars[Math.floor(Math.random() * chars.length)] : ch)).join("");
+      });
+    }, 40);
+    this._gs1 = setTimeout(() => { this.setState(patch); this.generateRects(patch.navMode === "work" ? 5 : 4); }, 220);
+    this._gs2 = setTimeout(() => {
+      clearInterval(this._scr);
+      const labels = this.navLabels(patch.navMode || this.state.navMode);
+      (this.w || []).forEach((el, i) => { if (el && el.isConnected && labels[i] !== undefined) el.textContent = labels[i]; });
+      this.setState({ wGlitch: false });
+    }, 560);
+  };
+
+  setOverlay = (el) => { if (el) this.overlay = el; };
+  pixRef = (el) => { this.pix = el; };
+  logoRef = (el) => { this.logoEl = el; };
+  florRef = (el) => { this.florEl = el; };
+  scrollRef = (el) => { this.scrollEl = el; };
+
+  // overlay de carga: el isotipo se forma a partir de píxeles con ruido
+  addLoader = (el) => {
+    let c = el.querySelector("canvas.loadcv");
+    if (!c) {
+      c = document.createElement("canvas");
+      c.className = "loadcv"; c.width = 192; c.height = 108;
+      c.style.cssText = "position:absolute;inset:0;width:100%;height:100%;z-index:2;image-rendering:pixelated;transition:opacity .5s ease;background:#101010";
+      el.appendChild(c);
+    }
+    c.style.opacity = "1"; c._t0 = 0; c._seed = Math.random() * 997;
+    c._dur = 320 + Math.random() * 260;
+    c._spread = 0.5 + Math.random() * 1.4;
+    c._stagger = 0.2 + Math.random() * 0.4;
+  };
+  revealTile = (el) => {
+    if ((this.state.panel !== "work" && this.state.panel !== "us") || !this.state.revealed) { this.removeLoader(el); return; }
+    if (!this.introPend) this.introPend = [];
+    if (this.introPend.indexOf(el) === -1) this.introPend.push(el);
+  };
+  removeLoader = (el) => {
+    const c = el.querySelector("canvas.loadcv");
+    if (!c) return;
+    c.style.opacity = "0";
+    setTimeout(() => c.remove(), 600);
+  };
+  // al abrir "us", cada foto se forma de nuevo con su línea
+  armTeam = () => {
+    (this.teamEls || []).forEach((el) => {
+      if (!el || !el.isConnected) return;
+      this.addLoader(el);
+      setTimeout(() => this.revealTile(el), 120 + Math.random() * 420);
+    });
+  };
+  teamRef = (i, src) => (el) => {
+    if (!this.teamEls) this.teamEls = [];
+    this.teamEls[i] = el;
+    if (el && el._src !== src) { el._src = src; el.style.backgroundImage = 'url("' + src + '?v=3")'; }
+  };
+
+  // fondo de la ficha: mismo showreel, desenfocado por CSS del contenedor
+  fichaBgRef = (el) => {
+    if (!el || el.querySelector("iframe")) return;
+    const f = document.createElement("iframe");
+    f.src = "https://player.vimeo.com/video/1212324961?h=c216465273&background=1&autoplay=1&loop=1&muted=1&autopause=0";
+    f.allow = "autoplay";
+    f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:178vh;height:100vh;min-width:100vw;min-height:56.25vw;pointer-events:none;border:0";
+    el.appendChild(f);
+  };
+
+  // frames del vídeo del proyecto en la ficha (rotan con fundido)
+  // recorte del embed de Instagram: solo la banda del vídeo (sin cabecera ni pie)
+  igFrame = (code, cell) => {
+    const IW = 400, BAND_TOP = 58, BAND_H = 500;
+    const f = document.createElement("iframe");
+    f.src = "https://www.instagram.com/reel/" + code + "/embed/";
+    f.loading = "lazy";
+    f.scrolling = "no";
+    f.style.cssText = "position:absolute;top:0;left:0;width:" + IW + "px;height:900px;border:0;pointer-events:none;background:#131313;transform-origin:0 0";
+    const fit = () => {
+      if (!cell.isConnected) return;
+      const w = cell.clientWidth, h = cell.clientHeight;
+      if (!w || !h) return;
+      const s = Math.max(w / IW, h / BAND_H);
+      const tx = w / 2 - (IW / 2) * s;
+      const ty = h / 2 - (BAND_TOP + BAND_H / 2) * s;
+      f.style.transform = "translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
+    };
+    requestAnimationFrame(fit);
+    if (window.ResizeObserver) { const ro = new ResizeObserver(fit); ro.observe(cell); }
+    return f;
+  };
+
+  // composición de tres verticales de Instagram (tarjeta y ficha)
+  igTrio = (posts, opts) => {
+    const o = opts || {};
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:" + (o.gap || 7) + "px;background:#0b0b0b;z-index:1";
+    posts.forEach((code, k) => {
+      const cell = document.createElement("div");
+      cell.style.cssText = "height:calc(100% - " + (o.inset || 12) + "px);aspect-ratio:9/16;flex:none;position:relative;overflow:hidden;background:#131313;border:.5px solid rgba(255,255,255,.85)";
+      const f = this.igFrame(code, cell);
+      if (k === 0 && o.onFirstLoad) f.addEventListener("load", o.onFirstLoad);
+      const link = document.createElement("a");
+      link.href = "https://www.instagram.com/reel/" + code + "/";
+      link.target = "_blank"; link.rel = "noopener";
+      link.style.cssText = "position:absolute;inset:0;z-index:2";
+      cell.appendChild(f); cell.appendChild(link);
+      wrap.appendChild(cell);
+    });
+    return wrap;
+  };
+
+  // descripción real del vídeo en Vimeo (oEmbed)
+  fetchDesc = (v) => {
+    if (!v || v.yt) return;
+    if (!this.descReq) this.descReq = {};
+    if (this.descReq[v.id]) return;
+    this.descReq[v.id] = true;
+    const url = "https://vimeo.com/" + v.id + (v.h ? "/" + v.h : "");
+    fetch("https://vimeo.com/api/oembed.json?url=" + encodeURIComponent(url))
+      .then((r) => r.json())
+      .then((j) => {
+        const d = (j.description || "").trim();
+        if (d) this.setState((s) => ({ descs: { ...(s.descs || {}), [v.id]: d } }));
+      })
+      .catch(() => {});
+  };
+
+  // los frames heredan la proporción real del vídeo principal
+  applyFrameAR = () => {
+    const ar = this._vidAR || "16 / 9";
+    (this.fEls || []).forEach((el) => { if (el && el.isConnected) el.style.aspectRatio = ar; });
+  };
+  fRef = (i) => (el) => {
+    if (!this.fEls) this.fEls = [];
+    this.fEls[i] = el;
+    if (el) { requestAnimationFrame(this.applyFrameAR); this.buildFrame(el, i); }
+  };
+  buildFrame = (el, i) => {
+    if (!el || !el.isConnected) return;
+    const v = (this._projList || [])[this.state.proj]?.vid;
+    const key = v ? (v.yt || v.id) : "none";
+    if (el._fkey !== key) { el._fkey = key; el.innerHTML = ""; el._vp = null; el._dur = null; el._url = null; }
+    if (!v) return;
+    if (v.yt) {
+      const idx = ((i + (el._tick || 0)) % 3) + 1;
+      const url = "https://i.ytimg.com/vi/" + v.yt + "/mq" + idx + ".jpg";
+      if (el._url !== url) {
+        el._url = url;
+        el.style.opacity = "0";
+        const im = new Image();
+        im.onload = () => { if (el._url === url) { el.style.backgroundImage = 'url("' + url + '")'; el.style.opacity = "1"; } };
+        im.src = url;
+      }
+      return;
+    }
+    el.style.backgroundImage = "";
+    if (!el.querySelector("iframe")) {
+      const f = document.createElement("iframe");
+      f.src = "https://player.vimeo.com/video/" + v.id + "?" + (v.h ? "h=" + v.h + "&" : "") + "background=1&autoplay=1&loop=1&muted=1&autopause=0";
+      f.allow = "autoplay";
+      // sangrado de 2px: la costura clara del player queda fuera del recorte
+      f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:calc(178% + 2px);height:calc(178% + 2px);pointer-events:none;border:0;background:#000";
+      el.style.background = "#000";
+      el.appendChild(f);
+      const arm = () => {
+        if (!f.isConnected) return;
+        if (!(window.Vimeo && window.Vimeo.Player)) { setTimeout(arm, 200); return; }
+        if (el._vp) return;
+        el._vp = new Vimeo.Player(f);
+        el._vp.getDuration().then((d) => { el._dur = d; this.seekFrame(el, i); }).catch(() => {});
+      };
+      f.addEventListener("load", arm);
+      arm();
+    } else if (el._vp && el._dur) this.seekFrame(el, i);
+  };
+  seekFrame = (el, i) => {
+    if (!el._vp || !el._dur) return;
+    const frac = ((i * 0.083) + (el._tick || 0) * 0.137) % 1;
+    const t = Math.max(0.2, Math.min(el._dur - 0.3, frac * el._dur));
+    el.style.opacity = "0";
+    el._vp.setCurrentTime(t)
+      .then(() => el._vp.pause())
+      .then(() => setTimeout(() => { el.style.opacity = "1"; }, 150))
+      .catch(() => { el.style.opacity = "1"; });
+  };
+
+  hideRectEls = () => { (this._rectEls || []).forEach((d) => { d.style.display = "none"; }); };
+  rand = (a, b) => a + Math.random() * (b - a);
+  generateRects = (n) => {
+    const count = n ?? (this.state.navMode === "work" ? 5 : 4);
+    const mk = (xr, yr, wr, hr) => ({
+      x: this.rand(xr[0], xr[1]), y: this.rand(yr[0], yr[1]),
+      w: this.rand(wr[0], wr[1]), h: this.rand(hr[0], hr[1]),
+      ph: Math.random() * 6.28,
+    });
+    const zonesR = [
+      [[0.00, 0.18], [0.02, 0.30]],
+      [[0.34, 0.55], [0.28, 0.55]],
+      [[0.60, 0.80], [0.05, 0.42]],
+      [[0.14, 0.34], [0.55, 0.72]],
+      [[0.62, 0.82], [0.52, 0.70]],
+    ];
+    const sz = [[0.16, 0.26], [0.30, 0.55]];
+    this.rects = zonesR.slice(0, count).map((z) => mk(z[0], z[1], sz[0], sz[1])).map((r) => {
+      if (r.x + r.w > 0.98) r.x = 0.98 - r.w;
+      if (r.y + r.h > 0.96) r.y = 0.96 - r.h;
+      if (r.x < 0.01) r.x = 0.01;
+      if (r.y < 0.01) r.y = 0.01;
+      return r;
+    });
+  };
+
+  reveal = (v) => {
+    if (this.overlay) this.overlay.style.opacity = v ? ".58" : ".28";
+    if (v) this.generateRects();
+    this.setState({ revealed: v, panel: v ? this.state.panel : null, navMode: v ? this.state.navMode : "main", cat: v ? this.state.cat : null, preSel: v ? this.state.preSel : null });
+    if (!v) this.hovTile = null;
+  };
+  openPanel = (p) => {
+    const opening = this.state.panel !== p;
+    this.setState({ panel: opening ? p : null, preSel: null }, () => { if (opening && p === "us") this.armTeam(); });
+  };
+  navLabels = (mode) => {
+    const lang = this.state.lang;
+    return mode === "work"
+      ? (lang === "es"
+        ? ["documental", "podcast", "videoclip", "fashion film"]
+        : ["documentary", "podcast", "music video", "fashion film"])
+      : ["work", "contact", "about", "us"];
+  };
+  openWorkMenu = () => {
+    if (this.state.navMode === "work") this.glitchSwap({ navMode: "main", panel: null, cat: null, preSel: null });
+    else this.glitchSwap({ navMode: "work", panel: "work", cat: null, preSel: null });
+  };
+  selectCat = (id) => { this.hovTile = null; this.setState({ cat: id, panel: "work", proj: 0, preSel: null }); };
+  goBack = () => {
+    if (this.state.navMode === "work") this.glitchSwap({ navMode: "main", panel: null, cat: null, preSel: null });
+    else this.setState({ panel: null, cat: null, preSel: null });
+  };
+  bgTap = () => {
+    if (this.state.preSel !== null) { this.hovTile = null; this.setState({ preSel: null }); return; }
+    this.reveal(false);
+  };
+  sampleIso = () => {
+    const img = this.isoImg;
+    if (!img || !img.complete || !img.naturalWidth || !this.florEl) return;
+    const fr = this.florEl.getBoundingClientRect();
+    this.isoStart = { x: fr.left, y: fr.top, w: fr.width, h: fr.height };
+    const sw = Math.max(1, Math.round(fr.width / 5)), sh = Math.max(1, Math.round(fr.height / 5));
+    const c = document.createElement("canvas"); c.width = sw; c.height = sh;
+    const cx = c.getContext("2d");
+    cx.drawImage(img, 0, 0, sw, sh);
+    const data = cx.getImageData(0, 0, sw, sh).data;
+    this.isoBlocks = [];
+    for (let yy = 0; yy < sh; yy++) for (let xx = 0; xx < sw; xx++) {
+      if (data[(yy * sw + xx) * 4 + 3] < 24) continue;
+      this.isoBlocks.push({ fx: xx / sw, fy: yy / sh });
+    }
+    if (this.isoBlocks.length) this.morphT = performance.now();
+  };
+  revealOn = () => { if (!this.state.revealed) { this.sampleIso(); this.reveal(true); } };
+
+  ytRef = (el) => {
+    if (el && el !== this.ytHost) {
+      this.ytHost = el;
+      if (this.player) { try { this.player.destroy(); } catch (e) {} this.player = null; }
+      this.loadYT();
+    }
+  };
+  loadYT = () => {
+    if (!document.getElementById("vimeo-api")) {
+      const s = document.createElement("script"); s.id = "vimeo-api"; s.src = "https://player.vimeo.com/api/player.js";
+      document.head.appendChild(s);
+    }
+    this.initYT();
+  };
+  initYT = () => {
+    if (!this.ytHost || this.ytHost.querySelector("iframe")) return;
+    const f = document.createElement("iframe");
+    f.src = "https://player.vimeo.com/video/1212324961?h=c216465273&background=1&autoplay=1&loop=1&muted=1&autopause=0";
+    f.allow = "autoplay; fullscreen";
+    f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:178vh;height:100vh;min-width:100vw;min-height:56.25vw;pointer-events:none;border:0";
+    this.ytHost.appendChild(f);
+    const mk = () => {
+      if (!f.isConnected) return;
+      if (window.Vimeo && window.Vimeo.Player) { this.player = new Vimeo.Player(f); this.player.setVolume(0); }
+      else setTimeout(mk, 120);
+    };
+    mk();
+  };
+  toggleSound = () => {
+    if (!this.player) return;
+    if (this.state.muted) this.player.setVolume(1);
+    else this.player.setVolume(0);
+    this.setState({ muted: !this.state.muted });
+  };
+
+  componentDidMount() {
+    this.applyVars();
+    document.querySelectorAll(".invrect-m").forEach((d) => d.remove());
+    this._rectEls = [];
+    this.generateRects();
+    this.loadYT();
+    this.logoImg = new Image();
+    this.logoImg.src = "uploads/Workdmark_Blanca@2x.png";
+    this.isoImg = new Image();
+    this.isoImg.src = "uploads/Isotipio_Blanco@2x.png";
+    this.off = document.createElement("canvas");
+    // ciclo de frames de la ficha: uno al azar cada vez, con fundido
+    this.fCycle = setInterval(() => {
+      if (this.state.view !== "project") return;
+      const els = (this.fEls || []).map((el, i) => ({ el, i })).filter((x) => x.el && x.el.isConnected);
+      if (!els.length) return;
+      const pick = els[Math.floor(Math.random() * els.length)];
+      pick.el._tick = (pick.el._tick || 0) + 1;
+      this.buildFrame(pick.el, pick.i);
+    }, 1600);
+    this.raf = requestAnimationFrame(this.tick);
+    this.watch = setInterval(() => {
+      if (this.dead) return;
+      if (performance.now() - (this.lastTick || 0) > 400) this.raf = requestAnimationFrame(this.tick);
+      if (this.ytHost && this.ytHost.isConnected) {
+        const fr = this.ytHost.querySelector("iframe");
+        if (fr && fr.src.indexOf("player.vimeo.com") === -1) { fr.remove(); this.player = null; }
+        if (!this.ytHost.querySelector("iframe")) { this.player = null; this.initYT(); }
+      }
+    }, 500);
+  }
+  componentWillUnmount() {
+    this.dead = true;
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.watch) clearInterval(this.watch);
+    if (this.fCycle) clearInterval(this.fCycle);
+  }
+  componentDidUpdate() { this.applyVars(); }
+
+  tick = (t) => {
+    if (this.dead) return;
+    this.lastTick = t;
+    this.raf = requestAnimationFrame(this.tick);
+    // granulado glitch en huecos sin vídeo
+    this._gF = (this._gF || 0) + 1;
+    if (this._gF % 3 === 0) {
+      document.querySelectorAll("canvas.graincv").forEach((g) => {
+        if (!g.isConnected) return;
+        const gx = g.getContext("2d");
+        const gw = g.width, gh = g.height;
+        const idata = gx.createImageData(gw, gh);
+        const dd = idata.data;
+        for (let i = 0; i < dd.length; i += 4) {
+          const v = 10 + Math.random() * 52;
+          dd[i] = dd[i + 1] = dd[i + 2] = v; dd[i + 3] = 255;
+        }
+        gx.putImageData(idata, 0, 0);
+        if (Math.random() < 0.14) {
+          const y = (Math.random() * gh) | 0, hh = 1 + ((Math.random() * 4) | 0), dx = ((Math.random() - 0.5) * 14) | 0;
+          gx.drawImage(g, 0, y, gw, hh, dx, y, gw, hh);
+        }
+      });
+    }
+    // loaders: el isotipo se forma desde ruido mientras carga cada vídeo/foto
+    try {
+    if (!this.loaderBlocks && this.isoImg && this.isoImg.complete && this.isoImg.naturalWidth) {
+      this.loaderAR = this.isoImg.naturalWidth / this.isoImg.naturalHeight;
+      const sw2 = 56, sh2 = Math.max(8, Math.round(56 / this.loaderAR));
+      const c = document.createElement("canvas"); c.width = sw2; c.height = sh2;
+      const x = c.getContext("2d");
+      x.drawImage(this.isoImg, 0, 0, sw2, sh2);
+      const d = x.getImageData(0, 0, sw2, sh2).data;
+      this.loaderBlocks = [];
+      for (let yy = 0; yy < sh2; yy++) for (let xx = 0; xx < sw2; xx++) {
+        if (d[(yy * sw2 + xx) * 4 + 3] < 24) continue;
+        this.loaderBlocks.push({ fx: xx / sw2, fy: yy / sh2 });
+      }
+    }
+    document.querySelectorAll("canvas.loadcv").forEach((lc) => {
+      if (!lc.isConnected || !this.loaderBlocks) return;
+      const br = lc.getBoundingClientRect();
+      if (br.width && br.height) {
+        const wantH = 108, wantW = Math.max(8, Math.round(wantH * (br.width / br.height)));
+        if (lc.width !== wantW || lc.height !== wantH) { lc.width = wantW; lc.height = wantH; }
+      }
+      const x = lc.getContext("2d");
+      const W2 = lc.width, H2 = lc.height;
+      x.clearRect(0, 0, W2, H2);
+      if (!lc._t0) lc._t0 = t;
+      const p = Math.min(1, (t - lc._t0) / (lc._dur || 1600));
+      const hgt = H2 * 0.17;
+      const wid = hgt * (this.loaderAR || 1);
+      const bl = this.loaderBlocks, seed = lc._seed || 1;
+      const stag = lc._stagger || 0.4, spread = lc._spread || 1;
+      x.fillStyle = "#e8e8e8";
+      for (let k = 0; k < bl.length; k++) {
+        const h1 = ((Math.sin(k * 12.9898 + seed) * 43758.5453) % 1 + 1) % 1;
+        const h2 = ((Math.sin(k * 78.233 + seed * 1.7) * 12578.1459) % 1 + 1) % 1;
+        const h3 = ((Math.sin(k * 39.425 + seed * 3.1) * 26743.7331) % 1 + 1) % 1;
+        const pk = Math.min(1, Math.max(0, (p - h3 * stag) / Math.max(0.001, 1 - stag)));
+        const ease = 1 - Math.pow(1 - pk, 3);
+        const sx = W2 / 2 + (h1 - 0.5) * W2 * spread * (0.6 + h3);
+        const sy = H2 / 2 + (h2 - 0.5) * H2 * spread * (0.6 + h1);
+        const tx = W2 / 2 + (bl[k].fx - 0.5) * wid, ty = H2 / 2 + (bl[k].fy - 0.5) * hgt;
+        const j = (1 - pk) * 6 + 0.4;
+        x.globalAlpha = (0.15 + 0.85 * pk) * (0.45 + 0.55 * Math.random());
+        x.fillRect(sx + (tx - sx) * ease + (Math.random() - 0.5) * j, sy + (ty - sy) * ease + (Math.random() - 0.5) * j, 1.4, 1.4);
+      }
+      for (let k = 0; k < 40; k++) { x.globalAlpha = Math.random() * 0.3; x.fillRect(Math.random() * W2, Math.random() * H2, 1.2, 1.2); }
+      x.globalAlpha = 1;
+    });
+    } catch (e) { if (!this._loaderWarned) { this._loaderWarned = true; console.warn("loader:", e); } }
+    const cv = this.pix;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    const cr = cv.getBoundingClientRect();
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== Math.round(cr.width * dpr) || cv.height !== Math.round(cr.height * dpr)) {
+      cv.width = Math.round(cr.width * dpr); cv.height = Math.round(cr.height * dpr);
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cr.width, cr.height);
+    if (!this.state.revealed || this.state.view !== "home") { this.hideRectEls(); return; }
+    const img = this.logoImg;
+    if (!img || !img.complete || !img.naturalWidth || !this.logoEl) { this.hideRectEls(); return; }
+    const lr = this.logoEl.getBoundingClientRect();
+    const L = { x: lr.left - cr.left, y: lr.top - cr.top, w: lr.width, h: lr.height };
+    if (L.w < 4 || L.h < 4) { this.hideRectEls(); return; }
+
+    // logo pixelado
+    const PIX = 2;
+    const sw = Math.max(1, Math.round(L.w / PIX)), sh = Math.max(1, Math.round(L.h / PIX));
+    const key = sw + "x" + sh;
+    if (this.blocksKey !== key) {
+      this.blocksKey = key;
+      this.off.width = sw; this.off.height = sh;
+      const octx = this.off.getContext("2d");
+      octx.clearRect(0, 0, sw, sh);
+      octx.drawImage(img, 0, 0, sw, sh);
+      const data = octx.getImageData(0, 0, sw, sh).data;
+      this.blocks = [];
+      for (let yy = 0; yy < sh; yy++) for (let xx = 0; xx < sw; xx++) {
+        const a = data[(yy * sw + xx) * 4 + 3];
+        if (a < 24) continue;
+        this.blocks.push({
+          cx: xx, cy: yy, a: a / 255,
+          ph: Math.random() * 6.28, fx: 0.5 + Math.random() * 1.6, fy: 0.5 + Math.random() * 1.6,
+        });
+      }
+    }
+    if (this.gi === undefined) { this.gi = 0.12; this.gTarget = 0.12; this.gNext = 0; this.gEase = 0.3; }
+    if (t > this.gNext) {
+      const burst = Math.random() < 0.55;
+      this.gTarget = burst ? (0.75 + Math.random() * 0.65) : (0.02 + Math.random() * 0.2);
+      this.gNext = t + (burst ? (40 + Math.random() * 150) : (180 + Math.random() * 1700));
+      this.gEase = burst ? 0.6 : 0.16;
+    }
+    if (Math.random() < 0.012) { this.gi = 1.1 + Math.random() * 0.5; }
+    this.gi += (this.gTarget - this.gi) * this.gEase;
+    const gi = this.gi;
+    let m = 1;
+    if (this.morphT !== undefined) {
+      m = Math.min(1, (t - this.morphT) / 950);
+      if (m >= 1) this.morphT = undefined;
+    }
+    const easeM = 1 - Math.pow(1 - m, 3);
+    const morphBoost = m < 1 ? Math.sin(m * Math.PI) * 9 : 0;
+    const isoB = this.isoBlocks, isoS = this.isoStart;
+    const tears = [];
+    if (gi > 0.45 && Math.random() < gi) {
+      const n = 1 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n; i++) { const y0 = Math.random() * sh; tears.push({ y0, y1: y0 + sh * (0.03 + Math.random() * 0.12), dx: (Math.random() - 0.5) * L.w * 0.6 * gi }); }
+    }
+    const bw = L.w / sw, bh = L.h / sh;
+    const amp = 0.5 + gi * 8 + morphBoost;
+    const blocks = this.blocks || [];
+    ctx.fillStyle = "#f3f3f3";
+    for (let k = 0; k < blocks.length; k++) {
+      const p = blocks[k];
+      const drift = amp * (0.35 + gi);
+      let jx = Math.sin(t * 0.006 * p.fx + p.ph) * drift + (Math.random() - 0.5) * amp * 1.1;
+      let jy = Math.cos(t * 0.007 * p.fy + p.ph) * drift * 0.7 + (Math.random() - 0.5) * amp * 0.8;
+      for (let ti = 0; ti < tears.length; ti++) { const tb = tears[ti]; if (p.cy >= tb.y0 && p.cy < tb.y1) jx += tb.dx; }
+      let bx = L.x + p.cx * bw, by = L.y + p.cy * bh;
+      if (m < 1 && isoB && isoB.length && isoS) {
+        const q = isoB[k % isoB.length];
+        const sx = isoS.x - cr.left + q.fx * isoS.w, sy = isoS.y - cr.top + q.fy * isoS.h;
+        bx = sx + (bx - sx) * easeM; by = sy + (by - sy) * easeM;
+      }
+      ctx.globalAlpha = p.a * (0.7 + Math.random() * 0.3);
+      ctx.fillRect(bx + jx, by + jy, bw + 0.7, bh + 0.7);
+    }
+    ctx.globalAlpha = 1;
+
+    // auto-scroll horizontal del carrusel (pausa con pre-selección o dedo)
+    const se = this.scrollEl;
+    if (this.state.panel === "work" && se && se.isConnected && this.state.preSel === null) {
+      const max = se.scrollWidth - se.clientWidth;
+      if (max > 2) {
+        if (this.sDir === undefined) this.sDir = 1;
+        if (this.sPos === undefined || Math.abs(se.scrollLeft - this.sPos) > 2) this.sPos = se.scrollLeft;
+        this.sPos += this.sDir * 0.06;
+        if (this.sPos >= max - 1) { this.sPos = Math.min(this.sPos, max); this.sDir = -1; }
+        if (this.sPos <= 1) { this.sPos = Math.max(this.sPos, 0); this.sDir = 1; }
+        se.scrollLeft = this.sPos;
+      }
+    }
+
+    // deriva de palabras: zonas móviles según panel
+    const catZones = [
+      { x0: 0.06, x1: 0.46, y0: 0.05, y1: 0.12 },
+      { x0: 0.54, x1: 0.92, y0: 0.09, y1: 0.16 },
+      { x0: 0.06, x1: 0.44, y0: 0.17, y1: 0.24 },
+      { x0: 0.52, x1: 0.92, y0: 0.21, y1: 0.28 },
+      { x0: 0.24, x1: 0.72, y0: 0.30, y1: 0.37 },
+    ];
+    const zones = {
+      none: [
+        { x0: 0.08, x1: 0.46, y0: 0.10, y1: 0.20 },
+        { x0: 0.50, x1: 0.90, y0: 0.24, y1: 0.33 },
+        { x0: 0.10, x1: 0.52, y0: 0.68, y1: 0.78 },
+        { x0: 0.52, x1: 0.90, y0: 0.80, y1: 0.90 },
+      ],
+      work: [
+        { x0: 0.08, x1: 0.46, y0: 0.05, y1: 0.13 },
+        { x0: 0.52, x1: 0.90, y0: 0.11, y1: 0.19 },
+        { x0: 0.08, x1: 0.48, y0: 0.22, y1: 0.30 },
+        { x0: 0.50, x1: 0.90, y0: 0.31, y1: 0.39 },
+      ],
+      about: [
+        { x0: 0.08, x1: 0.46, y0: 0.05, y1: 0.13 },
+        { x0: 0.52, x1: 0.90, y0: 0.11, y1: 0.19 },
+        { x0: 0.08, x1: 0.48, y0: 0.22, y1: 0.30 },
+        { x0: 0.50, x1: 0.90, y0: 0.31, y1: 0.39 },
+      ],
+      contact: [
+        { x0: 0.08, x1: 0.46, y0: 0.05, y1: 0.13 },
+        { x0: 0.52, x1: 0.90, y0: 0.11, y1: 0.19 },
+        { x0: 0.08, x1: 0.48, y0: 0.22, y1: 0.30 },
+        { x0: 0.50, x1: 0.90, y0: 0.31, y1: 0.39 },
+      ],
+      us: [
+        { x0: 0.08, x1: 0.46, y0: 0.05, y1: 0.13 },
+        { x0: 0.52, x1: 0.90, y0: 0.11, y1: 0.19 },
+        { x0: 0.08, x1: 0.48, y0: 0.22, y1: 0.30 },
+        { x0: 0.50, x1: 0.90, y0: 0.31, y1: 0.39 },
+      ],
+    };
+    const boxes = this.state.navMode === "work" ? catZones : (zones[this.state.panel || "none"] || zones.none);
+    const navLbls = this.navLabels(this.state.navMode);
+    for (let i = 0; i < boxes.length; i++) {
+      const el = this.w[i];
+      if (!el || !el.isConnected) continue;
+      if (!this.state.wGlitch && el.textContent !== navLbls[i]) el.textContent = navLbls[i];
+      if (!el._dp) el._dp = {
+        ax: Math.random() * 6.28, ay: Math.random() * 6.28,
+        fx: 0.00008 + Math.random() * 0.00013, fy: 0.00007 + Math.random() * 0.00012,
+      };
+      const d = el._dp, b = boxes[i], W = cr.width, H = cr.height;
+      const ww = el.offsetWidth || 80, wh = el.offsetHeight || 24;
+      const x0 = b.x0 * W, x1 = Math.max(b.x0 * W, b.x1 * W - ww);
+      const y0 = b.y0 * H, y1 = Math.max(b.y0 * H, b.y1 * H - wh);
+      const tx2 = x0 + (Math.sin(t * d.fx + d.ax) * 0.5 + 0.5) * (x1 - x0);
+      const ty2 = y0 + (Math.cos(t * d.fy + d.ay) * 0.5 + 0.5) * (y1 - y0);
+      if (d.px === undefined) { d.px = tx2; d.py = ty2; }
+      d.px += (tx2 - d.px) * 0.045;
+      d.py += (ty2 - d.py) * 0.045;
+      el.style.left = d.px.toFixed(1) + "px";
+      el.style.top = d.py.toFixed(1) + "px";
+    }
+
+    // separación dura: en la pantalla estrecha del móvil las palabras no se cruzan nunca
+    {
+      const act = [];
+      for (let i = 0; i < boxes.length; i++) {
+        const el = this.w[i];
+        if (el && el.isConnected && el._dp) act.push(el);
+      }
+      const PAD = 8;
+      for (let pass = 0; pass < 4; pass++) {
+        for (let a = 0; a < act.length; a++) for (let b2 = a + 1; b2 < act.length; b2++) {
+          const A = act[a]._dp, B = act[b2]._dp;
+          const aw = act[a].offsetWidth, ah = act[a].offsetHeight;
+          const bw = act[b2].offsetWidth, bh = act[b2].offsetHeight;
+          const ox = Math.min(A.px + aw + PAD, B.px + bw + PAD) - Math.max(A.px, B.px);
+          const oy = Math.min(A.py + ah + PAD, B.py + bh + PAD) - Math.max(A.py, B.py);
+          if (ox <= 0 || oy <= 0) continue;
+          // se empujan por el eje de menor solape
+          if (ox < oy) {
+            const s = (A.px < B.px ? -1 : 1) * ox / 2;
+            A.px += s; B.px -= s;
+          } else {
+            const s = (A.py < B.py ? -1 : 1) * oy / 2;
+            A.py += s; B.py -= s;
+          }
+        }
+      }
+      act.forEach((el) => {
+        const d = el._dp;
+        // el logo es zona vetada: la palabra sale por el lado más cercano
+        if (L && L.w) {
+          const pad = 10;
+          const lx0 = L.x - pad, ly0 = L.y - pad, lx1 = L.x + L.w + pad, ly1 = L.y + L.h + pad;
+          const aw = el.offsetWidth, ah = el.offsetHeight;
+          if (d.px < lx1 && d.px + aw > lx0 && d.py < ly1 && d.py + ah > ly0) {
+            const outs = [
+              { v: lx0 - (d.px + aw), ax: "x" },
+              { v: lx1 - d.px, ax: "x" },
+              { v: ly0 - (d.py + ah), ax: "y" },
+              { v: ly1 - d.py, ax: "y" },
+            ].sort((p, q) => Math.abs(p.v) - Math.abs(q.v))[0];
+            if (outs.ax === "x") d.px += outs.v; else d.py += outs.v;
+          }
+        }
+        d.px = Math.max(6, Math.min(cr.width - el.offsetWidth - 6, d.px));
+        d.py = Math.max(6, Math.min(cr.height - el.offsetHeight - 6, d.py));
+        el.style.left = d.px.toFixed(1) + "px";
+        el.style.top = d.py.toFixed(1) + "px";
+      });
+    }
+
+    // ventanas de inversión
+    if (m < 0.65) { this.hideRectEls(); }
+    else {
+      ctx.globalAlpha = Math.min(1, (m - 0.65) / 0.35);
+      const rAlpha = ctx.globalAlpha;
+      const rects = this.rects || [];
+      if (!this._rectEls) this._rectEls = [];
+      while (this._rectEls.length < rects.length) {
+        const d = document.createElement("div");
+        d.className = "invrect-m";
+        d.style.cssText = "position:absolute;pointer-events:none;z-index:6;backdrop-filter:invert(1);-webkit-backdrop-filter:invert(1);border:1.4px solid rgba(255,255,255,.92)";
+        cv.parentElement.appendChild(d);
+        this._rectEls.push(d);
+      }
+      this._rectEls.forEach((d, i) => { d.style.display = i < rects.length ? "block" : "none"; });
+      rects.forEach((r) => {
+        const jx = Math.sin(t * 0.0011 + r.ph) * L.w * 0.013;
+        const jy = Math.cos(t * 0.0014 + r.ph) * L.h * 0.022;
+        const rx = L.x + r.x * L.w + jx, ry = L.y + r.y * L.h + jy;
+        const rw = r.w * L.w, rh = r.h * L.h;
+        ctx.save();
+        ctx.beginPath(); ctx.rect(rx, ry, rw, rh); ctx.clip();
+        ctx.clearRect(rx, ry, rw, rh);
+        ctx.drawImage(img, L.x, L.y, L.w, L.h);
+        ctx.restore();
+        const d = this._rectEls[rects.indexOf(r)];
+        if (d) {
+          d.style.left = rx + "px"; d.style.top = ry + "px";
+          d.style.width = rw + "px"; d.style.height = rh + "px";
+          d.style.opacity = rAlpha;
+        }
+        r._ax = rx + rw; r._ay = ry + rh / 2;
+      });
+
+      // líneas hacia las palabras
+      rects.forEach((r, i) => {
+        const el = this.w[i];
+        if (!el || !el.isConnected) return;
+        const wr = el.getBoundingClientRect();
+        const tx = wr.left - cr.left - 8, ty = wr.top - cr.top + wr.height / 2;
+        const midx = (r._ax + tx) / 2 + Math.sin(t * 0.0009 + i) * 9;
+        const midy = (r._ay + ty) / 2 + Math.cos(t * 0.0010 + i * 1.7) * 7;
+        ctx.beginPath();
+        ctx.moveTo(r._ax, r._ay);
+        ctx.quadraticCurveTo(midx, midy, tx, ty);
+        ctx.strokeStyle = "rgba(255,255,255,.58)"; ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.beginPath(); ctx.arc(tx, ty, 2.2, 0, 6.29);
+        ctx.fillStyle = "rgba(255,255,255,.85)"; ctx.fill();
+        ctx.beginPath(); ctx.arc(r._ax, r._ay, 1.6, 0, 6.29);
+        ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.fill();
+      });
+    }
+
+    // pre-selección: línea desde VELOUR + rectángulo blanco sobre el tile
+    const ht = this.hovTile;
+    if (this.state.panel === "work" && this.state.preSel !== null && ht && ht.isConnected) {
+      if (this._htA === undefined) this._htA = 0;
+      this._htA += (1 - this._htA) * 0.18;
+      const tr = ht.getBoundingClientRect();
+      const T = { x: tr.left - cr.left, y: tr.top - cr.top, w: tr.width, h: tr.height };
+      ctx.globalAlpha = this._htA;
+      const pad = 4 + Math.sin(t * 0.004) * 1.2;
+      ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 1.6;
+      ctx.strokeRect(T.x - pad, T.y - pad, T.w + pad * 2, T.h + pad * 2);
+      // línea desde la base del logo al borde superior del tile
+      const ax = L.x + L.w / 2, ay = L.y + L.h + 8;
+      const bx2 = T.x + T.w / 2, by2 = T.y - pad;
+      const midx = (ax + bx2) / 2 + Math.sin(t * 0.0012) * 8;
+      const midy = (ay + by2) / 2 + Math.cos(t * 0.0013) * 7;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.quadraticCurveTo(midx, midy, bx2, by2);
+      ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.beginPath(); ctx.arc(ax, ay, 1.8, 0, 6.29); ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(bx2, by2, 2.4, 0, 6.29); ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fill();
+      ctx.globalAlpha = 1;
+    } else this._htA = 0;
+
+    // aparición de vídeos/fotos: línea desde VELOUR + rectángulo que revela el tile
+    if (!this.introAnims) this.introAnims = [];
+    if (this.introPend && this.introPend.length) {
+      const last = this.introAnims[this.introAnims.length - 1];
+      if (!last || (t - last.t0) > 320) this.introAnims.push({ el: this.introPend.shift(), t0: t });
+    }
+    this.introAnims = this.introAnims.filter((a) => {
+      const p = (t - a.t0) / 1150;
+      if (p >= 1 || !a.el.isConnected) { this.removeLoader(a.el); return false; }
+      if (this.state.panel !== "work" && this.state.panel !== "us") { this.removeLoader(a.el); return false; }
+      const tr = a.el.getBoundingClientRect();
+      const T = { x: tr.left - cr.left, y: tr.top - cr.top, w: tr.width, h: tr.height };
+      const lineP = Math.min(1, p / 0.42);
+      const rectP = Math.min(1, Math.max(0, (p - 0.32) / 0.32));
+      const fade = p > 0.72 ? 1 - (p - 0.72) / 0.28 : 1;
+      if (p > 0.55 && !a.rev) { a.rev = true; this.removeLoader(a.el); }
+      ctx.globalAlpha = fade;
+      // en móvil los tiles están bajo el logo: la línea baja desde su base
+      const ax = L.x + L.w / 2, ay = L.y + L.h + 6;
+      const bx2 = T.x + T.w / 2, by2 = T.y - 4;
+      const midx = (ax + bx2) / 2 + Math.sin(a.t0) * 10;
+      const midy = (ay + by2) / 2 + Math.cos(a.t0 * 1.3) * 9;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      const steps = 24, kMax = Math.round(steps * lineP);
+      for (let k2 = 1; k2 <= kMax; k2++) {
+        const u = k2 / steps, iu = 1 - u;
+        ctx.lineTo(iu * iu * ax + 2 * iu * u * midx + u * u * bx2, iu * iu * ay + 2 * iu * u * midy + u * u * by2);
+      }
+      ctx.strokeStyle = "rgba(255,255,255,.8)"; ctx.lineWidth = 1.1;
+      ctx.stroke();
+      ctx.beginPath(); ctx.arc(ax, ay, 1.8, 0, 6.29); ctx.fillStyle = "rgba(255,255,255,.8)"; ctx.fill();
+      if (rectP > 0) {
+        const per = 2 * (T.w + T.h) + 16;
+        ctx.setLineDash([per * rectP, per]);
+        ctx.beginPath();
+        ctx.moveTo(T.x + T.w / 2, T.y - 2);
+        ctx.lineTo(T.x - 2, T.y - 2);
+        ctx.lineTo(T.x - 2, T.y + T.h + 2);
+        ctx.lineTo(T.x + T.w + 2, T.y + T.h + 2);
+        ctx.lineTo(T.x + T.w + 2, T.y - 2);
+        ctx.lineTo(T.x + T.w / 2, T.y - 2);
+        ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.globalAlpha = 1;
+      return true;
+    });
+  };
+  applyVars() {
+    const r = document.documentElement.style;
+    r.setProperty("--logo", (this.props.heroLogoSize ?? 180) + "px");
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const catDefs = [
+      { id: "documental", label: { es: "documental", en: "documentary" }, videos: [{ id: "1212329337" }] },
+      { id: "podcast",    label: { es: "podcast",    en: "podcast" },     videos: [{ yt: "RHsYt4EfOog" }, { yt: "fCW6FbpCIHQ" }, { yt: "cKlsIY1EL5o" }] },
+      { id: "videoclip",  label: { es: "videoclip",  en: "music video" }, videos: [{ id: "1212333054" }, { id: "1212375948" }, { id: "1212383251" }, { id: "1212374965" }, { id: "1212372869" }] },
+      { id: "fashion",    label: { es: "fashion film", en: "fashion film" }, videos: [{ id: "1212301060", h: "e0d4dba7cb" }] },
+    ];
+    const mkProj = (cdef, k, i) => {
+      const n = (k + 1).toString().padStart(2, "0");
+      const vid = cdef.videos[k] || null;
+      const projCat = cdef.id;
+      const realTitle = vid && (this.state.titles || {})[vid.yt || vid.id];
+      return {
+        vid,
+        selCls: this.state.preSel === i ? "presel" : "",
+        frameRef: (el) => {
+          if (!el) return;
+          // los tiles se reutilizan al cambiar de categoría: si cambia el vídeo, se limpia todo
+          const vkey = vid ? (vid.igPosts ? "igx:" + vid.id : vid.ig ? "ig:" + vid.id : vid.yt ? "yt:" + vid.yt : "vm:" + vid.id) : "none";
+          if (el._vkey !== vkey) {
+            el._vkey = vkey;
+            el.innerHTML = "";
+            el._igKey = null; el._lastThumb = null; el._ro = null;
+          }
+          el.style.backgroundImage = "";
+          if (vid && vid.yt) {
+            el.querySelectorAll("iframe,canvas.graincv").forEach((x) => x.remove());
+            const thumb = "https://i.ytimg.com/vi/" + vid.yt + "/mqdefault.jpg";
+            if (el._lastThumb !== thumb) {
+              el._lastThumb = thumb;
+              this.addLoader(el);
+              const im = new Image();
+              im.onload = im.onerror = () => this.revealTile(el);
+              im.src = thumb;
+            }
+            el.style.backgroundImage = 'url("' + thumb + '")';
+            el.style.backgroundSize = "cover";
+            el.style.backgroundPosition = "center";
+            if (!this.ytTitles) this.ytTitles = {};
+            if (!(vid.yt in this.ytTitles)) {
+              this.ytTitles[vid.yt] = null;
+              fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent("https://www.youtube.com/watch?v=" + vid.yt) + "&format=json")
+                .then((r) => r.json())
+                .then((j) => { if (j.title) this.setState((s) => ({ titles: { ...(s.titles || {}), [vid.yt]: j.title } })); })
+                .catch(() => {});
+            }
+            return;
+          }
+          // social media: composición horizontal con tres verticales
+          if (vid && vid.igPosts) {
+            if (el._igxKey !== vid.id) {
+              el._igxKey = vid.id;
+              el.innerHTML = "";
+              this.addLoader(el);
+              el.appendChild(this.igTrio(vid.igPosts, {
+                gap: 6, inset: 8,
+                onFirstLoad: () => setTimeout(() => this.revealTile(el), 220),
+              }));
+              setTimeout(() => this.revealTile(el), 1600);
+            }
+            return;
+          }
+          // social media: tarjeta horizontal (perfil IG a la izq. + vertical en loop a la der.)
+          if (vid && vid.ig) {
+            const key = "ig:" + vid.id;
+            if (el._igKey !== key) {
+              el._igKey = key;
+              el.innerHTML = "";
+              this.addLoader(el);
+              const card = document.createElement("div");
+              card.style.cssText = "position:absolute;inset:0;display:flex;background:#0e0e0e;z-index:1";
+              const info = document.createElement("div");
+              info.style.cssText = "flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 10px";
+              const row = document.createElement("div");
+              row.style.cssText = "display:flex;align-items:center;gap:6px";
+              const av = document.createElement("div");
+              av.style.cssText = "width:22px;height:22px;border-radius:50%;flex:none;background:#1c1c1c center/cover no-repeat;border:1px solid rgba(255,255,255,.22)";
+              const ph = () => {
+                av.style.backgroundImage = "none";
+                av.style.display = "flex"; av.style.alignItems = "center"; av.style.justifyContent = "center";
+                av.textContent = (vid.profileName || "?").trim().charAt(0).toUpperCase();
+                av.style.font = "500 10px 'Schengen',sans-serif";
+                av.style.color = "#8d8d8d";
+              };
+              if (vid.avatar) {
+                const ai = new Image();
+                ai.onload = () => { av.textContent = ""; av.style.backgroundImage = "url('" + vid.avatar + "')"; av.style.backgroundSize = "cover"; };
+                ai.onerror = ph;
+                ai.src = vid.avatar;
+                ph();
+              } else ph();
+              const names = document.createElement("div");
+              names.style.cssText = "min-width:0;display:flex;flex-direction:column;gap:1px";
+              const hd = document.createElement("div");
+              hd.style.cssText = "font-weight:500;font-size:10px;letter-spacing:.03em;color:#f4f4f4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis";
+              hd.textContent = vid.handle || "@velourpixels";
+              names.appendChild(hd);
+              if (vid.profileName) {
+                const pn = document.createElement("div");
+                pn.style.cssText = "font-weight:200;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis";
+                pn.textContent = vid.profileName;
+                names.appendChild(pn);
+              }
+              row.appendChild(av); row.appendChild(names);
+              const st = document.createElement("div");
+              st.style.cssText = "display:flex;gap:10px;color:#c8c8c8";
+              const sdata = vid.stats || {};
+              [["posts", sdata.posts], ["followers", sdata.followers], ["following", sdata.following]].forEach(([k, v]) => {
+                if (!v) return;
+                const b = document.createElement("div");
+                b.style.cssText = "display:flex;flex-direction:column;gap:1px";
+                const n2 = document.createElement("span");
+                n2.style.cssText = "font-weight:500;font-size:9.5px;letter-spacing:.02em;color:#f0f0f0";
+                n2.textContent = v;
+                const l2 = document.createElement("span");
+                l2.style.cssText = "font-weight:200;font-size:6.5px;letter-spacing:.14em;text-transform:uppercase;color:#7d7d7d";
+                l2.textContent = k;
+                b.appendChild(n2); b.appendChild(l2); st.appendChild(b);
+              });
+              const cap = document.createElement("div");
+              cap.style.cssText = "font-weight:200;font-size:8px;line-height:1.5;letter-spacing:.02em;color:#9a9a9a;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden";
+              cap.textContent = vid.bio || "";
+              const meta = document.createElement("div");
+              meta.style.cssText = "font-weight:200;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:#6d6d6d";
+              meta.textContent = "instagram · reel";
+              info.appendChild(row);
+              if (st.childNodes.length) info.appendChild(st);
+              info.appendChild(cap); info.appendChild(meta);
+              const vwrap = document.createElement("div");
+              vwrap.style.cssText = "height:calc(100% - 14px);aspect-ratio:9/16;flex:none;position:relative;overflow:hidden;background:#131313;border:.5px solid rgba(255,255,255,.85);align-self:center;margin-right:7px";
+              const f2 = document.createElement("iframe");
+              f2.src = "https://player.vimeo.com/video/" + vid.id + "?" + (vid.h ? "h=" + vid.h + "&" : "") + "background=1&autoplay=1&loop=1&muted=1&autopause=0";
+              f2.allow = "autoplay";
+              f2.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:178%;pointer-events:none;border:0";
+              f2.addEventListener("load", () => setTimeout(() => this.revealTile(el), 180));
+              vwrap.appendChild(f2);
+              card.appendChild(info); card.appendChild(vwrap);
+              el.appendChild(card);
+            }
+            return;
+          }
+          if (vid) {
+            const want = "https://player.vimeo.com/video/" + vid.id + "?" + (vid.h ? "h=" + vid.h + "&" : "") + "background=1&autoplay=1&loop=1&muted=1&autopause=0";
+            let f = el.querySelector("iframe");
+            el.querySelectorAll("canvas.graincv").forEach((c) => c.remove());
+            if (f && f.src !== want) { f.remove(); f = null; }
+            if (!f) {
+              this.addLoader(el);
+              f = document.createElement("iframe");
+              f.src = want; f.allow = "autoplay";
+              f.addEventListener("load", () => setTimeout(() => this.revealTile(el), 180));
+              f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:178%;height:178%;pointer-events:none;border:0;z-index:1";
+              el.appendChild(f);
+              const fit = (vw, vh) => {
+                if (!f.isConnected || !vw || !vh) return;
+                let box = el.getBoundingClientRect();
+                let ar = vw / vh, boxAr;
+                if (!box.width || !box.height) { boxAr = 16 / 9; }
+                else boxAr = box.width / box.height;
+                let w, h;
+                if (ar >= boxAr) { h = 102; w = 102 * ar / boxAr; }
+                else { w = 102; h = 102 * boxAr / ar; }
+                f.style.width = w + "%"; f.style.height = h + "%";
+              };
+              let tries = 0;
+              const probe = () => {
+                if (!f.isConnected || tries++ > 40) return;
+                if (!(window.Vimeo && window.Vimeo.Player)) { setTimeout(probe, 250); return; }
+                if (!f._vp) f._vp = new Vimeo.Player(f);
+                if (!f._titled) {
+                  f._titled = true;
+                  f._vp.getVideoTitle().then((title) => {
+                    if (!title) return;
+                    const key = f.src.match(/video\/(\d+)/)?.[1];
+                    if (key && (this.state.titles || {})[key] !== title) {
+                      this.setState((s) => ({ titles: { ...(s.titles || {}), [key]: title } }));
+                    }
+                  }).catch(() => { f._titled = false; });
+                }
+                Promise.all([f._vp.getVideoWidth(), f._vp.getVideoHeight()])
+                  .then(([vw, vh]) => { if (vw && vh) { f._ar = [vw, vh]; fit(vw, vh); } else setTimeout(probe, 300); })
+                  .catch(() => setTimeout(probe, 300));
+              };
+              f.addEventListener("load", probe);
+              probe();
+              if (window.ResizeObserver && !el._ro) {
+                el._ro = new ResizeObserver(() => { const fr = el.querySelector("iframe"); if (fr && fr._ar) fit(fr._ar[0], fr._ar[1]); });
+                el._ro.observe(el);
+              }
+            }
+          } else {
+            el.querySelectorAll("iframe").forEach((f) => f.remove());
+            if (!el.querySelector("canvas.graincv")) {
+              const g = document.createElement("canvas");
+              g.className = "graincv"; g.width = 96; g.height = 54;
+              g.style.cssText = "position:absolute;inset:0;width:100%;height:100%;z-index:1;image-rendering:pixelated;opacity:.5";
+              el.appendChild(g);
+            }
+          }
+        },
+        slot: cdef.label[lang] + " " + n,
+        name: realTitle || (cdef.label[lang] + " " + n),
+        title: realTitle || ("Título " + cdef.label[lang] + " " + n),
+        // la descripción viene de Vimeo; los de YouTube se quedan sin texto por ahora
+        cat: projCat,
+        summary: vid && !vid.yt ? ((this.state.descs || {})[vid.id] || "") : "",
+        // primer tap = pre-selección; segundo tap sobre el mismo = abrir ficha
+        tap: (e) => {
+          if (this.state.preSel === i) this.setState({ view: "project", proj: i, preSel: null });
+          else { this.hovTile = e.currentTarget; this.setState({ preSel: i }); }
+        },
+      };
+    };
+    let projects;
+    const curCat = catDefs.find((c) => c.id === this.state.cat);
+    if (curCat) {
+      projects = curCat.videos.map((_, k) => mkProj(curCat, k, k));
+    } else {
+      const pool = catDefs.flatMap((c) => c.videos.map((_, k) => ({ c, k })));
+      if (!this.mixOrder || this.mixOrder.length !== pool.length)
+        this.mixOrder = pool.map((_, i) => i).sort(() => Math.random() - 0.5);
+      projects = this.mixOrder.map((idx, i) => mkProj(pool[idx].c, pool[idx].k, i));
+    }
+    const mainWords = [
+      { label: "work", click: this.openWorkMenu, selClass: this.state.navMode === "work" ? "sel" : "", wref: this.wref(0) },
+      { label: "contact", click: () => this.openPanel("contact"), selClass: "", wref: this.wref(1) },
+      { label: "about", click: () => this.openPanel("about"), selClass: "", wref: this.wref(2) },
+      { label: "us", click: () => this.openPanel("us"), selClass: "", wref: this.wref(3) },
+    ];
+    const team = [
+      { name: "Javi Laguna", role: { es: "CO-Founder · Executive Producer", en: "CO-Founder · Executive Producer" }, img: "uploads/team/javi.png" },
+      { name: "Matías A. Varas", role: { es: "CO-Founder · Creative Director", en: "CO-Founder · Creative Director" }, img: "uploads/team/matias.png" },
+      { name: "José R. San Martín", role: { es: "Creative Lead · Project Manager", en: "Creative Lead · Project Manager" }, img: "uploads/team/jose.png" },
+      { name: "Almudena Román", role: { es: "Head of Production · Assistant Director", en: "Head of Production · Assistant Director" }, img: "uploads/team/almudena.png" },
+      { name: "Pau Fabrellax", role: { es: "Head of Design · Art Director", en: "Head of Design · Art Director" }, img: "uploads/team/pau.png" },
+      { name: "Julia Jerez", role: { es: "Head of Marketing · Stylist", en: "Head of Marketing · Stylist" }, img: "uploads/team/julia.png" },
+      { name: "Nico Salinas", role: { es: "Director of Photography · Photographer", en: "Director of Photography · Photographer" }, img: "uploads/team/nico.png" },
+    ].map((tm, i) => ({ name: tm.name, role: tm.role[lang], ref: this.teamRef(i, tm.img), w: i < 2 ? "136px" : "112px" }));
+    const catWords = catDefs.map((c, i) => ({
+      label: c.label[lang], click: () => this.selectCat(c.id),
+      selClass: this.state.cat === c.id ? "sel" : "", wref: this.wref(i),
+    }));
+    const navWords = this.state.navMode === "work" ? catWords : mainWords;
+    this._projList = projects;
+    const fichaFrames = Array.from({ length: 6 }, (_, i) => ({ ref: this.fRef(i) }));
+    return {
+      lang,
+      team,
+      fichaFrames,
+      fichaBgRef: this.fichaBgRef,
+      usClass: this.state.panel === "us" ? "on" : "",
+      isHome: this.state.view === "home",
+      isProject: this.state.view === "project",
+      navWords,
+      wGlitchClass: this.state.wGlitch ? "wglitch" : "",
+      tenProjects: projects,
+      onClass: this.state.revealed ? "on" : "",
+      shiftClass: this.state.revealed ? ("grown" + (this.state.panel ? " push-up" : "")) : "",
+      florRef: this.florRef,
+      pixClass: this.state.revealed ? "off" : "",
+      workClass: this.state.panel === "work" ? "on" : "",
+      contactClass: this.state.panel === "contact" ? "on" : "",
+      aboutClass: this.state.panel === "about" ? "on" : "",
+      tapHint: this.state.preSel !== null
+        ? (lang === "es" ? "toca de nuevo para abrir" : "tap again to open")
+        : (lang === "es" ? "toca un proyecto para seleccionarlo" : "tap a project to select it"),
+      aboutText: lang === "es"
+        ? "Somos Velour, una productora audiovisual. Texto breve que explica quiénes somos, qué hacemos y cómo trabajamos — sin ruido."
+        : "We are Velour, an audiovisual production company. A short line about who we are, what we do and how we work — no noise.",
+      pixRef: this.pixRef,
+      scrollRef: this.scrollRef,
+      logoRef: this.logoRef,
+      curSlot: projects[this.state.proj]?.slot || "",
+      mainVideoRef: (el) => {
+        if (!el) return;
+        const v = projects[this.state.proj]?.vid;
+        this.fetchDesc(v);
+        // social media: la ficha muestra los tres verticales
+        if (v && v.igPosts) {
+          if (el._igxFicha !== v.id) {
+            el._igxFicha = v.id;
+            el.innerHTML = "";
+            el.style.backgroundImage = "";
+            el.style.aspectRatio = "16 / 9";
+            el.appendChild(this.igTrio(v.igPosts, { gap: 8, inset: 0 }));
+          }
+          return;
+        }
+        if (el._igxFicha) { el._igxFicha = null; el.innerHTML = ""; }
+        const f = el.querySelector("iframe");
+        if (v) {
+          const want = v.yt
+            ? "https://www.youtube-nocookie.com/embed/" + v.yt + "?rel=0&playsinline=1&modestbranding=1"
+            : "https://player.vimeo.com/video/" + v.id + "?" + (v.h ? "h=" + v.h + "&" : "");
+          if (f && f.src !== want) f.remove();
+          // portada de YouTube bajo el player: si el embed se bloquea, sigue viéndose el proyecto
+          if (v.yt) {
+            if (el._ytPoster !== v.yt) {
+              el._ytPoster = v.yt;
+              el.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + v.yt + '/maxresdefault.jpg"),url("https://i.ytimg.com/vi/' + v.yt + '/hqdefault.jpg")';
+              el.style.backgroundSize = "cover";
+              el.style.backgroundPosition = "center";
+              let fb = el.querySelector("a.ytfb");
+              if (!fb) {
+                fb = document.createElement("a");
+                fb.className = "ytfb";
+                fb.target = "_blank"; fb.rel = "noopener";
+                fb.style.cssText = "position:absolute;inset:auto 0 0 0;z-index:0;display:flex;align-items:center;justify-content:center;padding:10px;font-family:'Schengen',sans-serif;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#cfcfcf;background:linear-gradient(to top,rgba(0,0,0,.78),transparent)";
+                el.appendChild(fb);
+              }
+              fb.href = "https://www.youtube.com/watch?v=" + v.yt;
+              fb.textContent = "ver en youtube";
+            }
+          } else if (el._ytPoster) {
+            el._ytPoster = null;
+            el.style.backgroundImage = "";
+            const old = el.querySelector("a.ytfb");
+            if (old) old.remove();
+          }
+          if (!el.querySelector("iframe")) {
+            const nf = document.createElement("iframe");
+            nf.src = want; nf.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
+            nf.allowFullscreen = true;
+            nf.referrerPolicy = "strict-origin-when-cross-origin";
+            nf.style.cssText = "position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);border:0;z-index:1";
+            if (!v.yt) nf.style.background = "#000";
+            el.appendChild(nf);
+          }
+          // la portada adopta la proporción REAL del vídeo: sin barras nunca
+          const key = v.yt || v.id;
+          if (el._arKey !== key) {
+            el._arKey = key;
+            if (v.yt) { el.style.aspectRatio = "16 / 9"; el.style.width = ""; this._vidAR = "16 / 9"; this.applyFrameAR(); }
+            else {
+              let tries = 0;
+              const probe = () => {
+                if (!el.isConnected || el._arKey !== key || tries++ > 40) return;
+                if (!(window.Vimeo && window.Vimeo.Player)) { setTimeout(probe, 250); return; }
+                const fr = el.querySelector("iframe");
+                if (!fr) return;
+                if (!fr._mvp) fr._mvp = new Vimeo.Player(fr);
+                Promise.all([fr._mvp.getVideoWidth(), fr._mvp.getVideoHeight()])
+                  .then(([vw, vh]) => {
+                    if (vw && vh) {
+                      el.style.aspectRatio = vw + " / " + vh;
+                      // un vertical nunca desborda la pantalla del teléfono
+                      el.style.width = "min(100%, calc(62vh * " + (vw / vh).toFixed(4) + "))";
+                      el.style.marginInline = "auto";
+                      this._vidAR = vw + " / " + vh;
+                      this.applyFrameAR();
+                    } else setTimeout(probe, 300);
+                  })
+                  .catch(() => setTimeout(probe, 300));
+              };
+              probe();
+            }
+          }
+        } else if (f) f.remove();
+      },
+      showFrames: projects[this.state.proj]?.cat !== "podcast" && !projects[this.state.proj]?.vid?.igPosts,
+      curTitle: projects[this.state.proj]?.title || "",
+      curSummary: projects[this.state.proj]?.summary || "",
+      esClass: lang === "es" ? "on" : "",
+      enClass: lang === "en" ? "on" : "",
+      back: lang === "es" ? "volver" : "back",
+      goBack: this.goBack,
+      bgTap: this.bgTap,
+      ytRef: this.ytRef,
+      overlayRef: this.setOverlay,
+      revealOn: this.revealOn,
+      toggleSound: this.toggleSound,
+      soundLabel: (this.state.muted
+        ? (lang === "es" ? "sonido ✕" : "sound off")
+        : (lang === "es" ? "sonido ●" : "sound on")),
+      setEs: () => this.setState({ lang: "es" }),
+      setEn: () => this.setState({ lang: "en" }),
+      goHome: () => this.setState({ view: "home", preSel: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>
