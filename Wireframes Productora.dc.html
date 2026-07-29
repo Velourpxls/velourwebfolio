@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Architects+Daughter&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:'Kalam',system-ui,sans-serif}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Kalam',system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 13px/1.3 'Kalam',system-ui,sans-serif;color:rgba(0,0,0,.6)}
+.dv-card{max-width:100%;background:#fff;border:2px solid #1a1a1a;border-radius:4px;box-shadow:5px 5px 0 rgba(26,26,26,.12);overflow:hidden}
+.dv-opt:target .dv-oid{background:#d8542a;color:#fff}
+.dv-next{margin:26px 0 0;font:14px/1.6 'Kalam',system-ui,sans-serif;color:rgba(0,0,0,.55)}
+/* wireframe primitives */
+.wf{font-family:'Architects Daughter','Kalam',sans-serif;color:#1a1a1a;box-sizing:border-box}
+.wf *{box-sizing:border-box}
+.ph{background-image:repeating-linear-gradient(45deg,rgba(26,26,26,.07) 0 8px,transparent 8px 16px);border:1.5px solid #b8b2a8;display:flex;align-items:center;justify-content:center;text-align:center;color:#8a847a;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.02em;position:relative}
+.ph::after{content:attr(data-x);position:absolute;top:6px;left:8px;font-size:9px;color:#b0a99e;font-family:ui-monospace,Menlo,monospace}
+.box{border:1.5px solid #1a1a1a;background:#fff}
+.line{height:9px;border-radius:5px;background:#d9d4ca}
+.pill{border:1.5px solid #1a1a1a;border-radius:20px;padding:5px 14px;font-family:'Architects Daughter',sans-serif;font-size:13px;background:#fff;display:inline-flex;align-items:center;gap:6px}
+.tag{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#8a847a;border:1px dashed #b8b2a8;border-radius:3px;padding:2px 6px}
+.scrolltip{position:absolute;right:10px;bottom:10px;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#8a847a;background:rgba(240,238,233,.85);border:1px dashed #b8b2a8;border-radius:10px;padding:3px 9px}
+.hdrbar{display:flex;align-items:center;justify-content:space-between;padding:16px 30px;border-bottom:1.5px solid #1a1a1a;background:#fff}
+.hdrnav{display:flex;gap:22px;align-items:center;font-family:'Architects Daughter',sans-serif;font-size:14px}
+.hdrnav .lang{font-family:ui-monospace,Menlo,monospace;font-size:11px;border:1.5px solid #1a1a1a;border-radius:3px;padding:2px 7px}
+.seclabel{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8a847a;display:flex;align-items:center;gap:8px}
+.seclabel::before{content:'';width:22px;height:1.5px;background:#8a847a}
+.annot{position:absolute;font-family:'Architects Daughter',sans-serif;font-size:12px;color:#d8542a;display:flex;align-items:center;gap:4px;pointer-events:none}
+/* loop tiles (dark home) — hover reveals the project name */
+.loop{position:relative;overflow:hidden;background:#141414;cursor:pointer}
+.loop .lp-ph{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0 10px,transparent 10px 20px);display:flex;align-items:center;justify-content:center;color:#3f3f3f;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.24em}
+.loop .lp-loop{position:absolute;top:11px;right:13px;font-size:10px;color:#5a5a5a;letter-spacing:.14em;font-family:'IBM Plex Mono',monospace;z-index:2}
+.loop .lp-name{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;background:rgba(8,8,8,.6);opacity:0;transition:opacity .4s ease;color:#f4f4f4;font-family:'Archivo',sans-serif;font-weight:400;letter-spacing:.01em;z-index:3}
+.loop:hover .lp-name{opacity:1}
+/* destacado: loop arriba + carrusel infinito de frames abajo */
+@keyframes fslide{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.fmarquee{overflow:hidden;position:relative;background:#0e0e0e}
+.ftrack{display:flex;gap:7px;height:100%;width:max-content;padding:7px;animation:fslide 22s linear infinite}
+.fframe{height:100%;aspect-ratio:16/9;flex:none;background:#1c1c1c;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 8px,transparent 8px 16px)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t3">
+  <div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Dirección minimal oscura — home completa (evoluciona <a class="dv-oid" href="#2a">2a</a>)</span></div>
+  <div class="dv-opts">
+
+    <div class="dv-opt" id="3a">
+      <div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Entrada = solo vídeo + logo centrado · fondo casi negro constante · destacados solo por nombre</div>
+      <div class="dv-card" style="width:960px;border:none;box-shadow:0 24px 60px rgba(0,0,0,.35)">
+        <div style="background:#0a0a0a;color:#ededed;font-family:'Archivo',sans-serif">
+
+          <!-- HERO: solo vídeo + logo centrado -->
+          <div style="position:relative;height:540px;background:radial-gradient(130% 110% at 50% 45%,#1a1a1a,#0a0a0a);display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 10px,transparent 10px 20px)"></div>
+            <div style="position:relative;text-align:center">
+              <div style="font-size:15px;letter-spacing:.5em;font-weight:500;text-transform:uppercase;padding-left:.5em">◲ Productora</div>
+            </div>
+            <div style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#5a5a5a">scroll ↓</div>
+          </div>
+
+          <!-- DESTACADOS: loops de vídeo, nombre al pasar el cursor -->
+          <div style="padding:80px 60px">
+            <div style="max-width:840px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+              <div style="display:flex;flex-direction:column;background:#141414;min-width:0">
+                <div class="loop" style="aspect-ratio:16/9"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:22px">Nombre<br>proyecto uno</div></div>
+                <div style="height:1px;background:rgba(255,255,255,.14)"></div>
+                <div class="fmarquee" style="height:92px">
+                  <div class="ftrack">
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;background:#141414;min-width:0">
+                <div class="loop" style="aspect-ratio:16/9"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:22px">Nombre<br>proyecto dos</div></div>
+                <div style="height:1px;background:rgba(255,255,255,.14)"></div>
+                <div class="fmarquee" style="height:92px">
+                  <div class="ftrack" style="animation-duration:26s">
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;background:#141414;min-width:0">
+                <div class="loop" style="aspect-ratio:16/9"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:22px">Nombre<br>proyecto tres</div></div>
+                <div style="height:1px;background:rgba(255,255,255,.14)"></div>
+                <div class="fmarquee" style="height:92px">
+                  <div class="ftrack" style="animation-duration:19s">
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                    <div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div><div class="fframe"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROYECTOS: rejilla de loops, nombre al pasar el cursor -->
+          <div style="padding:0 60px 96px">
+            <div style="max-width:840px;margin:0 auto">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 01</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 02</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 03</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 04</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 05</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 06</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 07</div></div>
+                <div class="loop" style="aspect-ratio:16/10"><div class="lp-ph">loop</div><div class="lp-loop">↻</div><div class="lp-name" style="font-size:15px">Proyecto 08</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRESENTACIÓN: logo + texto breve -->
+          <div style="padding:0 60px 100px">
+            <div style="max-width:560px;margin:0 auto;text-align:center">
+              <div style="font-size:26px;letter-spacing:.14em;margin-bottom:28px">◲</div>
+              <div style="font-size:19px;line-height:1.7;font-weight:400;color:#c4c4c4;text-wrap:pretty">Somos una productora audiovisual. Un texto breve que explica quiénes somos, qué hacemos y cómo trabajamos — sin ruido.</div>
+            </div>
+          </div>
+
+          <!-- CONTACTO -->
+          <div style="padding:56px 60px;border-top:1px solid rgba(255,255,255,.1)">
+            <div style="max-width:720px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px">
+              <div>
+                <div style="font-size:22px;font-weight:400;color:#f4f4f4">hola@productora.com</div>
+                <div style="font-size:15px;color:#8a8a8a;margin-top:6px">+34 600 000 000</div>
+                <div style="font-size:12px;letter-spacing:.08em;color:#6a6a6a;margin-top:14px">Madrid · ubicación</div>
+              </div>
+              <div style="display:flex;gap:26px;align-items:flex-start;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a">
+                <span>Vimeo</span><span>YouTube</span><span>Instagram</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a847a;max-width:960px">Archivo light · #0a0a0a constante · sin menú · cada proyecto es un vídeo en loop; al pasar el cursor aparece el nombre (pruébalo)</div>
+    </div>
+
+  </div>
+  <p class="dv-next">Prueba: "en <a class="dv-oid" href="#3a">3a</a> que al pasar el cursor sobre un destacado se reproduzca su vídeo de fondo" · "haz el logo aún más pequeño" · "monta la ficha de proyecto en este estilo" · "versión móvil de <a class="dv-oid" href="#3a">3a</a>"</p>
+</section>
+
+<section class="dv-turn" id="t2">
+  <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">3 direcciones visuales sobre la home <a class="dv-oid" href="#1a">1a</a></span></div>
+  <div class="dv-opts">
+
+    <!-- ========== 2a : CINEMÁTICO EDITORIAL ========== -->
+    <div class="dv-opt" id="2a">
+      <div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Cinemático — negro editorial, serif display, acento dorado</div>
+      <div class="dv-card" style="width:480px;border:none;box-shadow:0 20px 50px rgba(0,0,0,.28)">
+        <div style="background:#0d0d0f;color:#f1ede4;font-family:'Cormorant Garamond',serif">
+          <div style="display:flex;justify-content:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:12px;letter-spacing:.42em;text-transform:uppercase">Productora</div>
+          </div>
+          <div style="position:relative">
+            <div style="height:280px;background:radial-gradient(120% 100% at 50% 0,#26241f,#0d0d0f);display:flex;align-items:center;justify-content:center">
+              <div style="width:52px;height:52px;border:1px solid #c9a15e;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a15e;font-size:15px">▶</div>
+            </div>
+            <div style="position:absolute;left:28px;bottom:24px;right:28px">
+              <div style="font-family:'Archivo',sans-serif;font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:#c9a15e;margin-bottom:8px">Showreel 2026</div>
+              <div style="font-size:46px;line-height:.95;font-weight:600">Imágenes que<br><span style="font-style:italic;font-weight:400">permanecen</span></div>
+            </div>
+          </div>
+          <div style="padding:26px 28px 30px">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+              <div><div style="height:78px;background:#1a1813"></div><div style="font-size:16px;margin-top:8px;font-style:italic">Publicidad</div></div>
+              <div><div style="height:78px;background:#1a1813"></div><div style="font-size:16px;margin-top:8px;font-style:italic">Videoclip</div></div>
+              <div><div style="height:78px;background:#1a1813"></div><div style="font-size:16px;margin-top:8px;font-style:italic">Campaña</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a847a;max-width:480px">Cormorant Garamond · Archivo · negro cálido + oro #c9a15e · elegante, festival</div>
+    </div>
+
+    <!-- ========== 2b : SUIZO / GRID ========== -->
+    <div class="dv-opt" id="2b">
+      <div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Suizo — hueso, retícula visible, grotesque + monospace</div>
+      <div class="dv-card" style="width:480px;border:1px solid #16150f;box-shadow:0 12px 30px rgba(0,0,0,.12)">
+        <div style="background:#f4f2ec;color:#16150f;font-family:'Space Grotesk',sans-serif">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #16150f">
+            <div style="font-weight:700;font-size:15px;letter-spacing:-.02em">PRODUCTORA®</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px">EST. 2019 — MAD</div>
+          </div>
+          <div style="position:relative;border-bottom:1px solid #16150f">
+            <div style="height:250px;background:#e4e1d7;background-image:linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px);background-size:32px 32px;display:flex;align-items:center;justify-content:center">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid #16150f;padding:8px 16px;background:#f4f2ec">▶ PLAY SHOWREEL</div>
+            </div>
+            <div style="position:absolute;left:20px;top:18px;font-family:'IBM Plex Mono',monospace;font-size:10px">01 / SHOWREEL</div>
+          </div>
+          <div style="padding:22px 20px">
+            <div style="font-size:34px;font-weight:700;line-height:.98;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:20px">Producción<br>audiovisual</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#16150f;border:1px solid #16150f">
+              <div style="background:#f4f2ec;padding:12px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a847a">→ PUBLI</div><div style="height:56px;background:#dcd9cf;margin-top:8px"></div></div>
+              <div style="background:#f4f2ec;padding:12px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a847a">→ CLIP</div><div style="height:56px;background:#dcd9cf;margin-top:8px"></div></div>
+              <div style="background:#f4f2ec;padding:12px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a847a">→ RRSS</div><div style="height:56px;background:#dcd9cf;margin-top:8px"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a847a;max-width:480px">Space Grotesk · IBM Plex Mono · hueso + tinta · retícula, metadatos, riguroso</div>
+    </div>
+
+    <!-- ========== 2c : KINÉTICO BOLD ========== -->
+    <div class="dv-opt" id="2c">
+      <div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Kinético — condensada gigante, un color eléctrico, alto contraste</div>
+      <div class="dv-card" style="width:480px;border:none;box-shadow:0 20px 50px rgba(0,0,0,.3)">
+        <div style="background:#0a0a0a;color:#f2f2f2;font-family:'Archivo',sans-serif;position:relative;overflow:hidden">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px">
+            <div style="font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.02em;color:#ccff2f">◲</div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888">Reel ↗</div>
+          </div>
+          <div style="position:relative;height:250px">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#0a0a0a);display:flex;align-items:center;justify-content:center">
+              <div style="font-size:13px;color:#555;font-weight:600">▶ vídeo a pantalla completa</div>
+            </div>
+            <div style="position:absolute;left:0;bottom:-6px;width:100%;font-family:'Anton',sans-serif;font-size:78px;line-height:.8;letter-spacing:-.01em;color:#ccff2f;padding:0 16px;mix-blend-mode:normal">CREAMOS</div>
+          </div>
+          <div style="padding:22px 20px 26px">
+            <div style="font-family:'Anton',sans-serif;font-size:38px;line-height:.85;text-transform:uppercase;margin-bottom:18px">Publi · Clips<br>Redes</div>
+            <div style="display:flex;gap:10px">
+              <div style="flex:1;height:74px;background:#171717;border-bottom:3px solid #ccff2f"></div>
+              <div style="flex:1;height:74px;background:#171717;border-bottom:3px solid #ccff2f"></div>
+              <div style="flex:1;height:74px;background:#171717;border-bottom:3px solid #ccff2f"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a847a;max-width:480px">Anton + Archivo · negro + lima eléctrico #ccff2f · enérgico, nativo redes</div>
+    </div>
+
+  </div>
+  <p class="dv-next">Prueba: "desarrolla <a class="dv-oid" href="#2a">2a</a> como home completa hi-fi" · "mezcla el rigor de <a class="dv-oid" href="#2b">2b</a> con el color de <a class="dv-oid" href="#2c">2c</a>" · "prueba otro acento en <a class="dv-oid" href="#2c">2c</a>" · "más direcciones"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Web productora — home larga + ficha de proyecto (escritorio)</span></div>
+  <div class="dv-opts">
+
+    <!-- ============ 1a : HOME LARGA ============ -->
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Home (scroll único · Destacados › Proyectos › Presentación › Contacto)</div>
+      <div class="dv-card wf" style="width:940px">
+
+        <!-- fixed header -->
+        <div class="hdrbar" style="justify-content:center">
+          <div style="font-family:'Architects Daughter',sans-serif;font-weight:700;font-size:18px;letter-spacing:.03em">◲ LOGO</div>
+        </div>
+
+        <!-- HERO showreel fullscreen -->
+        <div style="position:relative">
+          <div class="ph" data-x="VÍDEO" style="height:430px;font-size:15px;flex-direction:column;gap:12px">
+            <div style="font-size:34px">▶</div>
+            <div>SHOWREEL A PANTALLA COMPLETA · autoplay silenciado</div>
+            <div class="pill" style="margin-top:6px">▶ Ver reel con sonido</div>
+          </div>
+          <div style="position:absolute;left:30px;bottom:26px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)">
+            <div style="font-family:'Architects Daughter',sans-serif;font-size:26px">Productora audiovisual</div>
+            <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;opacity:.85">tagline breve de una línea</div>
+          </div>
+          <div class="scrolltip">scroll ↓</div>
+        </div>
+
+        <!-- DESTACADOS : 3 proyectos, uno por estilo -->
+        <div style="padding:34px 30px 30px">
+          <div style="font-family:'Architects Daughter',sans-serif;font-size:22px;margin-bottom:18px">Lo que sabemos hacer</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+            <div>
+              <div class="ph" data-x="VÍDEO/FRAME" style="height:150px"><span class="tag" style="position:absolute;top:8px;right:8px">Publicidad</span>▶ spot</div>
+              <div class="line" style="width:70%;margin-top:12px"></div>
+              <div class="line" style="width:45%;height:7px;margin-top:8px;background:#e6e1d7"></div>
+            </div>
+            <div>
+              <div class="ph" data-x="VÍDEO/FRAME" style="height:150px"><span class="tag" style="position:absolute;top:8px;right:8px">Videoclip</span>▶ clip</div>
+              <div class="line" style="width:65%;margin-top:12px"></div>
+              <div class="line" style="width:50%;height:7px;margin-top:8px;background:#e6e1d7"></div>
+            </div>
+            <div>
+              <div class="ph" data-x="VÍDEO/FRAME" style="height:150px"><span class="tag" style="position:absolute;top:8px;right:8px">Campaña RRSS</span>▶ social</div>
+              <div class="line" style="width:72%;margin-top:12px"></div>
+              <div class="line" style="width:40%;height:7px;margin-top:8px;background:#e6e1d7"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROYECTOS : grid 8 -->
+        <div style="padding:14px 30px 34px;border-top:1.5px dashed #cfc9bd">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px">
+            <div><div style="font-family:'Architects Daughter',sans-serif;font-size:22px">Trabajo completo</div></div>
+            <div style="display:flex;gap:8px"><span class="pill" style="font-size:11px;padding:3px 11px">Todos</span><span class="tag">Publi</span><span class="tag">Clip</span><span class="tag">RRSS</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+            <div class="ph" data-x="THUMB" style="height:112px">01 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">02 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">03 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">04 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">05 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">06 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">07 →</div>
+            <div class="ph" data-x="THUMB" style="height:112px">08 →</div>
+          </div>
+          <div style="text-align:center;margin-top:14px;position:relative">
+            <span class="annot" style="position:static;justify-content:center">↳ cada thumb abre la ficha de proyecto <a class="dv-oid" href="#1b" style="margin-left:4px">1b</a></span>
+          </div>
+        </div>
+
+        <!-- PRESENTACIÓN -->
+        <div style="padding:38px 30px;border-top:1.5px solid #1a1a1a;background:#faf8f3;display:grid;grid-template-columns:200px 1fr;gap:34px;align-items:center">
+          <div class="ph" data-x="LOGO" style="height:130px;font-size:22px">◲ LOGO</div>
+          <div>
+              <div class="line" style="width:90%;height:11px"></div>
+            <div class="line" style="width:96%;margin-top:10px"></div>
+            <div class="line" style="width:85%;margin-top:10px"></div>
+            <div class="line" style="width:60%;margin-top:10px"></div>
+            <div style="font-family:'Architects Daughter',sans-serif;font-size:12px;color:#8a847a;margin-top:12px">quiénes somos · qué hacemos · cómo trabajamos</div>
+          </div>
+        </div>
+
+        <!-- CONTACTO / footer -->
+        <div style="padding:32px 30px;border-top:1.5px solid #1a1a1a;background:#1a1a1a;color:#f0eee9">
+          <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px">
+            <div>
+              <div style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-bottom:12px">Contacto</div>
+              <div style="font-family:'Architects Daughter',sans-serif;font-size:20px">hola@productora.com</div>
+              <div style="font-family:'Architects Daughter',sans-serif;font-size:16px;opacity:.85;margin-top:4px">+34 600 000 000</div>
+              <div style="display:flex;gap:8px;margin-top:16px">
+                <span class="pill" style="color:#f0eee9;border-color:#f0eee9;background:transparent">Vimeo</span>
+                <span class="pill" style="color:#f0eee9;border-color:#f0eee9;background:transparent">YouTube</span>
+                <span class="pill" style="color:#f0eee9;border-color:#f0eee9;background:transparent">IG</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-bottom:12px">Dónde estamos</div>
+              <div class="ph" data-x="MAPA" style="height:96px;color:#c9c3b8;border-color:#4a4a4a;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 8px,transparent 8px 16px)">mapa ubicación</div>
+            </div>
+            <div>
+              <div style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-bottom:12px">Plataformas</div>
+              <div style="display:flex;flex-direction:column;gap:8px;font-family:'Architects Daughter',sans-serif;font-size:14px">
+                <span>→ Canal de Vimeo</span><span>→ Canal de YouTube</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ 1b : FICHA DE PROYECTO ============ -->
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Ficha de proyecto minimalista (vídeo grande · 2 columnas de 6 frames)</div>
+      <div class="dv-card wf" style="width:620px">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px">
+          <div style="font-family:'Architects Daughter',sans-serif;font-size:15px;color:#8a847a">← volver</div>
+          <div style="font-family:'Architects Daughter',sans-serif;font-weight:700;font-size:15px">◲</div>
+        </div>
+
+        <!-- solo vídeo grande izq · frames der -->
+        <div style="display:grid;grid-template-columns:1fr 200px;gap:16px;padding:0 22px 26px;align-items:start">
+          <div class="ph" data-x="VÍDEO" style="height:328px;flex-direction:column;gap:10px;font-size:13px">
+            <div style="font-size:34px">▶</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <sc-for list="{{ frameCols }}" as="col" hint-placeholder-count="2">
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ col.frames }}" as="f" hint-placeholder-count="6">
+                  <div class="ph" data-x="" style="aspect-ratio:16/9;font-size:9px">{{ f.label }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <p class="dv-next">Prueba: "haz una versión de la home con menú lateral fijo" · "muestra la variante móvil de <a class="dv-oid" href="#1a">1a</a>" · "en <a class="dv-oid" href="#1b">1b</a> pon los frames en mosaico bajo el vídeo" · "nuevas direcciones visuales"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:940},&quot;frameColumns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2,&quot;min&quot;:1,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ficha 1b&quot;,&quot;label&quot;:&quot;Columnas de frames&quot;},&quot;framesPerColumn&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:6,&quot;min&quot;:2,&quot;max&quot;:10,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ficha 1b&quot;,&quot;label&quot;:&quot;Frames por columna&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1a1a1a&quot;,&quot;options&quot;:[&quot;#d8542a&quot;,&quot;#2a78d6&quot;,&quot;#1a1a1a&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;,&quot;label&quot;:&quot;Color de acento&quot;}}">class Component extends DCLogic {
+  renderVals() {
+    const cols = Math.max(1, this.props.frameColumns ?? 2);
+    const per = Math.max(1, this.props.framesPerColumn ?? 6);
+    const frameCols = [];
+    let n = 1;
+    for (let c = 0; c < cols; c++) {
+      const col = [];
+      for (let r = 0; r < per; r++) col.push(String(n++).padStart(2, "0"));
+      frameCols.push({ id: c, frames: col.map(f => ({ id: f, label: f })) });
+    }
+    return { frameCols, accent: this.props.accent ?? "#d8542a" };
+  }
+}</script>
+</body>
+</html>
