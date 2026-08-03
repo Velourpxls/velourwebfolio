@@ -17,12 +17,12 @@
 <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
+<link rel="preload" href="uploads/ABCSchengenAVariable-Trial.ttf" as="font" type="font/ttf" crossorigin>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet data-dc-atomics>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'Schengen';src:url('uploads/ABCSchengenAVariable-Trial.ttf') format('truetype');font-weight:100 900;font-display:swap}
 html,body{margin:0;background:#0a0a0a;font-family:'Schengen',sans-serif;font-weight:200}
@@ -41,11 +41,28 @@ a{color:inherit;text-decoration:none}
 .herologo{transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:auto;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center}
 .herologo:hover{transform:scale(1.07)}
 .herologo.grown,.herologo.grown:hover{transform:scale(1.6)}
-.herologo.grown.push-right,.herologo.grown.push-right:hover{transform:translateX(min(17vw,270px)) scale(1.15)}
+.herologo.grown.push-right,.herologo.grown.push-right:hover{transform:translateX(min(20vw,300px)) scale(.94)}
 .herologo.grown.push-left,.herologo.grown.push-left:hover{transform:translateX(max(-27vw,-400px)) scale(1)}
+.herologo.grown.push-dl,.herologo.grown.push-dl:hover{transform:translate(max(-24vw,-360px),min(9vh,74px)) scale(.95)}
 .herologo.grown.push-up,.herologo.grown.push-up:hover{transform:translateY(min(-9vh,-60px)) scale(1.3)}
 .florimg{mix-blend-mode:screen;transition:opacity .22s ease}
 .florimg.off{opacity:0;pointer-events:none}
+/* interruptor de home: dos textos y una esfera de píxeles que se muda al activo */
+.wsw{position:absolute;top:22px;left:50%;transform:translateX(-50%);z-index:7;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .55s ease}
+.wsw.on{opacity:1;pointer-events:auto}
+.wspair{display:flex;flex-direction:column;align-items:stretch}
+.wsrow{display:flex;gap:16px;align-items:baseline;justify-content:center}
+.wsl{font-family:'Schengen',sans-serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#7e7e7e;cursor:pointer;user-select:none;padding:7px 4px 2px;transition:color .3s ease,letter-spacing .4s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
+.wsl:hover{color:#fff;letter-spacing:.34em}
+.wsl:active{opacity:.5;letter-spacing:.2em}
+.wsl.on{color:#f6f6f6;font-weight:600}
+.wsslash{font-family:'Schengen',sans-serif;font-size:10px;color:#3a3a3a;user-select:none}
+.wscv{display:block;width:100%;height:22px;margin-top:-3px;pointer-events:none;image-rendering:pixelated}
+.pxinv .wsl{color:#767676}
+.pxinv .wsl.on{color:#121212}
+.pxinv .wsl:hover{color:#111}
+.pxinv .wsslash{color:#b4b4b4}
+.pxinv .wscv{filter:invert(1)}
 .soundbtn{cursor:pointer;font-family:'Schengen',sans-serif;font-size:11px;letter-spacing:.14em;color:#c9c9c9;border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:6px 14px;display:inline-flex;align-items:center;gap:8px;background:rgba(10,10,10,.32);transition:border-color .25s,color .25s}
 .soundbtn:hover{color:#fff;border-color:rgba(255,255,255,.6)}
 .rv{opacity:0;pointer-events:none;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
@@ -62,9 +79,9 @@ a{color:inherit;text-decoration:none}
 .topscroll::-webkit-scrollbar{display:none}
 .herologo.grown.push-down,.herologo.grown.push-down:hover{transform:translateY(min(13vh,105px)) scale(1.1)}
 .rvlabel{font-family:'Schengen',sans-serif;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#c0c0c0}
-.leftscroll{overflow-y:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
+.leftscroll{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
 .leftscroll::-webkit-scrollbar{display:none}
-.noscroll{overflow-y:auto;scrollbar-width:none}
+.noscroll{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
 .noscroll::-webkit-scrollbar{display:none}
 .infobar a,.infobar span{white-space:nowrap}
 .herologo.pixed{opacity:0}
@@ -75,21 +92,201 @@ a{color:inherit;text-decoration:none}
 .navw{font-family:'Schengen',sans-serif;font-size:calc(21px * var(--uis,1));letter-spacing:.08em;text-transform:uppercase;color:#f0f0f0;cursor:pointer;transition:color .2s,letter-spacing .3s,box-shadow .3s,background .3s;padding:5px 9px}
 .navw:hover{color:#fff;letter-spacing:.16em}
 .navw.sel{letter-spacing:.16em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.95);backdrop-filter:invert(1);-webkit-backdrop-filter:invert(1);color:#111}
-.navw{position:relative}
-.words.wglitch .navw{animation:wjit .07s steps(2,end) infinite}
-@keyframes wjit{0%{transform:translate(0,0);opacity:1}25%{transform:translate(-7px,3px) skewX(9deg);opacity:.35}50%{transform:translate(6px,-4px);opacity:.9}75%{transform:translate(-4px,-2px) skewX(-7deg);opacity:.5}100%{transform:translate(4px,2px);opacity:1}}
+.navw{position:relative;white-space:nowrap}
+.words.wglitch .navw{animation:wjit .2s steps(3,end) infinite}
+.arrowbox{position:relative;min-width:58px;height:58px;padding:0 24px;gap:15px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.5);cursor:pointer;transition:border-color .3s ease}
+.abtxt{font-family:'Schengen',sans-serif;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#f2f2f2;white-space:nowrap;transition:color .3s ease}
+.arrowbox:hover .abtxt{color:#111}
+.arrowbox:hover{border-color:#fff;backdrop-filter:invert(1);-webkit-backdrop-filter:invert(1)}
+.arrowbox svg{width:26px;height:26px;display:block;overflow:visible}
+.arrowbox path{fill:none;stroke:#fff;stroke-width:1.1;stroke-linecap:square;stroke-dasharray:1;transition:stroke .3s ease}
+.arrowbox:hover path{stroke:#111}
+.arrowbox .pbody{animation:drawpath 4.2s cubic-bezier(.4,0,.2,1) infinite}
+.arrowbox .pfold{animation:drawpath 4.2s cubic-bezier(.4,0,.2,1) infinite;animation-delay:.55s}
+.arrowbox:hover .ar{animation:planefly .66s cubic-bezier(.2,.8,.2,1)}
+.navarr{position:absolute;left:100%;top:50%;margin-left:11px;transform:translateY(-50%);display:flex;pointer-events:none}
+.navarr svg{width:26px;height:12px;display:block}
+.navarr path{fill:none;stroke:#f0f0f0;stroke-width:1.1;stroke-linecap:square;stroke-dasharray:1;animation:drawpath 3.4s cubic-bezier(.4,0,.2,1) infinite}
+.navarr .head{animation-delay:.3s}
+.privlink{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:#666;transition:color .3s ease}
+.privlink:hover{color:#ededed}
+.ytwrap{transition:opacity .8s ease}
+.ytwrap.hid{opacity:0}
+.fluidbg{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0;transition:opacity .9s ease;filter:blur(44px) saturate(1.06);transform:scale(1.18);pointer-events:none}
+.fluidbg.on{opacity:1}
+.gone{display:none}
+@property --lure{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes lurespin{to{--lure:360deg}}
+.navw.lure:before{content:'';position:absolute;inset:-8px;border:1px solid rgba(255,255,255,.24);pointer-events:none}
+.navw.lure:after{content:'';position:absolute;inset:-8px;border:1.4px solid #fff;pointer-events:none;-webkit-mask-image:conic-gradient(from var(--lure),#000 0deg 24deg,transparent 24deg 360deg);mask-image:conic-gradient(from var(--lure),#000 0deg 24deg,transparent 24deg 360deg);animation:lurespin 3.2s linear infinite}
+/* velour pixels: todo en negativo sobre el degradado claro */
+.pxinv .navw{color:#151515}
+.pxinv .navw.sel{color:#f2f2f2}
+.pxinv .rvlabel{color:#3a3a3a !important}
+.pxinv .soundbtn,.pxinv .langbtn,.pxinv .privlink{color:#5c5c5c}
+.pxinv .langbtn.on{color:#111}
+.pxinv .soundbtn:hover,.pxinv .privlink:hover,.pxinv .privlink:active,.pxinv .langbtn:hover{color:#111}
+.pxinv .bgsw{color:#4e4e4e;border-color:rgba(0,0,0,.26);background:rgba(252,252,250,.42)}
+.pxinv .bgsw:hover,.pxinv .bgsw:active{color:#111;border-color:rgba(0,0,0,.55);background:rgba(252,252,250,.62)}
+.pxinv .bgdot{background:#2c2c2c}
+.pxinv .rtab{color:#3a3a3a;border-color:rgba(0,0,0,.34)}
+.pxinv .rtab:hover{color:#111;border-color:rgba(0,0,0,.42)}
+.pxinv .rv-left,.pxinv .rv-left *,.pxinv .rv-right,.pxinv .rv-right *{color:#242424 !important}
+.pxinv .rcard{background:rgba(247,247,245,.95) !important;border-color:rgba(0,0,0,.2) !important}
+.pxinv .rcard.on{border-color:rgba(0,0,0,.42) !important}
+.pxinv .rplus:before,.pxinv .rplus:after{background:#3a3a3a}
+.pxinv .pxcard{background:rgba(247,247,245,.95) !important;border-color:rgba(0,0,0,.2) !important}
+.pxinv .pxline{background:rgba(0,0,0,.14) !important}
+.pxinv .pxdash{border-color:rgba(0,0,0,.22) !important}
+.pxinv .pxtag{border-color:rgba(0,0,0,.26) !important}
+.pxinv .rtab.on{color:#f2f2f2 !important;background:#161616 !important;border-color:#161616 !important}
+.pxinv .pxcta{color:#f4f4f4 !important;background:#161616 !important}
+.pxinv .loop .vs{color:#8a8a8a !important}
+.pxinv .logoink,.pxinv .pixink{filter:invert(1)}
+.pxinv .invrect{border-color:rgba(0,0,0,.6) !important}
+
+.soundbtn.snd-out{animation:sndout .52s steps(2,end) forwards;pointer-events:none}
+.soundbtn.snd-in{animation:sndin .46s steps(2,end) both}
+@keyframes sndout{0%{opacity:1;clip-path:inset(0 0 0 0)}18%{opacity:.95;transform:translateX(-3px);clip-path:inset(36% 0 24% 0)}34%{opacity:.75;transform:translateX(4px);clip-path:inset(6% 0 64% 0);filter:invert(1)}52%{opacity:.5;transform:translateX(-2px);clip-path:inset(68% 0 6% 0)}70%{opacity:.28;transform:translateX(3px);clip-path:inset(44% 0 44% 0);filter:invert(1)}86%{opacity:.12;transform:translateX(-1px);clip-path:inset(50% 0 48% 0)}100%{opacity:0;transform:translateX(0);clip-path:inset(50% 0 50% 0);visibility:hidden}}
+@keyframes sndin{0%{opacity:0;clip-path:inset(50% 0 50% 0)}20%{opacity:.2;transform:translateX(3px);clip-path:inset(46% 0 44% 0)}38%{opacity:.5;transform:translateX(-3px);clip-path:inset(62% 0 8% 0);filter:invert(1)}58%{opacity:.7;transform:translateX(2px);clip-path:inset(10% 0 58% 0)}78%{opacity:.9;transform:translateX(-2px);clip-path:inset(28% 0 22% 0);filter:invert(1)}100%{opacity:1;transform:translateX(0);clip-path:inset(0 0 0 0)}}
+.navw.pxw .navlbl{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none}
+.pxcv{position:absolute;left:9px;top:50%;transform:translateY(-50%);transform-origin:left center;transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .3s ease;pointer-events:none}
+.navw.pxw:hover .pxcv{transform:translateY(-50%) scale(1.07);filter:brightness(1.35)}
+.rtab{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#c8c8c8;border:1px solid rgba(255,255,255,.32);padding:9px 13px;cursor:pointer;white-space:nowrap;transition:color .25s,border-color .25s,background .25s}
+.rtab:hover{color:#fff;border-color:rgba(255,255,255,.68);background:rgba(255,255,255,.07)}
+.rtab.on{color:#0b0b0b;background:#fff;border-color:#fff;font-weight:500}
+.rtabs .rtab{flex:none}
+.rtab.off{opacity:.32;cursor:not-allowed}
+.rtab.off:hover{color:#c8c8c8;border-color:rgba(255,255,255,.32);background:transparent;transform:none}
+.rtab{transition:color .25s,border-color .25s,background .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.rtab:active{transform:scale(.96)}
+@keyframes rcin{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes rtin{from{opacity:0;transform:translateY(20px);filter:blur(7px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes kburn{from{transform:scale(1.02)}to{transform:scale(1.15) translate(-1.5%,-1%)}}
+@keyframes rsweep{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.rcard{animation:rcin .6s cubic-bezier(.2,.8,.2,1) both;transition:border-color .35s ease,background .35s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+.rcard:hover{border-color:rgba(255,255,255,.44);background:rgba(19,19,19,.82);transform:translateY(-2px)}
+.rcard:nth-child(2){animation-delay:0.04s}
+.rcard:nth-child(3){animation-delay:0.08s}
+.rcard:nth-child(4){animation-delay:0.12s}
+.rcard:nth-child(5){animation-delay:0.16s}
+.rcard:nth-child(6){animation-delay:0.20s}
+.rcard:nth-child(7){animation-delay:0.24s}
+.rcard:nth-child(8){animation-delay:0.28s}
+.rcard:nth-child(9){animation-delay:0.32s}
+.rcard:nth-child(10){animation-delay:0.36s}
+.rcard:nth-child(11){animation-delay:0.40s}
+.rcard:nth-child(12){animation-delay:0.44s}
+.rtitle{animation:rtin .95s cubic-bezier(.2,.8,.2,1) both}
+.rtsub{animation:rtin .95s cubic-bezier(.2,.8,.2,1) .1s both}
+.rlead{animation:rtin .95s cubic-bezier(.2,.8,.2,1) .18s both}
+.rrule{height:1px;background:rgba(255,255,255,.18);transform-origin:left;animation:rsweep 1.1s cubic-bezier(.2,.8,.2,1) .24s both}
+.rcover{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#101010;animation:rtin 1.05s cubic-bezier(.2,.8,.2,1) .16s both}
+.rcover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kburn 32s ease-in-out infinite alternate}
+.rcover:after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,8,8,.62),rgba(8,8,8,0) 64%);pointer-events:none}
+.rcover b{position:absolute;left:15px;bottom:13px;z-index:2;font-weight:400;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:#ededed}
+.lchip{cursor:pointer;display:inline-flex;align-items:center;gap:9px;font-size:10.5px;color:#d8d8d8;border:1px solid rgba(255,255,255,.24);padding:9px 12px;transition:color .25s,border-color .25s,background .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.lchip i{font-style:normal;font-size:8.5px;letter-spacing:.1em;color:#8a8a8a;transition:color .25s}
+.lchip:hover{color:#0d0d0d;background:#ededed;border-color:#ededed;transform:translateY(-1px)}
+.lchip:hover i,.lchip.on i{color:#4a4a4a}
+.lchip.on{color:#0d0d0d;background:#d6d6d6;border-color:#d6d6d6}
+.pxinv .fluidbg{filter:blur(20px) saturate(1.35) contrast(1.12);transform:scale(1.1)}
+.rcard{border:1px solid rgba(255,255,255,.2);background:rgba(10,10,10,.66);flex:none;transition:border-color .3s ease}
+.rcard.on{border-color:rgba(255,255,255,.4)}
+.rrow{display:flex;align-items:center;gap:14px;padding:13px 16px;cursor:pointer}
+.rplus{position:relative;width:11px;height:11px;flex:none;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.rplus:before,.rplus:after{content:'';position:absolute;background:#b4b4b4;transition:background .25s}
+.rplus:before{left:0;top:5px;width:11px;height:1px}
+.rplus:after{left:5px;top:0;width:1px;height:11px}
+.rplus.on{transform:rotate(135deg)}
+.rrow:hover .rplus:before,.rrow:hover .rplus:after{background:#fff}
+.rspec{animation:rsp .32s ease}
+@keyframes rlin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes rsp{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.teamsq{border:1px solid rgba(255,255,255,.95);background-clip:padding-box;box-shadow:0 0 0 1px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s ease}
+.teamsq:hover,.teamsq:active{transform:scale(1.09);z-index:4;box-shadow:0 14px 36px rgba(0,0,0,.55)}
+.tmpix{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:1;transition:opacity .5s ease,filter .5s ease;pointer-events:none;z-index:1}
+.teamsq:hover .tmpix,.teamsq:active .tmpix{opacity:0}
+.fmwrap{position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:30px;background:rgba(6,6,6,.74);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fmin .35s ease}
+.fmcard{width:min(760px,100%);max-height:calc(100vh - 60px);overflow-y:auto;scrollbar-width:none;border:1px solid rgba(255,255,255,.18);background:rgba(10,10,10,.95);padding:32px 36px 30px;display:flex;flex-direction:column;gap:24px}
+.fmcard::-webkit-scrollbar{display:none}
+.fmlab{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:#8a8a8a}
+.fmin{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.22);color:#f2f2f2;font-family:'Schengen',sans-serif;font-weight:200;font-size:15px;padding:9px 0;outline:none;transition:border-color .25s ease}
+.fmin:focus{border-color:#ffffff}
+.fmin::placeholder{color:#5a5a5a}
+textarea.fmin{resize:vertical;min-height:78px;line-height:1.6}
+select.fmin{appearance:none;-webkit-appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.22);padding:11px 13px}
+select.fmin option{background:#111;color:#eee}
+.chip{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#c2c2c2;border:1px solid rgba(255,255,255,.2);padding:9px 12px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.chip:hover{border-color:rgba(255,255,255,.55);color:#fff}
+.chip.on{color:#111;background:#ededed;border-color:#ededed}
+.cbox{width:16px;height:16px;flex:none;margin-top:1px;border:1px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s}
+.cbox.on{background:#ededed;border-color:#ededed}
+.cbox svg{width:10px;height:10px;display:block}
+.cbox path{fill:none;stroke:#111;stroke-width:1.7;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .32s ease .04s}
+.cbox.on path{stroke-dashoffset:0}
+.fmsend{align-self:flex-start;font-family:'Schengen',sans-serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#0e0e0e;background:#ededed;border:0;padding:14px 22px;cursor:pointer;transition:background .25s,opacity .25s}
+.fmsend:hover{background:#ffffff}
+.fmsend[disabled]{opacity:.45;cursor:default}
+.fmx{cursor:pointer;font-size:13px;color:#8a8a8a;padding:4px 6px;transition:color .2s}
+.fmx:hover{color:#ffffff}
+.bgsw{cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:'Schengen',sans-serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a;border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:7px 13px;background:rgba(10,10,10,.32);transition:color .4s ease,border-color .4s ease,background .4s ease}
+.bgsw:hover{color:#f2f2f2;border-color:rgba(255,255,255,.6);background:rgba(10,10,10,.5)}
+.bgdot{width:5px;height:5px;flex:none;background:#c4c4c4;transition:transform .55s cubic-bezier(.2,.7,.2,1),background .4s ease}
+.bgsw:hover .bgdot{background:#f2f2f2}
+.bgsw.flu .bgdot{transform:rotate(45deg) scale(1.15)}
+@keyframes drawpath{0%,10%{stroke-dashoffset:1}42%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@keyframes planefly{0%{transform:translate(0,0) rotate(0);opacity:1}44%{transform:translate(22px,-22px) rotate(8deg);opacity:0}45%{transform:translate(-20px,20px) rotate(-6deg);opacity:0}100%{transform:translate(0,0) rotate(0);opacity:1}}
+@keyframes fmin{from{opacity:0}to{opacity:1}}
+.ckbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:14px 20px;pointer-events:none}
+.ckcard{pointer-events:auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;max-width:960px;width:100%;border:1px solid rgba(255,255,255,.2);background:rgba(9,9,9,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:14px 18px;animation:ckin .5s cubic-bezier(.2,.8,.2,1)}
+.cktxt{flex:1 1 260px;min-width:0;font-family:'Schengen',sans-serif;font-size:10.5px;font-weight:200;line-height:1.65;color:#a8a8a8;text-wrap:pretty}
+.cktxt a{color:#e8e8e8;border-bottom:1px solid rgba(255,255,255,.34)}
+.ckbtn{flex:none;font-family:'Schengen',sans-serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;padding:11px 16px;cursor:pointer;user-select:none;white-space:nowrap;transition:color .25s ease,background .25s ease,border-color .25s ease}
+.ckbtn.ghost{color:#c4c4c4;background:transparent;border:1px solid rgba(255,255,255,.3)}
+.ckbtn.ghost:hover{color:#fff;border-color:#fff}
+.ckbtn.solid{color:#0e0e0e;background:#ededed;border:1px solid #ededed}
+.ckbtn.solid:hover{background:#fff;border-color:#fff}
+@keyframes ckin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rsbox{display:flex;align-items:center;gap:11px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.035);padding:12px 15px;transition:border-color .3s ease,background .3s ease}
+.rsbox:focus-within{border-color:rgba(255,255,255,.62);background:rgba(255,255,255,.06)}
+.rsbox svg{fill:none;stroke:#9a9a9a;stroke-width:1.4}
+.rsin{flex:1 1 auto;min-width:0;background:transparent;border:0;outline:none;color:#f2f2f2;font-family:'Schengen',sans-serif;font-weight:200;font-size:14px}
+.rsin::placeholder{color:#6e6e6e}
+.rsin::-webkit-search-cancel-button{filter:invert(1) opacity(.5);cursor:pointer}
+.qbtn{width:25px;height:25px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.3);font-size:13px;line-height:1;color:#dcdcdc;cursor:pointer;user-select:none;transition:background .22s ease,border-color .22s ease,color .22s ease}
+.qbtn:hover{background:#ededed;border-color:#ededed;color:#111}
+.qbtn.x{font-size:9px;color:#8a8a8a}
+.radd{display:inline-flex;align-items:center;gap:9px;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#c8c8c8;border:1px solid rgba(255,255,255,.3);padding:8px 13px;cursor:pointer;user-select:none;transition:color .25s ease,border-color .25s ease,background .25s ease}
+.radd:hover{color:#0b0b0b;background:#fff;border-color:#fff}
+.rdin{flex:1 1 0;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.24);color:#e8e8e8;font-family:'Schengen',sans-serif;font-size:11px;padding:9px 10px;outline:none;transition:border-color .25s ease}
+.rdin:focus{border-color:#fff}
+.rdin::-webkit-calendar-picker-indicator{filter:invert(1) opacity(.6);cursor:pointer}
+.rprim{width:100%;font-family:'Schengen',sans-serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#0e0e0e;background:#ededed;border:0;padding:15px;cursor:pointer;transition:background .25s ease,opacity .25s ease}
+.rprim:hover{background:#fff}
+.rprim[disabled]{opacity:.36;cursor:default}
+.rghost{width:100%;font-family:'Schengen',sans-serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#c8c8c8;background:transparent;border:1px solid rgba(255,255,255,.3);padding:14px;cursor:pointer;transition:color .25s ease,border-color .25s ease}
+.rghost:hover{color:#fff;border-color:#fff}
+.rtog{display:inline-flex;align-items:center;gap:8px;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:#9a9a9a;border:1px solid rgba(255,255,255,.26);padding:7px 11px;cursor:pointer;user-select:none;transition:color .25s ease,border-color .25s ease}
+.rtog:hover,.rtog.on{color:#f2f2f2;border-color:rgba(255,255,255,.6)}
+.rtog i{width:5px;height:5px;flex:none;background:#9a9a9a;transition:transform .5s cubic-bezier(.2,.7,.2,1),background .3s ease}
+.rtog.on i{background:#f2f2f2;transform:rotate(45deg) scale(1.2)}
+.rsum{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:11.5px;color:#c4c4c4}
+.rsum b{font-weight:400;color:#f2f2f2}
+@keyframes wjit{0%{transform:translate(0,0);opacity:1}25%{transform:translate(-3px,1.5px) skewX(4deg);opacity:.66}50%{transform:translate(2.5px,-2px);opacity:.95}75%{transform:translate(-2px,-1px) skewX(-3deg);opacity:.74}100%{transform:translate(1.5px,1px);opacity:1}}
 </style>
 </helmet>
 
-<div style="background:#0a0a0a;color:#ededed;font-family:'Schengen',sans-serif;min-height:100vh">
+<div style="background:#0a0a0a;color:#ededed;font-family:'Schengen',sans-serif;min-height:100dvh">
 
   <!-- ============================= HOME (pantalla única) ============================= -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-  <div onMouseLeave="{{ revealOff }}" style="position:relative;height:100vh;min-height:620px;overflow:hidden">
+  <div class="{{ pxinvClass }}" style="position:relative;height:100dvh;min-height:480px;overflow:hidden">
 
     <!-- vídeo showreel (Vimeo, fondo cover) -->
-    <div class="ytwrap"><div ref="{{ ytRef }}" style="position:absolute;inset:0"></div></div>
-    <div ref="{{ overlayRef }}" onClick="{{ revealOff }}" style="position:absolute;inset:0;background:#0a0a0a;opacity:.28;transition:opacity .55s ease"></div>
+    <canvas class="fluidbg {{ fluidClass }}" ref="{{ fluidRef }}"></canvas>
+    <div class="ytwrap {{ ytClass }}"><div ref="{{ ytRef }}" style="position:absolute;inset:0"></div></div>
+    <div ref="{{ overlayRef }}" style="position:absolute;inset:0;background:#0a0a0a;opacity:.28;transition:opacity .55s ease"></div>
 
     <!-- IZQUIERDA: 6 vídeos -->
     <div style="position:absolute;left:160px;top:68px;bottom:150px;display:flex;align-items:stretch;z-index:4">
@@ -108,14 +305,40 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <!-- ARRIBA: equipo (us) -->
-    <div class="rv rv-top {{ usClass }}" style="position:absolute;left:120px;right:120px;top:52px;z-index:4;display:flex;flex-direction:column;gap:10px;align-items:center">
-      <div class="rvlabel" style="align-self:flex-start">Team</div>
-      <div class="topscroll" style="padding:2px 6px 10px;width:100%">
-      <div style="display:flex;gap:18px;align-items:flex-start;width:max-content;margin:0 auto">
+    <!-- IZQUIERDA: social media (pixels) -->
+    <div style="position:absolute;left:150px;top:0;bottom:0;display:flex;align-items:center;z-index:6;pointer-events:none">
+      <div class="rv rv-left {{ socialClass }}" style="display:flex;flex-direction:column;gap:12px;width:min(27vw,430px);max-height:calc(100vh - 120px)">
+        <div class="rvlabel" style="flex:none">Social media</div>
+        <div class="noscroll" style="display:flex;flex-direction:column;gap:14px;min-height:0;padding-right:6px">
+          <sc-for list="{{ socialCards }}" as="s" hint-placeholder-count="1">
+            <div class="pxcard" style="flex:none;border:1px solid rgba(255,255,255,.16);background:rgba(10,10,10,.66);padding:17px 18px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+                <div style="min-width:0">
+                  <div style="font-size:18px;font-weight:300;color:#f4f4f4;line-height:1.15">{{ s.client }}</div>
+                  <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7d7d7d;margin-top:7px">{{ s.handle }}</div>
+                </div>
+                <div style="flex:none;display:flex;gap:7px">
+                  <sc-for list="{{ s.tags }}" as="tg" hint-placeholder-count="2">
+                    <span class="pxtag" style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#b4b4b4;border:1px solid rgba(255,255,255,.2);padding:5px 9px;white-space:nowrap">{{ tg }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div ref="{{ s.ref }}" style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#0b0b0b"></div>
+            </div>
+          </sc-for>
+          <div style="flex:none;font-size:10px;line-height:1.6;color:#8a8a8a">{{ socialNote }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABAJO: equipo, dentro de la sección about -->
+    <div class="rv rv-bot {{ usClass }}" style="position:absolute;left:0;right:0;bottom:54px;z-index:4;display:flex;flex-direction:column;gap:9px">
+      <div class="rvlabel" style="padding:0 clamp(24px,6vw,120px)">Team</div>
+      <div class="topscroll" ref="{{ stripRef }}" style="padding:2px clamp(24px,6vw,120px) 10px;width:100%">
+      <div style="display:flex;gap:18px;align-items:flex-start;width:max-content">
         <sc-for list="{{ team }}" as="tm" hint-placeholder-count="0">
           <div style="flex:none;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;width:{{ tm.w }}">
-            <div class="loop" ref="{{ tm.ref }}" style="width:100%;aspect-ratio:1/1;cursor:default;background-size:cover;background-position:center"></div>
+            <div class="loop teamsq" ref="{{ tm.ref }}" style="width:100%;aspect-ratio:1/1;cursor:default;background-size:cover;background-position:center"></div>
             <div style="font-family:'Schengen',sans-serif;font-weight:500;font-size:13px;letter-spacing:.04em;color:#f6f6f6">{{ tm.name }}</div>
             <div style="font-family:'Schengen',sans-serif;font-weight:200;font-size:10.5px;line-height:1.5;letter-spacing:.09em;text-transform:uppercase;color:#9c9c9c;text-wrap:pretty">{{ tm.role }}</div>
           </div>
@@ -125,10 +348,13 @@ a{color:inherit;text-decoration:none}
     </div>
 
     <!-- ABAJO: contacto desplegado bajo el logo -->
-    <div class="rv rv-bot {{ contactClass }}" style="position:absolute;left:50%;bottom:14%;transform:translateX(-50%);z-index:4;text-align:center">
-      <div class="rvlabel" style="margin-bottom:12px">Contact</div>
+    <div class="rv rv-bot {{ contactClass }}" style="position:absolute;left:50%;bottom:14%;transform:translateX(-50%);z-index:4;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px">
+      <span class="arrowbox" onClick="{{ openForm }}" role="button" tabindex="0" aria-label="{{ fmWrite }}">
+        <span class="abtxt">{{ fmWrite }}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><g class="ar"><path class="pbody" pathLength="1" d="M21.4 3.4 2.6 11.2 9.9 13.9 12.4 21.3Z"></path><path class="pfold" pathLength="1" d="M9.9 13.9 21.4 3.4"></path></g></svg>
+      </span>
       <div class="infobar" style="display:flex;flex-direction:column;gap:8px;align-items:center">
-        <a href="mailto:info@velourpixel.com" style="font-size:17px;color:#f2f2f2">info@velourpixel.com</a>
+        <a href="mailto:info@velourpixel.com" style="font-size:clamp(19px,2vw,24px);font-weight:300;color:#f5f5f5">info@velourpixel.com</a>
         <span style="font-size:15px;color:#dcdcdc">+34 600 855 079</span>
         <a href="https://instagram.com/velourpixels" target="_blank" style="font-size:13px;letter-spacing:.1em;color:#c4c4c4">@velourpixels</a>
         <span style="font-size:13px;color:#9a9a9a">Madrid</span>
@@ -137,18 +363,18 @@ a{color:inherit;text-decoration:none}
 
     <!-- logo centrado (hover = revela) -->
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:5">
-      <div class="herologo {{ shiftClass }}" onMouseEnter="{{ hoverDark }}" onMouseLeave="{{ hoverLight }}" onClick="{{ revealOn }}">
-        <img ref="{{ logoRef }}" src="uploads/Workdmark_Blanca.svg" alt="Logo" style="width:var(--logo,200px);height:auto;opacity:0">
-        <img class="florimg {{ pixClass }}" ref="{{ florRef }}" src="uploads/Isotipio_Blanco.svg" alt="Logo inicial" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(min(15vw,160px) * var(--uis,1));height:auto;filter:drop-shadow(0 2px 20px rgba(0,0,0,.6))">
+      <div class="herologo {{ shiftClass }}" onMouseEnter="{{ hoverDark }}" onMouseLeave="{{ hoverLight }}" onClick="{{ logoClick }}">
+        <img class="logoink" ref="{{ logoRef }}" src="uploads/Workdmark_Blanca.svg" alt="Logo" style="width:var(--logo,200px);height:auto;opacity:0">
+        <img class="florimg logoink {{ pixClass }}" ref="{{ florRef }}" src="uploads/Isotipio_Blanco.svg" alt="Logo inicial" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(min(15vw,160px) * var(--uis,1));height:auto;filter:drop-shadow(0 2px 20px rgba(0,0,0,.6))">
       </div>
     </div>
 
     <!-- capa de pixelado + rectángulos + líneas -->
-    <canvas ref="{{ pixRef }}" style="position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none"></canvas>
+    <canvas class="pixink" ref="{{ pixRef }}" style="position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none"></canvas>
 
     <!-- DERECHA: texto about -->
     <div style="position:absolute;right:8vw;left:47vw;top:0;bottom:0;display:flex;align-items:center;justify-content:flex-end;z-index:4;pointer-events:none">
-      <div class="rv rv-right {{ aboutClass }}" style="pointer-events:auto;width:min(100%,620px);max-height:calc(100vh - 88px);display:flex;flex-direction:column;min-height:0">
+      <div class="rv rv-right {{ aboutClass }}" style="width:min(100%,620px);max-height:calc(100vh - 400px);display:flex;flex-direction:column;min-height:0;margin-bottom:150px">
         <div class="rvlabel" style="margin-bottom:12px;flex:none">About</div>
         <div class="noscroll" style="font-size:clamp(12.5px,1.35vh,15px);line-height:1.7;color:#dcdcdc;text-wrap:pretty;white-space:pre-line;min-height:0;flex:1 1 auto">{{ aboutText }}</div>
       </div>
@@ -157,7 +383,7 @@ a{color:inherit;text-decoration:none}
     <!-- palabras destino de las líneas -->
     <div class="words {{ onClass }} {{ wGlitchClass }}" style="position:absolute;inset:0;z-index:6">
       <sc-for list="{{ navWords }}" as="nw" hint-placeholder-count="0">
-        <span class="navw {{ nw.selClass }}" ref="{{ nw.wref }}" onClick="{{ nw.click }}" style="position:absolute">{{ nw.label }}</span>
+        <span class="navw {{ nw.selClass }} {{ nw.px }} {{ nw.lure }}" ref="{{ nw.wref }}" onClick="{{ nw.click }}" style="position:absolute"><span class="navlbl">{{ nw.label }}</span><sc-if value="{{ nw.px }}" hint-placeholder-val="{{ false }}"><canvas class="pxcv" ref="{{ pxRef }}"></canvas></sc-if></span>
       </sc-for>
     </div>
 
@@ -165,9 +391,21 @@ a{color:inherit;text-decoration:none}
     <div class="rv {{ onClass }}" style="position:absolute;top:24px;left:30px;z-index:6">
       <span class="soundbtn" onClick="{{ goBack }}">← {{ back }}</span>
     </div>
-    <!-- sonido -->
-    <div style="position:absolute;bottom:24px;left:30px;z-index:6">
-      <span class="soundbtn" onClick="{{ toggleSound }}">◗ {{ soundLabel }}</span>
+    <!-- interruptor de home -->
+    <div class="wsw {{ wswClass }}" ref="{{ wswRef }}">
+      <div class="wspair">
+        <div class="wsrow">
+          <span class="wsl {{ vlCls }}" ref="{{ wsARef }}" role="button" tabindex="0" onClick="{{ toVelour }}">velour</span>
+          <span class="wsslash">/</span>
+          <span class="wsl {{ pxCls }}" ref="{{ wsBRef }}" role="button" tabindex="0" onClick="{{ toPixels }}">pixels</span>
+        </div>
+        <canvas class="wscv" ref="{{ wsRef }}"></canvas>
+      </div>
+    </div>
+    <!-- sonido + fondo -->
+    <div style="position:absolute;bottom:24px;left:30px;z-index:6;display:flex;align-items:center;gap:10px">
+      <span class="bgsw {{ bgSwCls }}" role="button" tabindex="0" aria-label="{{ bgAria }}" onClick="{{ toggleBg }}"><i class="bgdot"></i>{{ bgLbl }}</span>
+      <span class="soundbtn" ref="{{ sndRef }}" onClick="{{ toggleSound }}">◗ {{ soundLabel }}</span>
     </div>
     <!-- ES / EN -->
     <div style="position:absolute;top:26px;right:30px;display:flex;gap:14px;align-items:center;z-index:6">
@@ -175,13 +413,320 @@ a{color:inherit;text-decoration:none}
       <span style="color:#3a3a3a">/</span>
       <span class="langbtn {{ enClass }}" onClick="{{ setEn }}">EN</span>
     </div>
+    <!-- privacidad -->
+    <div style="position:absolute;bottom:26px;right:32px;z-index:6">
+      <a class="privlink" href="privacy.dc.html" target="_blank" rel="noopener" onClick="{{ openPrivacy }}">{{ privLabel }}</a>
+    </div>
 
+    <!-- FORMULARIO DE CONTACTO -->
+    <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="fmwrap" onClick="{{ closeForm }}">
+      <div class="fmcard" onClick="{{ stopClick }}">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px">
+          <div style="min-width:0">
+            <div class="fmlab">{{ fmEyebrow }}</div>
+            <div style="font-size:clamp(23px,2.4vw,32px);font-weight:300;letter-spacing:-.015em;color:#f5f5f5;line-height:1.12;margin-top:10px">{{ fmTitle }}</div>
+            <div style="font-size:12.5px;line-height:1.65;color:#9a9a9a;margin-top:12px;max-width:56ch;text-wrap:pretty">{{ fmIntro }}</div>
+          </div>
+          <span class="fmx" onClick="{{ closeForm }}">✕</span>
+        </div>
+        <div class="pxline" style="height:1px;background:rgba(255,255,255,.12)"></div>
+        <sc-if value="{{ fmSent }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px;padding:6px 0 8px">
+            <div style="font-size:21px;font-weight:300;color:#f5f5f5">{{ fmSentTitle }}</div>
+            <div style="font-size:12.5px;line-height:1.7;color:#9a9a9a;max-width:52ch;text-wrap:pretty">{{ fmSentBody }}</div>
+            <button class="fmsend" onClick="{{ closeForm }}">{{ fmClose }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ fmForm }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span class="fmlab">{{ fmName }}</span>
+              <input class="fmin" ref="{{ nameRef }}" type="text" placeholder="{{ fmNamePh }}">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span class="fmlab">{{ fmContact }}</span>
+              <input class="fmin" ref="{{ contactRef }}" type="text" placeholder="{{ fmContactPh }}">
+            </label>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span class="fmlab">{{ fmWhat }}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ fmChips }}" as="c" hint-placeholder-count="12">
+                <span class="chip {{ c.on }}" onClick="{{ c.tap }}">{{ c.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span class="fmlab">{{ fmDesc }}</span>
+            <textarea class="fmin" ref="{{ descRef }}" placeholder="{{ fmDescPh }}"></textarea>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:9px;max-width:330px">
+            <span class="fmlab">{{ fmBudget }}</span>
+            <select class="fmin" ref="{{ budgetRef }}">
+              <sc-for list="{{ fmBudgets }}" as="b" hint-placeholder-count="5">
+                <option value="{{ b }}">{{ b }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <span class="cbox {{ okClass }}" onClick="{{ toggleOk }}"><svg viewBox="0 0 12 12" aria-hidden="true"><path pathLength="1" d="M2 6.4 4.7 9 10 3.2"></path></svg></span>
+            <div style="font-size:10.5px;line-height:1.65;color:#9a9a9a">{{ fmPriv }} <a href="privacy.dc.html" target="_blank" rel="noopener" onClick="{{ openPrivacy }}" style="color:#e8e8e8;border-bottom:1px solid rgba(255,255,255,.35)">{{ fmPrivLink }}</a>.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+            <button class="fmsend" onClick="{{ submitForm }}" disabled="{{ sendDisabled }}">{{ fmCta }}</button>
+            <div style="font-size:10px;letter-spacing:.04em;line-height:1.55;color:#a0a0a0;max-width:44ch">{{ fmMsg }}</div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+  </sc-if>
+
+  <!-- ============================= RENTAL (pantalla propia) ============================= -->
+  <sc-if value="{{ isRental }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100dvh;display:flex;flex-direction:column;background:#0a0a0a">
+    <div style="position:sticky;top:0;z-index:9;flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:15px 46px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(10,10,10,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)">
+      <div class="langbtn on" onClick="{{ rentalBack }}">← {{ back }}</div>
+      <img src="uploads/pixels-logo.png" alt="Velour Pixels" style="height:19px;width:auto;opacity:.9">
+    </div>
+
+    <div style="flex:1 1 auto;display:grid;grid-template-columns:minmax(0,1fr) 374px;gap:42px;align-items:start;width:100%;max-width:1560px;margin:0 auto;padding:40px 46px 72px">
+
+      <div style="display:flex;flex-direction:column;gap:26px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div class="rtitle" style="font-size:clamp(46px,5.6vw,78px);font-weight:300;letter-spacing:.015em;line-height:.9;color:#f4f4f4">RENTAL</div>
+          <div class="rtsub" style="font-size:11px;letter-spacing:.44em;text-transform:uppercase;color:#8f8f8f">Madrid</div>
+          <div class="rrule" style="margin:6px 0 2px;max-width:420px"></div>
+          <div class="rlead" style="font-size:14.5px;line-height:1.6;color:#9a9a9a;max-width:54ch;text-wrap:pretty">{{ rentalLead }}</div>
+        </div>
+        <div class="rcover" style="aspect-ratio:21/9">
+          <img src="uploads/rental/cover-camara.png" alt="" onError="{{ imgFail }}">
+          <b>{{ rCoverLbl }}</b>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="rsbox">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;flex:none"><circle cx="10.5" cy="10.5" r="6.4"></circle><path d="M15.4 15.4 21 21"></path></svg>
+            <input class="rsin" type="search" ref="{{ rsearchRef }}" onInput="{{ onRSearch }}" placeholder="{{ rSearchPh }}" aria-label="{{ rSearchPh }}">
+            <span style="flex:none;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a;white-space:nowrap">{{ rCount }}</span>
+          </div>
+          <div class="rtabs" style="display:flex;gap:7px;flex-wrap:wrap">
+            <sc-for list="{{ rentalTabs }}" as="tb" hint-placeholder-count="6">
+              <div class="rtab {{ tb.on }}" onClick="{{ tb.tap }}">{{ tb.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ rentalItems }}" as="g" hint-placeholder-count="5">
+            <div class="rcard {{ g.onClass }}">
+              <div class="rrow" onClick="{{ g.tap }}">
+                <div style="flex:1 1 auto;min-width:0">
+                  <div style="font-size:15px;font-weight:300;letter-spacing:-.005em;color:#f2f2f2;line-height:1.2">{{ g.name }}</div>
+                  <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a8a;margin-top:6px">{{ g.sub }}</div>
+                </div>
+                <div style="flex:none;text-align:right">
+                  <div style="font-size:13.5px;font-weight:300;color:#e8e8e8;line-height:1">{{ g.price }}</div>
+                  <div style="font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a7a7a;margin-top:5px">{{ g.per }}</div>
+                </div>
+                <div class="rplus {{ g.onClass }}"></div>
+              </div>
+              <sc-if value="{{ g.open }}" hint-placeholder-val="{{ false }}">
+                <div class="rspec" style="padding:0 16px 15px;display:flex;flex-direction:column;gap:15px">
+                  <div style="height:1px;background:rgba(255,255,255,.12)"></div>
+                  <sc-if value="{{ g.img }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:relative;aspect-ratio:16/9;max-width:460px;border:1px dashed rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#5e5e5e;overflow:hidden">{{ imgSoon }}<img src="{{ g.photo }}" alt="{{ g.name }}" loading="lazy" onError="{{ imgFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0d0d0d"></div>
+                  </sc-if>
+                  <div style="display:flex;gap:26px;flex-wrap:wrap">
+                    <sc-for list="{{ g.specs }}" as="sp" hint-placeholder-count="3">
+                      <div style="display:flex;flex-direction:column;gap:5px">
+                        <span style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:#7a7a7a">{{ sp.k }}</span>
+                        <span style="font-size:12px;font-weight:300;color:#e2e2e2">{{ sp.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ g.hasDesc }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;line-height:1.7;color:#a6a6a6;text-wrap:pretty;max-width:74ch">{{ g.desc }}</div></sc-if>
+                  <sc-if value="{{ g.hasKit }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a8a;margin-bottom:11px">{{ includes }}</div>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:5px 22px">
+                        <sc-for list="{{ g.kit }}" as="k" hint-placeholder-count="6">
+                          <div style="display:flex;gap:9px;align-items:baseline;font-size:11px;line-height:1.45;color:#c0c0c0">
+                            <span style="flex:none;color:#6e6e6e;font-size:9px;min-width:16px">{{ k.qty }}</span>
+                            <span style="text-wrap:pretty">{{ k.name }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ g.isCam }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:11px;border-top:1px solid rgba(255,255,255,.1);padding-top:15px">
+                      <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a8a">{{ g.lensQ }}</div>
+                      <sc-if value="{{ g.hasLens }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;gap:7px">
+                          <sc-for list="{{ g.lenses }}" as="l" hint-placeholder-count="3">
+                            <span class="lchip {{ l.onCls }}" onClick="{{ l.add }}" role="button" tabindex="0">{{ l.label }}<i>{{ l.price }}</i></span>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ g.noLens }}" hint-placeholder-val="{{ false }}">
+                        <div style="font-size:10.5px;line-height:1.65;color:#9a9a9a;text-wrap:pretty;max-width:64ch">{{ g.lensNone }}</div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <div style="padding:0 16px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <span style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:#7a7a7a">{{ g.stock }}</span>
+                <div style="display:flex;align-items:center;gap:9px">
+                  <sc-if value="{{ g.inCart }}" hint-placeholder-val="{{ false }}">
+                    <span class="qbtn" onClick="{{ g.sub1 }}" role="button" aria-label="−">−</span>
+                    <span style="min-width:20px;text-align:center;font-size:12.5px;color:#f2f2f2">{{ g.qty }}</span>
+                  </sc-if>
+                  <span class="radd" onClick="{{ g.add }}" role="button" tabindex="0">{{ g.addLbl }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ rentalEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(255,255,255,.16);background:rgba(12,12,12,.7);padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div style="font-size:11px;line-height:1.7;color:#9a9a9a;text-wrap:pretty">{{ rentalSoon }}</div>
+              <a href="mailto:info@velourpixel.com?subject=Lista%20de%20material" style="align-self:flex-start;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#0e0e0e;background:#ededed;padding:11px 17px" style-hover="background:#ffffff">{{ rentalCta }}</a>
+            </div>
+          </sc-if>
+        </div>
+        <div style="font-size:9.5px;line-height:1.75;color:#7d7d7d;text-wrap:pretty;max-width:76ch">{{ rentalNote }} <a href="conditions.dc.html" target="_blank" rel="noopener" onClick="{{ openTerms }}" style="color:#c8c8c8;border-bottom:1px solid rgba(255,255,255,.3)">{{ rTermsLink }}</a>.</div>
+      </div>
+
+      <div style="position:sticky;top:94px;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.18);background:rgba(13,13,13,.82)">
+        <div style="flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 19px;border-bottom:1px solid rgba(255,255,255,.13)">
+          <span style="font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:#9a9a9a">{{ rStepLbl }}</span>
+          <span style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7a7a7a;white-space:nowrap">{{ rCartCount }}</span>
+        </div>
+
+        <sc-if value="{{ rBrowse }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:17px;padding:18px 19px 21px">
+          <sc-if value="{{ rEmptyCart }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:11px;line-height:1.75;color:#8a8a8a;text-wrap:pretty">{{ rEmptyMsg }}</div>
+          </sc-if>
+          <sc-for list="{{ rCart }}" as="c" hint-placeholder-count="0">
+            <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.09)">
+              <div style="display:flex;align-items:flex-start;gap:12px">
+                <div style="flex:1 1 auto;min-width:0">
+                  <div style="font-size:12.5px;color:#f0f0f0;line-height:1.3">{{ c.name }}</div>
+                  <div style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#7a7a7a;margin-top:5px">{{ c.line }}</div>
+                </div>
+                <div style="flex:none;display:flex;align-items:center;gap:6px">
+                  <span class="qbtn" onClick="{{ c.sub1 }}" role="button" aria-label="−">−</span>
+                  <span style="min-width:17px;text-align:center;font-size:12px;color:#f2f2f2">{{ c.qty }}</span>
+                  <span class="qbtn" onClick="{{ c.add }}" role="button" aria-label="+">+</span>
+                  <span class="qbtn x" onClick="{{ c.del }}" role="button" aria-label="✕">✕</span>
+                </div>
+              </div>
+              <sc-if value="{{ rPerOn }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:8px">
+                  <input class="rdin" type="date" value="{{ c.from }}" min="{{ rMin }}" onChange="{{ c.setFrom }}" aria-label="{{ rFromLbl }}">
+                  <input class="rdin" type="date" value="{{ c.to }}" min="{{ c.minTo }}" onChange="{{ c.setTo }}" aria-label="{{ rToLbl }}">
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <span style="font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a">{{ rDatesLbl }}</span>
+              <span class="rtog {{ rPerCls }}" onClick="{{ toggleRPer }}" role="button" tabindex="0"><i></i>{{ rPerLbl }}</span>
+            </div>
+            <sc-if value="{{ rGlobalDates }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:8px">
+                <input class="rdin" type="date" value="{{ rFrom }}" min="{{ rMin }}" onChange="{{ setRFrom }}" aria-label="{{ rFromLbl }}">
+                <input class="rdin" type="date" value="{{ rTo }}" min="{{ rMinTo }}" onChange="{{ setRTo }}" aria-label="{{ rToLbl }}">
+              </div>
+            </sc-if>
+            <div style="font-size:9px;line-height:1.65;color:#7a7a7a;text-wrap:pretty">{{ r24h }}</div>
+          </div>
+
+          <div class="rsum" style="padding-top:2px"><span>{{ rSubLbl }}</span><b style="font-size:16px;font-weight:300">{{ rSubtotal }}</b></div>
+          <div class="rsum"><span>{{ rVatLbl }}</span><b>{{ rVat }}</b></div>
+          <button class="rprim" onClick="{{ rGoReview }}" disabled="{{ rContDisabled }}">{{ rContinue }}</button>
+          <sc-if value="{{ rHasMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:10px;line-height:1.65;color:#e0b9b9">{{ rMsg }}</div></sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ rReview }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;padding:18px 19px 21px">
+          <sc-for list="{{ rCart }}" as="c" hint-placeholder-count="0">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.08)">
+              <div style="min-width:0">
+                <div style="font-size:12px;color:#f0f0f0;line-height:1.3">{{ c.name }}</div>
+                <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#7a7a7a;margin-top:5px">{{ c.dates }}</div>
+              </div>
+              <div style="flex:none;text-align:right">
+                <div style="font-size:12.5px;color:#f0f0f0">{{ c.amountLbl }}</div>
+                <div style="font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#7a7a7a;margin-top:4px">{{ c.vatLbl }}</div>
+              </div>
+            </div>
+          </sc-for>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div class="rsum"><span>{{ rSubLbl }}</span><b>{{ rSubtotal }}</b></div>
+            <div class="rsum"><span>{{ rFeeLbl }}</span><b>{{ rFee }}</b></div>
+            <div class="rsum"><span>{{ rVatLbl }}</span><b>{{ rVat }}</b></div>
+            <div class="rsum"><span>{{ rShipLbl }}</span><b>{{ rShipVal }}</b></div>
+            <div style="height:1px;background:rgba(255,255,255,.13);margin:3px 0"></div>
+            <div class="rsum"><span style="font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a">{{ rTotalLbl }}</span><b style="font-size:19px;font-weight:300">{{ rTotal }}</b></div>
+            <div style="font-size:9px;line-height:1.65;color:#7a7a7a;text-wrap:pretty">{{ rTaxNote }}</div>
+          </div>
+          <button class="rprim" onClick="{{ rGoCheckout }}">{{ rContinue }}</button>
+          <button class="rghost" onClick="{{ rGoBrowse }}">{{ rEdit }}</button>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ rCheckout }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px;padding:18px 19px 21px">
+          <div class="rsum"><span>{{ rTotalLbl }}</span><b style="font-size:17px;font-weight:300">{{ rTotal }}</b></div>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span class="fmlab">{{ fmName }}</span>
+            <input class="fmin" ref="{{ rnNameRef }}" type="text" placeholder="{{ fmNamePh }}">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span class="fmlab">{{ fmContact }}</span>
+            <input class="fmin" ref="{{ rnContactRef }}" type="text" placeholder="{{ fmContactPh }}">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span class="fmlab">{{ rNotesLbl }}</span>
+            <textarea class="fmin" ref="{{ rnNotesRef }}" rows="3" placeholder="{{ rNotesPh }}"></textarea>
+          </label>
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <span class="cbox {{ rOkCls }}" onClick="{{ toggleROk }}" role="checkbox" tabindex="0"><svg viewBox="0 0 12 12" aria-hidden="true"><path pathLength="1" d="M2 6.4 4.7 9 10 3.2"></path></svg></span>
+            <div style="font-size:10.5px;line-height:1.6;color:#a0a0a0">{{ fmPriv }} <a href="privacy.dc.html" target="_blank" rel="noopener" onClick="{{ openPrivacy }}" style="color:#e8e8e8;border-bottom:1px solid rgba(255,255,255,.35)">{{ fmPrivLink }}</a>.</div>
+          </div>
+          <div style="font-size:10px;line-height:1.6;color:#8a8a8a">{{ rTermsPre }} <a href="conditions.dc.html" target="_blank" rel="noopener" onClick="{{ openTerms }}" style="color:#dcdcdc;border-bottom:1px solid rgba(255,255,255,.3)">{{ rTermsLink }}</a>.</div>
+          <button class="rprim" onClick="{{ submitRental }}" disabled="{{ rSending }}">{{ rSend }}</button>
+          <button class="rghost" onClick="{{ rGoReview }}">{{ rBackStep }}</button>
+          <sc-if value="{{ rHasMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:10px;line-height:1.65;color:#e0b9b9">{{ rMsg }}</div></sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ rSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:15px;padding:20px 19px 22px">
+          <div style="font-size:19px;font-weight:300;color:#f4f4f4">{{ rSentTitle }}</div>
+          <div style="font-size:11.5px;line-height:1.75;color:#9a9a9a;text-wrap:pretty">{{ rSentBody }}</div>
+          <button class="rprim" onClick="{{ rReset }}">{{ rNewOrder }}</button>
+        </div>
+        </sc-if>
+      </div>
+    </div>
   </div>
   </sc-if>
 
   <!-- ============================= FICHA DE PROYECTO ============================= -->
   <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
-  <div style="height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden">
+  <div style="height:100dvh;position:relative;display:flex;flex-direction:column;overflow:hidden">
     <div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none">
       <div ref="{{ fichaBgRef }}" style="position:absolute;inset:0;filter:blur(26px) saturate(1.1) brightness(.5);transform:scale(1.12)"></div>
       <div style="position:absolute;inset:0;background:rgba(8,8,8,.38)"></div>
@@ -213,13 +758,361 @@ a{color:inherit;text-decoration:none}
   </div>
   </sc-if>
 
+  <sc-if value="{{ cookieAsk }}" hint-placeholder-val="{{ false }}">
+  <div class="ckbar">
+    <div class="ckcard">
+      <div class="cktxt">{{ ckText }} <a href="privacy.dc.html" target="_blank" rel="noopener" onClick="{{ openPrivacy }}">{{ ckLink }}</a>.</div>
+      <span class="ckbtn ghost" onClick="{{ ckMin }}" role="button" tabindex="0">{{ ckMinLbl }}</span>
+      <span class="ckbtn solid" onClick="{{ ckAll }}" role="button" tabindex="0">{{ ckAllLbl }}</span>
+    </div>
+  </div>
+  </sc-if>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;carouselSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:22,&quot;min&quot;:10,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ajustes&quot;,&quot;label&quot;:&quot;Velocidad del carrusel de frames&quot;},&quot;heroLogoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:280,&quot;min&quot;:120,&quot;max&quot;:360,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ajustes&quot;,&quot;label&quot;:&quot;Ancho del logo en portada&quot;}}">
 class Component extends DCLogic {
-  state = { lang: "es", view: "home", proj: 0, muted: true, revealed: false, panel: null, navMode: "main", cat: null, wGlitch: false };
+  state = { lang: "es", cookies: null, view: "home", proj: 0, muted: true, revealed: false, vidHold: false, panel: null, navMode: "main", cat: null, sub: null, wGlitch: false, rq: {}, rfrom: "", rto: "", rper: false, rsearch: "", rstep: "browse", rOk: false, rState: "idle", rMsg: "", formOpen: false, fmTags: [], fmOk: false, fmState: "idle", fmMsg: "", bg: "fluid", rcat: "camara", ritem: null };
   w = [];
+  // fondo: vídeo showreel ↔ degradado fluido que sigue al ratón y responde a los clics
+  fluidRef = (el) => { this.fluidEl = el; };
+  rlistRef = (el) => { this.rlistEl = el; };
+  rsearchRef = (el) => { this.rsearchEl = el; };
+  rnNameRef = (el) => { this.rnName = el; };
+  rnContactRef = (el) => { this.rnContact = el; };
+  rnNotesRef = (el) => { this.rnNotes = el; };
+  // ── RENTAL: pantalla propia, selección de material y solicitud de reserva
+  openRental = () => this.setState({ view: "rental", rstep: "browse", rMsg: "" });
+  // dentro de rental, "volver" retrocede un paso: solo sale desde la lista
+  rentalBack = () => {
+    const st = this.state.rstep || "browse";
+    if (st === "sent") { this.rReset(); return; }
+    if (st === "checkout") { this.setState({ rstep: "review", rMsg: "" }); return; }
+    if (st === "review") { this.setState({ rstep: "browse", rMsg: "" }); return; }
+    this.setState({ view: "home", revealed: true, navMode: "pixels", panel: "pixels", sub: null, cat: null }, () => {
+      if (this.syncOverlay) this.syncOverlay();
+    });
+  };
+  noop = () => {};
+  // las tarjetas entran escalonadas cada vez que cambia la lista
+  replayCards = () => {
+    requestAnimationFrame(() => {
+      const els = document.querySelectorAll(".rcard");
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i];
+        el.style.animation = "none";
+        void el.offsetWidth;
+        el.style.animation = "rcin .5s cubic-bezier(.2,.8,.2,1) " + Math.min(i * 0.03, 0.36).toFixed(2) + "s both";
+      }
+    });
+  };
+  rSlug = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  rNorm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // los pedidos necesitan 24 h de antelación: nunca se puede elegir hoy
+  rMinDate = () => new Date(Date.now() + 24 * 3600 * 1000 - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  rDays = (from, to) => {
+    if (!from) return 1;
+    const a = new Date(from + "T00:00"), b = new Date((to || from) + "T00:00");
+    const d = Math.round((b - a) / 86400000) + 1;
+    return d > 0 ? d : 1;
+  };
+  addGear = (id, max) => () => this.setState((s) => {
+    const q = Object.assign({}, s.rq || {});
+    const cur = q[id] ? q[id].qty : 0;
+    if (cur >= max) return { rMsg: "" };
+    q[id] = { qty: cur + 1, from: (q[id] && q[id].from) || "", to: (q[id] && q[id].to) || "" };
+    return { rq: q, rMsg: "" };
+  });
+  subGear = (id) => () => this.setState((s) => {
+    const q = Object.assign({}, s.rq || {});
+    if (!q[id]) return { rMsg: "" };
+    if (q[id].qty <= 1) delete q[id]; else q[id] = Object.assign({}, q[id], { qty: q[id].qty - 1 });
+    return { rq: q, rMsg: "" };
+  });
+  delGear = (id) => () => this.setState((s) => {
+    const q = Object.assign({}, s.rq || {});
+    delete q[id];
+    return { rq: q, rMsg: "" };
+  });
+  setItemDate = (id, k) => (e) => {
+    const v = e.target.value;
+    this.setState((s) => {
+      const q = Object.assign({}, s.rq || {});
+      if (!q[id]) return { rMsg: "" };
+      const it = Object.assign({}, q[id]);
+      it[k] = v;
+      if (k === "from" && it.to && it.to < v) it.to = v;
+      q[id] = it;
+      return { rq: q, rMsg: "" };
+    });
+  };
+  setRFrom = (e) => this.setState((s) => ({ rfrom: e.target.value, rto: s.rto && s.rto < e.target.value ? e.target.value : s.rto, rMsg: "" }));
+  setRTo = (e) => this.setState({ rto: e.target.value, rMsg: "" });
+  toggleRPer = () => this.setState((s) => ({ rper: !s.rper, rMsg: "" }));
+  onRSearch = (e) => this.setState({ rsearch: e.target.value, ritem: null }, this.replayCards);
+  toggleROk = () => this.setState((s) => ({ rOk: !s.rOk, rMsg: "" }));
+  rGoBrowse = () => this.setState({ rstep: "browse", rMsg: "" });
+  rGoReview = () => {
+    const es = this.state.lang === "es";
+    const c = this._cart || { rows: [] };
+    if (!c.rows.length) { this.setState({ rMsg: es ? "Selecciona al menos un artículo." : "Pick at least one item." }); return; }
+    // la fecha se pide aquí: los importes del resumen dependen de los días
+    const bad = this.state.rper ? c.rows.some((r) => !r.from) : !this.state.rfrom;
+    if (bad) { this.setState({ rMsg: es ? "Indica la fecha de recogida." : "Set the pick-up date." }); return; }
+    this.setState({ rstep: "review", rMsg: "" });
+  };
+  rGoCheckout = () => this.setState({ rstep: "checkout", rMsg: "" });
+  rReset = () => this.setState({ rq: {}, rstep: "browse", rOk: false, rState: "idle", rMsg: "", rfrom: "", rto: "" });
+  // la solicitud viaja al mismo buzón que el formulario de proyectos
+  submitRental = () => {
+    if (this.state.rState === "sending") return;
+    const es = this.state.lang === "es";
+    const c = this._cart || { rows: [] };
+    const val = (el) => ((el && el.value) || "").trim();
+    const name = val(this.rnName), contact = val(this.rnContact), notes = val(this.rnNotes);
+    if (!name || !contact) { this.setState({ rMsg: es ? "Falta tu nombre o tu contacto." : "Your name or contact is missing." }); return; }
+    if (!this.state.rOk) { this.setState({ rMsg: es ? "Acepta la política de privacidad para enviar." : "Accept the privacy policy to send." }); return; }
+    this.setState({ rState: "sending", rMsg: es ? "Enviando…" : "Sending…" });
+    const lines = c.rows.map((r) => "· " + r.name + " ×" + r.qty + " — " + r.dates + " — " + r.amountLbl).join("\n");
+    const payload = {
+      _subject: "Reserva de material · " + name, _template: "table", _captcha: "false",
+      Nombre: name, Contacto: contact,
+      Material: lines || "—",
+      Fechas: c.datesLbl || "—",
+      Presupuesto: (c.subLbl || "—") + " + 10% reserva (" + (c.feeLbl || "—") + ") + IVA 21% (" + (c.vatLbl || "—") + ") = " + (c.totalLbl || "—") + " IVA incl. · transporte a consultar",
+      Notas: notes || "—",
+      Origen: "velourpixel.com/rental",
+    };
+    fetch("https://formsubmit.co/ajax/info@velourpixel.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.json())
+      .then((j) => {
+        if (j && (j.success === "true" || j.success === true)) this.setState({ rstep: "sent", rState: "ok", rMsg: "" });
+        else throw new Error("no");
+      })
+      .catch(() => {
+        // si el envío falla, se abre el correo con todo escrito
+        const body = encodeURIComponent(
+          (es ? "Material:\n" : "Gear:\n") + lines + "\n\n" + (es ? "Fechas: " : "Dates: ") + (c.datesLbl || "") +
+          "\n" + (es ? "Presupuesto aprox.: " : "Approx. budget: ") + (c.totalLbl || "") +
+          "\n\n" + (es ? "Nombre: " : "Name: ") + name + "\n" + (es ? "Contacto: " : "Contact: ") + contact +
+          (notes ? "\n\n" + notes : ""));
+        window.location.href = "mailto:info@velourpixel.com?subject=" + encodeURIComponent("Reserva de material · " + name) + "&body=" + body;
+        this.setState({ rState: "idle", rMsg: es ? "Abrimos tu correo para enviarlo." : "Opening your mail app to send it." });
+      });
+  };
+  setRcat = (id) => () => this.setState({ rcat: id, ritem: null, rsearch: "" }, () => {
+    if (this.rsearchEl) this.rsearchEl.value = "";
+    this.replayCards();
+  });
+  // si la foto del artículo todavía no está subida, queda el marco con su rótulo
+  imgFail = (e) => { if (e && e.currentTarget) e.currentTarget.style.display = "none"; };
+  tapGear = (id) => () => this.setState({ ritem: this.state.ritem === id ? null : id });
+  // el fondo arranca en degradado: el vídeo entra solo cuando ya está reproduciendo
+  videoReady = () => {
+    if (this._vidHoldT) { clearTimeout(this._vidHoldT); this._vidHoldT = null; }
+    if (this.state.vidHold) this.setState({ vidHold: false });
+    this._vidSeen = true;
+    if (this._bgTouched || this.state.bg !== "fluid") return;
+    this.setState({ bg: "video" });
+  };
+  // el vídeo de fondo no se destruye nunca: se pausa y se reanuda donde estaba
+  syncPlayback = () => {
+    const warmup = !this._vidSeen && !this._bgTouched && this.state.bg === "fluid";
+    const on = (this.state.bg !== "fluid" || warmup) && !this.isPx() && this.embedsOk();
+    if (!on) { if (this.player) { try { this.player.pause(); } catch (e) {} } return; }
+    if (!this.player) { this.initYT(); return; }
+    try { this.player.play(); } catch (e) {}
+  };
+  sndRef = (el) => { this.sndEl = el; this.syncSnd(); };
+  // sin vídeo detrás no hay nada que silenciar: el botón se va con ruido y vuelve igual
+  syncSnd = () => {
+    const el = this.sndEl;
+    if (!el || !el.isConnected) return;
+    const hide = this.state.bg === "fluid" || this.isPx();
+    if (el._sndHidden === undefined) { el.classList.toggle("gone", hide); el._sndHidden = hide; return; }
+    if (el._sndHidden === hide) return;
+    el._sndHidden = hide;
+    el.classList.remove("gone", "snd-out", "snd-in");
+    el.classList.add(hide ? "snd-out" : "snd-in");
+  };
+  setBgMode = (mode) => () => { if (this.state.bg !== mode) this.toggleBg(); };
+  toggleBg = () => {
+    this._bgTouched = true;
+    const fluid = this.state.bg !== "fluid";
+    this.setState({ bg: fluid ? "fluid" : "video", vidHold: false, muted: true }, this.syncPlayback);
+  };
+  drawFluid = (t) => {
+    const el = this.fluidEl;
+    if (!el || !el.isConnected) return;
+    const W = 224, H = 126;
+    if (el.width !== W) { el.width = W; el.height = H; }
+    const g = el.getContext("2d");
+    const cr = el.getBoundingClientRect();
+    if (!cr.width) return;
+    const mx = this.mx === undefined ? 0.5 : Math.max(0, Math.min(1, (this.mx - cr.left) / cr.width));
+    const my = this.my === undefined ? 0.5 : Math.max(0, Math.min(1, (this.my - cr.top) / (cr.height || 1)));
+    // en velour pixels el degradado va en negativo: grises claros sobre blanco
+    const px = this.isPx();
+    if (px && !this._flPx) this._flPx = [
+      { x: 0.3, y: 0.34, r: 0.34, c: "rgba(72,92,190,", s: 0.020, ph: 0.0, ox: -0.16, oy: -0.10 },
+      { x: 0.7, y: 0.30, r: 0.30, c: "rgba(168,72,186,", s: 0.013, ph: 2.1, ox: 0.18, oy: -0.06 },
+      { x: 0.5, y: 0.70, r: 0.38, c: "rgba(84,104,120,", s: 0.010, ph: 4.2, ox: 0.02, oy: 0.18 },
+      { x: 0.2, y: 0.78, r: 0.26, c: "rgba(206,142,54,", s: 0.017, ph: 1.1, ox: -0.20, oy: 0.12 },
+    ];
+    if (!this._fl) this._fl = [
+      { x: 0.3, y: 0.34, r: 0.60, c: "rgba(62,70,90,", s: 0.020, ph: 0.0, ox: -0.16, oy: -0.10 },
+      { x: 0.7, y: 0.30, r: 0.50, c: "rgba(88,74,98,", s: 0.013, ph: 2.1, ox: 0.18, oy: -0.06 },
+      { x: 0.5, y: 0.70, r: 0.64, c: "rgba(42,50,60,", s: 0.010, ph: 4.2, ox: 0.02, oy: 0.18 },
+      { x: 0.2, y: 0.78, r: 0.44, c: "rgba(104,100,96,", s: 0.017, ph: 1.1, ox: -0.20, oy: 0.12 },
+    ];
+    g.globalCompositeOperation = "source-over";
+    g.fillStyle = px ? "#f4f4f2" : "#0a0a0c";
+    g.fillRect(0, 0, W, H);
+    g.globalCompositeOperation = px ? "multiply" : "lighter";
+    (px ? this._flPx : this._fl).forEach((b, i) => {
+      const tx = mx + b.ox + Math.cos(t * 0.00012 * (i + 1) + b.ph) * 0.15;
+      const ty = my + b.oy + Math.sin(t * 0.00016 * (i + 1) + b.ph) * 0.14;
+      b.x += (tx - b.x) * b.s;
+      b.y += (ty - b.y) * b.s;
+      const R = (b.r + Math.sin(t * 0.0004 + b.ph) * 0.05) * W * (px ? 0.78 : 0.6);
+      const gr = g.createRadialGradient(b.x * W, b.y * H, 0, b.x * W, b.y * H, R);
+      gr.addColorStop(0, b.c + (px ? "0.62)" : "0.9)"));
+      gr.addColorStop(px ? 0.34 : 0.5, b.c + (px ? "0.2)" : "0.3)"));
+      gr.addColorStop(1, b.c + "0)");
+      g.fillStyle = gr;
+      g.beginPath(); g.arc(b.x * W, b.y * H, R, 0, 6.29); g.fill();
+    });
+    this._rip = (this._rip || []).filter((r) => t - r.t < 2200);
+    this._rip.forEach((r) => {
+      const p = (t - r.t) / 2200;
+      const R = 6 + p * W * 0.85;
+      const a = (1 - p) * (px ? 0.3 : 0.42);
+      const gr = g.createRadialGradient(r.x * W, r.y * H, R * 0.6, r.x * W, r.y * H, R);
+      const rc = px ? "58,72,120" : "158,158,170";
+      gr.addColorStop(0, "rgba(" + rc + ",0)");
+      gr.addColorStop(0.78, "rgba(" + rc + "," + a.toFixed(3) + ")");
+      gr.addColorStop(1, "rgba(" + rc + ",0)");
+      g.fillStyle = gr;
+      g.beginPath(); g.arc(r.x * W, r.y * H, R, 0, 6.29); g.fill();
+    });
+    g.globalCompositeOperation = "source-over";
+  };
+  // PIXELS: bloques limpios de 5×7 con hueco entre ellos, siempre legible
+  PXG = { P: ["11110", "10001", "10001", "11110", "10000", "10000", "10000"], I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"], X: ["10001", "10001", "01010", "00100", "01010", "10001", "10001"], E: ["11111", "10000", "10000", "11110", "10000", "10000", "11111"], L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"], S: ["01111", "10000", "10000", "01110", "00001", "00001", "11110"] };
+  pxRef = (el) => { this.pxCv = el; if (el) this.drawPxWord(); };
+  // el <span> del menú se reutiliza entre modos: al dejar de ser PIXELS hay que
+  // devolverle su caja natural, o hereda las medidas del rótulo de bloques
+  clearPxBox = () => {
+    (this.w || []).forEach((el) => {
+      if (el && !el.classList.contains("pxw") && el.style.width) { el.style.width = ""; el.style.height = ""; }
+    });
+  };
+  drawPxWord = () => {
+    const cv = this.pxCv;
+    if (!cv || !cv.isConnected) return;
+    const host = cv.parentElement;
+    if (!host) return;
+    // la rejilla se deriva del tamaño de letra del menú: 7 filas = altura de mayúscula
+    const hcs = getComputedStyle(host);
+    const fs = parseFloat(hcs.fontSize) || 21;
+    // rejilla de bloques enteros: cuadraditos nítidos con hueco visible entre ellos
+    const P = Math.max(2.5, Math.round(fs * 0.12 * 2) / 2), B = P - Math.max(0.5, Math.round(P * 0.25 * 2) / 2), G = P - B;
+    const glyphs = "PIXELS".split("").map((c) => this.PXG[c]);
+    const cols = glyphs.reduce((n, gl) => n + gl[0].length, 0) + glyphs.length - 1;
+    const W = cols * P - G, H = 7 * P - G;
+    const padX = parseFloat(hcs.paddingLeft) + parseFloat(hcs.paddingRight);
+    const padY = parseFloat(hcs.paddingTop) + parseFloat(hcs.paddingBottom);
+    // solo se escribe si cambia: sin invalidar el layout en cada fotograma
+    const wantW = Math.round(W + padX) + "px", wantH = Math.round(H + padY) + "px";
+    if (host.style.width !== wantW) host.style.width = wantW;
+    if (host.style.height !== wantH) host.style.height = wantH;
+    if (cv.style.left !== hcs.paddingLeft) cv.style.left = hcs.paddingLeft;
+    const dpr = Math.max(1, Math.min(3, Math.round(window.devicePixelRatio || 1)));
+    const key = W.toFixed(1) + "x" + H.toFixed(1) + "@" + dpr;
+    if (cv._key === key) return;
+    cv._key = key;
+    cv.width = Math.ceil(W * dpr); cv.height = Math.ceil(H * dpr);
+    cv.style.width = W.toFixed(1) + "px"; cv.style.height = H.toFixed(1) + "px";
+    const g = cv.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = "#f2f2f2";
+    let col = 0;
+    glyphs.forEach((gl) => {
+      for (let r = 0; r < 7; r++) for (let c = 0; c < gl[r].length; c++) {
+        if (gl[r][c] === "1") g.fillRect((col + c) * P, r * P, B, B);
+      }
+      col += gl[0].length + 1;
+    });
+  };
+  // el logo del canvas y el <img> que le da la caja cambian juntos en modo pixels
+  isPx = () => this.state.navMode === "pixels" || this.state.navMode === "pxwork";
+  logoSrcFor = () => (this.isPx() ? "uploads/pixels-logo.png" : "uploads/Workdmark_Blanca.svg");
+  syncLogoSrc = () => {
+    const el = this.logoEl;
+    if (!el) return;
+    const want = this.logoSrcFor();
+    if (el.getAttribute("src") !== want) el.setAttribute("src", want);
+  };
   wref = (i) => (el) => { this.w[i] = el; };
+  // la etiqueta vive en un hijo .navlbl para que la flecha de CONTACT sobreviva a los reescritos
+  lbl = (el) => (el && el.querySelector ? (el.querySelector(".navlbl") || el) : el);
+  openTerms = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const base = (document.baseURI || window.location.href).replace(/[?#].*$/, "").replace(/[^/]*$/, "");
+    window.open(base + "conditions.dc.html", "_blank", "noopener");
+  };
+  openPrivacy = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const base = (document.baseURI || window.location.href).replace(/[?#].*$/, "").replace(/[^/]*$/, "");
+    window.open(base + "privacy.dc.html", "_blank", "noopener");
+  };
+  openForm = () => this.setState({ formOpen: true, fmState: "idle", fmMsg: "" });
+  closeForm = () => this.setState({ formOpen: false });
+  stopClick = (e) => { if (e && e.stopPropagation) e.stopPropagation(); };
+  toggleOk = () => this.setState((s) => ({ fmOk: !s.fmOk, fmMsg: "" }));
+  tapChip = (label) => () => this.setState((s) => {
+    const cur = s.fmTags || [];
+    return { fmTags: cur.indexOf(label) >= 0 ? cur.filter((x) => x !== label) : cur.concat([label]) };
+  });
+  // envío directo a info@velourpixel.com (sin backend); si falla, abre el correo con todo escrito
+  submitForm = () => {
+    if (this.state.fmState === "sending") return;
+    const es = this.state.lang === "es";
+    const val = (el) => ((el && el.value) || "").trim();
+    const name = val(this.fmName), contact = val(this.fmContact), desc = val(this.fmDesc);
+    const budget = (this.fmBudget && this.fmBudget.value) || "";
+    const tags = (this.state.fmTags || []).join(" · ");
+    if (!name || !contact) { this.setState({ fmState: "err", fmMsg: es ? "Falta tu nombre o tu contacto." : "Your name or contact is missing." }); return; }
+    if (!this.state.fmOk) { this.setState({ fmState: "err", fmMsg: es ? "Acepta la política de privacidad para enviar." : "Accept the privacy policy to send." }); return; }
+    this.setState({ fmState: "sending", fmMsg: es ? "Enviando…" : "Sending…" });
+    const payload = {
+      _subject: "Nuevo proyecto · " + name, _template: "table", _captcha: "false",
+      Nombre: name, Contacto: contact, Servicios: tags || "—", Proyecto: desc || "—",
+      Presupuesto: budget, Origen: "velourpixel.com",
+    };
+    fetch("https://formsubmit.co/ajax/info@velourpixel.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+    }).then((r) => r.json()).then((j) => {
+      if (String(j && j.success) === "true") this.setState({ fmState: "sent", fmMsg: "" });
+      else throw new Error("no");
+    }).catch(() => {
+      this.mailtoFallback(payload);
+      this.setState({ fmState: "err", fmMsg: es
+        ? "No hemos podido enviarlo desde aquí: abrimos tu correo con el mensaje listo."
+        : "We couldn't send it from here: we opened your mail app with the message ready." });
+    });
+  };
+  mailtoFallback = (p) => {
+    const body = Object.keys(p).filter((k) => k[0] !== "_").map((k) => k + ": " + p[k]).join("\n");
+    window.location.href = "mailto:info@velourpixel.com?subject=" + encodeURIComponent(p._subject) + "&body=" + encodeURIComponent(body);
+  };
   glitchSwap = (patch) => {
     this.setState({ wGlitch: true });
     clearTimeout(this._gs1); clearTimeout(this._gs2); clearInterval(this._scr);
@@ -227,16 +1120,17 @@ class Component extends DCLogic {
     this._scr = setInterval(() => {  // scramble de caracteres durante el morph
       (this.w || []).forEach((el) => {
         if (!el || !el.isConnected) return;
-        el.textContent = (el.textContent || "").split("").map((ch) =>
-          ch === " " ? ch : (Math.random() < 0.45 ? chars[Math.floor(Math.random() * chars.length)] : ch)).join("");
+        const lb = this.lbl(el);
+        lb.textContent = (lb.textContent || "").split("").map((ch) =>
+          ch === " " ? ch : (Math.random() < 0.3 ? chars[Math.floor(Math.random() * chars.length)] : ch)).join("");
       });
-    }, 40);
-    this._gs1 = setTimeout(() => { this.setState(patch); this.generateRects(4); }, 220);
+    }, 95);
+    this._gs1 = setTimeout(() => { this.setState(patch); this.generateRects((patch.navMode || this.state.navMode) === "pixels" ? 4 : 5); }, 220);
     this._gs2 = setTimeout(() => {
       clearInterval(this._scr);
       // restaura las etiquetas finales directamente en el DOM (React no re-escribe nodos de texto iguales)
       const labels = this.navLabels(patch.navMode || this.state.navMode);
-      (this.w || []).forEach((el, i) => { if (el && el.isConnected && labels[i] !== undefined) el.textContent = labels[i]; });
+      (this.w || []).forEach((el, i) => { if (el && el.isConnected && labels[i] !== undefined) this.lbl(el).textContent = labels[i]; });
       this.setState({ wGlitch: false });
     }, 560);
   };
@@ -248,6 +1142,36 @@ class Component extends DCLogic {
   scrollRef = (el) => { this.scrollEl = el; };
 
 
+  // póster de Vimeo: la miniatura oficial entra al instante y el player se funde encima al arrancar.
+  // sin esto, un embed que no llega a reproducir (móvil, límite de reproductores, red lenta) deja el hueco negro
+  vmMeta = (id, h) => {
+    if (!this._vmMeta) this._vmMeta = {};
+    if (!this._vmMeta[id]) {
+      this._vmMeta[id] = fetch("https://vimeo.com/api/oembed.json?width=1280&url=" + encodeURIComponent("https://vimeo.com/" + id + (h ? "/" + h : "")))
+        .then((r) => r.json()).catch(() => null);
+    }
+    return this._vmMeta[id];
+  };
+  vmPoster = (el, id, h) => {
+    this.vmMeta(id, h).then((j) => {
+      if (!j || !el || !el.isConnected) return;
+      if (j.title && (this.state.titles || {})[id] !== j.title) {
+        this.setState((s) => ({ titles: { ...(s.titles || {}), [id]: j.title } }));
+      }
+      const u = j.thumbnail_url;
+      if (!u) return;
+      const im = new Image();
+      im.onload = () => {
+        if (!el.isConnected) return;
+        el._vmPoster = u;
+        el.style.backgroundImage = 'url("' + u + '")';
+        el.style.backgroundSize = "cover";
+        el.style.backgroundPosition = "center";
+        this.revealTile(el);
+      };
+      im.src = u;
+    });
+  };
   // overlay de carga: logo formándose a partir de píxeles con ruido
   addLoader = (el) => {
     let c = el.querySelector("canvas.loadcv");
@@ -279,7 +1203,7 @@ class Component extends DCLogic {
   hideRectEls = () => { (this._rectEls || []).forEach((d) => { d.style.display = "none"; }); };
   rand = (a, b) => a + Math.random() * (b - a);
   generateRects = (n) => {
-    const count = n ?? (this.state.navMode === "work" ? 5 : 4);
+    const count = n ?? (this.isPx() ? 4 : 5);
     const mk = (xr, yr, wr, hr) => ({
       x: this.rand(xr[0], xr[1]), y: this.rand(yr[0], yr[1]),
       w: this.rand(wr[0], wr[1]), h: this.rand(hr[0], hr[1]),
@@ -292,7 +1216,7 @@ class Component extends DCLogic {
       [[0.10, 0.30], [0.50, 0.70]],
       [[0.64, 0.82], [0.52, 0.70]],
     ];
-    const sz = count > 3 ? [[0.12, 0.20], [0.24, 0.42]] : [[0.15, 0.25], [0.30, 0.55]];
+    const sz = count > 3 ? [[0.07, 0.115], [0.15, 0.25]] : [[0.09, 0.14], [0.19, 0.31]];
     this.rects = zonesR.slice(0, count).map((z) => mk(z[0], z[1], sz[0], sz[1])).map((r) => {
       if (r.x + r.w > 0.98) r.x = 0.98 - r.w;
       if (r.y + r.h > 0.96) r.y = 0.96 - r.h;
@@ -304,24 +1228,29 @@ class Component extends DCLogic {
 
   // el velo se deriva de state.revealed: ninguna ruta puede desincronizarlo
   syncOverlay = () => {
-    if (this.overlay) this.overlay.style.opacity = this.state.revealed ? ".58" : ".28";
+    if (!this.overlay) return;
+    // en negativo el velo pesa menos: el degradado claro no debe quedar lavado
+    const soft = this.isPx() && this.state.bg === "fluid";
+    this.overlay.style.opacity = this.state.revealed ? (soft ? ".3" : ".58") : (soft ? ".14" : ".28");
+    this.overlay.style.background = this.isPx() ? "#f6f6f4" : "#0a0a0a";
   };
   reveal = (v) => {
     if (this.overlay) this.overlay.style.opacity = v ? ".58" : ".28";
     if (v) this.generateRects();
-    this.setState({ revealed: v, panel: v ? this.state.panel : null, navMode: v ? this.state.navMode : "main", cat: v ? this.state.cat : null });
+    this.setState({ revealed: v, panel: v ? this.state.panel : null, navMode: v ? this.state.navMode : "main", cat: v ? this.state.cat : null, sub: v ? this.state.sub : null });
   };
   openPanel = (p) => {
     const opening = this.state.panel !== p;
-    this.setState({ panel: opening ? p : null }, () => { if (opening && p === "us") this.armTeam(); });
+    this.setState({ panel: opening ? p : null }, () => { if (opening && p === "about") this.armTeam(); });
   };
   navLabels = (mode) => {
     const lang = this.state.lang;
-    return mode === "work"
-      ? (lang === "es"
-        ? ["documental", "podcast", "videoclip", "fashion film"]
-        : ["documentary", "podcast", "music video", "fashion film"])
-      : ["work", "contact", "about", "us"];
+    if (mode === "work") return lang === "es"
+      ? ["documental", "videoclip", "fashion film"]
+      : ["documentary", "music video", "fashion film"];
+    if (mode === "pxwork") return ["social media", "podcast"];
+    if (mode === "pixels") return ["rental", "campaigns"];
+    return ["projects", "contact", "about"];
   };
   // al abrir "us", cada foto vuelve a formarse con ruido y aparece con su línea
   armTeam = () => {
@@ -331,17 +1260,74 @@ class Component extends DCLogic {
       setTimeout(() => this.revealTile(el), 120 + Math.random() * 420);
     });
   };
+  // franja del equipo: avanza sola y se detiene mientras la tocas o pasas el ratón
+  stripRef = (el) => {
+    this.stripEl = el;
+    if (!el || el._armed) return;
+    el._armed = true;
+    const hold = () => { el._hold = performance.now(); el._x = el.scrollLeft; };
+    el.addEventListener("pointerenter", hold, { passive: true });
+    el.addEventListener("pointerdown", hold, { passive: true });
+    el.addEventListener("pointermove", (e) => { if (e.buttons || e.pointerType !== "mouse") hold(); }, { passive: true });
+    el.addEventListener("wheel", hold, { passive: true });
+    el.addEventListener("touchstart", hold, { passive: true });
+    el.addEventListener("touchmove", hold, { passive: true });
+  };
+  driftStrip = () => {
+    const sc = this.stripEl;
+    if (!sc || !sc.isConnected || this.state.panel !== "about") return;
+    if (sc._hold && performance.now() - sc._hold < 1600) return;
+    // sin tarjetas duplicadas: la franja va y vuelve, con una pausa en cada extremo
+    const max = sc.scrollWidth - sc.clientWidth;
+    if (max < 8) return;
+    if (!sc._dir) sc._dir = 1;
+    let x = (sc._x == null ? sc.scrollLeft : sc._x) + 0.34 * sc._dir;
+    if (x >= max) { x = max; sc._dir = -1; sc._hold = performance.now(); }
+    else if (x <= 0) { x = 0; sc._dir = 1; sc._hold = performance.now(); }
+    sc._x = x;
+    sc.scrollLeft = Math.round(x);
+  };
   teamRef = (i, src) => (el) => {
     if (!this.teamEls) this.teamEls = [];
     this.teamEls[i] = el;
-    if (el && el._src !== src) { el._src = src; el.style.backgroundImage = 'url("' + src + '?v=3")'; }
+    if (el && el._src !== src) {
+      el._src = src;
+      el.style.backgroundImage = 'url("' + src + '?v=3")';
+      // capa pixelada encima de la foto: se disuelve al pasar el ratón / al tocarla
+      let cv = el.querySelector("canvas.tmpix");
+      if (!cv) { cv = document.createElement("canvas"); cv.className = "tmpix"; el.appendChild(cv); }
+      const im = new Image();
+      im.onload = () => {
+        const N = 16;
+        cv.width = N; cv.height = N;
+        const g = cv.getContext("2d");
+        const s = Math.min(im.naturalWidth, im.naturalHeight);
+        g.clearRect(0, 0, N, N);
+        g.drawImage(im, (im.naturalWidth - s) / 2, (im.naturalHeight - s) / 2, s, s, 0, 0, N, N);
+      };
+      im.src = src + "?v=3";
+    }
   };
   openWorkMenu = () => {
     if (this.state.navMode === "work") this.glitchSwap({ navMode: "main", panel: null, cat: null });
     else this.glitchSwap({ navMode: "work", panel: "work", cat: null });
   };
   selectCat = (id) => this.setState({ cat: id, panel: "work", proj: 0 });
+  openPixelsMenu = () => {
+    if (this.state.navMode === "pixels") this.glitchSwap({ navMode: "main", panel: null, sub: null, cat: null });
+    else this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null });
+  };
+  // dentro de velour pixels, "campaigns" despliega social media y podcast
+  openPxWork = () => {
+    if (this.state.navMode === "pxwork") this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null });
+    else this.glitchSwap({ navMode: "pxwork", panel: null, sub: null, cat: null });
+  };
+  selectSub = (id) => this.setState({ sub: id, panel: id });
+  // el podcast vive en pixels: reutiliza el carrusel de work con su categoría
+  selectPodcast = () => this.setState({ sub: "podcast", panel: "work", cat: "podcast", proj: 0 });
   goBack = () => {
+    if (this.state.navMode === "pxwork") { this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null }); return; }
+    if (this.state.navMode === "pixels") { this.glitchSwap({ navMode: "main", panel: null, sub: null, cat: null }); return; }
     // sin panel abierto y en el menú principal, "volver" cierra la home al estado inicial
     if (this.state.navMode !== "work" && !this.state.panel) { this.reveal(false); return; }
     if (this.state.navMode === "work") this.glitchSwap({ navMode: "main", panel: null, cat: null });
@@ -371,19 +1357,212 @@ class Component extends DCLogic {
     if (!this.state.revealed) this.sampleIso();
     this.reveal(true);
   };
+  // el logo del centro alterna entre el menú de VELOUR y el de VELOUR PIXELS
+  logoClick = (e) => {
+    // un toque que cae dentro de un panel abierto nunca debe alternar el rótulo
+    if (e && e.clientX) {
+      const top = document.elementFromPoint(e.clientX, e.clientY);
+      if (top && top.closest(".rv.on") && !top.closest(".herologo")) return;
+    }
+    if (!this.state.revealed) { this.revealOn(); return; }
+    // transición: el logo se deshace en bloques y se vuelve a formar con el otro rótulo
+    this.blocksKey = null;
+    this.gTarget = 0.55; this.gEase = 0.5; this.gNext = performance.now() + 560;
+    this.sampleIso();
+    if (this.isPx()) this.glitchSwap({ navMode: "main", panel: null, sub: null, cat: null });
+    else this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null });
+  };
+  // interruptor explícito: el logo sigue alternando, pero además se ve que hay dos homes
+  toWorld = (px, e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (!this.state.revealed || this.isPx() === px) return;
+    this.blocksKey = null;
+    this.gTarget = 0.55; this.gEase = 0.5; this.gNext = performance.now() + 560;
+    this.sampleIso();
+    this._wsGE = performance.now() + 320;
+    if (px) this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null });
+    else this.glitchSwap({ navMode: "main", panel: null, sub: null, cat: null });
+  };
+  toPixels = (e) => this.toWorld(true, e);
+  toVelour = (e) => this.toWorld(false, e);
+  wswRef = (el) => { this.wswEl = el; };
+  wsRef = (el) => { this.wsCv = el; };
+  wsARef = (el) => { this.wsA = el; };
+  wsBRef = (el) => { this.wsB = el; };
+  // esfera de píxeles bajo el mundo activo: en reposo glitchea de vez en cuando,
+  // al cambiar de mundo viaja dejando bloques que se apagan
+  drawWorldDot = (t) => {
+    const cv = this.wsCv;
+    if (!cv || !cv.isConnected || !this.state.revealed) { this._wsX = undefined; return; }
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+    const tgt = this.isPx() ? this.wsB : this.wsA;
+    if (!tgt || !tgt.isConnected) return;
+    const g = cv.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, w, h);
+    const cr = cv.getBoundingClientRect(), tr = tgt.getBoundingClientRect();
+    const tx = tr.left - cr.left + tr.width / 2;
+    if (this._wsX === undefined) this._wsX = tx;
+    const gap = tx - this._wsX;
+    this._wsX += gap * 0.16;
+    const moving = Math.abs(gap) > 0.7;
+    const CELL = 2;
+    const R = h / 2 - 2;
+    // gota líquida: alargada, con inercia al viajar y ondas que la deforman
+    const st = Math.min(0.6, Math.abs(gap) * 0.035);
+    const br = 1 + 0.07 * Math.sin(t * 0.0009);
+    const RX = R * (1.85 + st * 1.9) * br, RY = R * (0.82 - st * 0.3) / br;
+    const cx = this._wsX + Math.sin(t * 0.0007) * 1.1, cy = h / 2 + Math.sin(t * 0.0013) * 0.8;
+    if (!this._wsGT || t > this._wsGT) {
+      this._wsGT = t + 900 + Math.random() * 2400;
+      this._wsGE = t + 90 + Math.random() * 130;
+      this._wsGR = Math.round((Math.random() * 2 - 1) * R / CELL);
+      this._wsGN = 1 + Math.floor(Math.random() * 3);
+      this._wsGD = (Math.random() < 0.5 ? -1 : 1) * CELL;
+    }
+    const burst = t < (this._wsGE || 0);
+    const q = (v) => Math.round(v / CELL) * CELL;
+    if (!this._wsTr) this._wsTr = [];
+    if (moving) {
+      const back = cx - Math.sign(gap) * R * 0.85;
+      this._wsTr.push({ x: back, y: cy + (Math.random() * 2 - 1) * R * 0.75, a: 0.45 + Math.random() * 0.35 });
+      if (this._wsTr.length > 26) this._wsTr.shift();
+    }
+    g.fillStyle = "#fff";
+    this._wsTr = this._wsTr.filter((p) => p.a > 0.05);
+    this._wsTr.forEach((p) => {
+      p.a *= 0.86;
+      g.globalAlpha = p.a * 0.65;
+      g.fillRect(q(p.x), q(p.y), CELL - 0.4, CELL - 0.4);
+    });
+    const nx0 = Math.ceil(RX / CELL) + 1, ny0 = Math.ceil(RY / CELL) + 1;
+    for (let iy = -ny0; iy <= ny0; iy++) {
+      const oy = iy * CELL;
+      let shift = 0;
+      if (burst && iy >= this._wsGR && iy < this._wsGR + this._wsGN) shift = this._wsGD;
+      if (moving && Math.random() < 0.15) shift += (Math.random() < 0.5 ? -1 : 1) * CELL;
+      for (let ix = -nx0; ix <= nx0; ix++) {
+        const ox = ix * CELL;
+        // ondas que recorren la gota: el contorno de arriba y de abajo respira por columnas
+        const rip = 1 + 0.1 * Math.sin(ix * 0.5 + t * 0.0022) + 0.06 * Math.sin(ix * 1.07 - t * 0.0015);
+        const yOff = Math.sin(ix * 0.42 + t * 0.0017) * 0.9;
+        const nx = ox / RX, ny = (oy - yOff) / (RY * rip);
+        const d = Math.sqrt(nx * nx + ny * ny);
+        if (d > 1) continue;
+        const nz = Math.sqrt(Math.max(0, 1 - d * d));
+        const lum = Math.max(0, (-nx) * 0.42 + (-ny) * 0.5 + nz * 0.66);
+        let a = 0.05 + Math.pow(Math.min(1, lum), 1.7) * 0.95;
+        if ((burst || moving) && Math.random() < 0.06) a *= 0.22;
+        g.globalAlpha = Math.max(0, Math.min(1, a));
+        g.fillRect(q(cx + ox + shift), q(cy + oy), CELL - 0.4, CELL - 0.4);
+      }
+    }
+    g.globalAlpha = 1;
+  };
+  // ── consentimiento de cookies: sin aceptar, ningún reproductor de terceros se carga
+  embedsOk = () => this.state.cookies === "all";
+  readCookies = () => {
+    let v = null;
+    try { v = localStorage.getItem("vp_cookies"); } catch (e) {}
+    return v === "all" || v === "min" ? v : null;
+  };
+  setCookies = (v) => () => {
+    try { localStorage.setItem("vp_cookies", v); } catch (e) {}
+    this.setState({ cookies: v }, () => { if (v === "all") this.initYT(); });
+  };
+  guardEmbeds = () => {
+    if (this._eObs) return;
+    const kill = () => {
+      if (this.embedsOk()) return;
+      document.querySelectorAll('iframe[src*="vimeo"],iframe[src*="youtube"],iframe[src*="instagram"]').forEach((f) => f.remove());
+    };
+    this._eObs = new MutationObserver(kill);
+    this._eObs.observe(document.documentElement, { childList: true, subtree: true });
+    kill();
+  };
   revealOff = () => this.reveal(false);
   hoverDark = () => { if (this.overlay) this.overlay.style.opacity = this.state.revealed ? ".58" : ".5"; };
   hoverLight = () => { if (this.overlay && !this.state.revealed) this.overlay.style.opacity = ".28"; };
 
 
-  // fondo de la ficha: mismo showreel, desenfocado por CSS del contenedor
+  // fondo de la ficha: fotogramas del PROPIO proyecto, desenfocados,
+  // relevándose uno a uno con un fundido lento
   fichaBgRef = (el) => {
-    if (!el || el.querySelector("iframe")) return;
-    const f = document.createElement("iframe");
-    f.src = "https://player.vimeo.com/video/1212324961?h=c216465273&background=1&autoplay=1&loop=1&muted=1&autopause=0";
-    f.allow = "autoplay";
-    f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;pointer-events:none;border:0";
-    el.appendChild(f);
+    if (!el) return;
+    const v = (this._projList || [])[this.state.proj]?.vid;
+    const key = v ? (v.yt ? "yt:" + v.yt : "vm:" + v.id) : "none";
+    if (el._bgKey === key) return;
+    el._bgKey = key;
+    el.innerHTML = "";
+    clearInterval(this._bgCyc);
+    this.bgLayers = [];
+    this._bgIdx = 0;
+    if (!v) return;
+    for (let i = 0; i < 3; i++) {
+      const layer = document.createElement("div");
+      layer.style.cssText = "position:absolute;inset:0;opacity:0;transition:opacity 2.2s ease;background-size:cover;background-position:center";
+      if (!v.yt) {
+        const f = document.createElement("iframe");
+        f.src = "https://player.vimeo.com/video/" + v.id + "?" + (v.h ? "h=" + v.h + "&" : "") + "background=1&autoplay=1&loop=1&muted=1&autopause=0";
+        f.allow = "autoplay";
+        f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;pointer-events:none;border:0";
+        layer.appendChild(f);
+      }
+      el.appendChild(layer);
+      this.bgLayers.push(layer);
+    }
+    // la primera capa se ve de inmediato; el fotograma se fija después
+    const first = this.bgLayers[0];
+    first.style.opacity = "1";
+    this.bgSeek(first, v);
+    this._bgCyc = setInterval(() => this.bgStep(v), 4600);
+  };
+  // lleva una capa a un fotograma nuevo del vídeo
+  bgSeek = (layer, v) => {
+    if (!layer) return Promise.resolve();
+    if (v.yt) {
+      const url = "https://i.ytimg.com/vi/" + v.yt + "/mq" + (1 + Math.floor(Math.random() * 3)) + ".jpg";
+      return new Promise((res) => {
+        const im = new Image();
+        im.onload = im.onerror = () => { layer.style.backgroundImage = 'url("' + url + '")'; res(); };
+        im.src = url;
+      });
+    }
+    const f = layer.querySelector("iframe");
+    if (!f || !(window.Vimeo && window.Vimeo.Player)) return Promise.resolve();
+    if (!f._bvp) f._bvp = new Vimeo.Player(f);
+    return f._bvp.getDuration()
+      .then((d) => f._bvp.setCurrentTime(Math.max(0.3, Math.min(d - 0.4, Math.random() * d))))
+      .then(() => f._bvp.pause())
+      .catch(() => {});
+  };
+  bgStep = (v) => {
+    const L = this.bgLayers || [];
+    if (L.length < 2 || this.state.view !== "project") return;
+    const next = (this._bgIdx + 1) % L.length;
+    const nl = L[next];
+    if (!nl.isConnected) return;
+    // el relevo solo se cruza cuando el fotograma nuevo ya está listo
+    this.bgSeek(nl, v).then(() => {
+      L.forEach((l, i) => { l.style.opacity = i === next ? "1" : "0"; });
+      this._bgIdx = next;
+    });
+  };
+
+  // tarjeta de social media: reels del proyecto en una franja 16:9
+  socialRef = (i, posts) => (el) => {
+    if (!el) return;
+    // los reels solo se cargan con el panel de social abierto
+    if (this.state.panel !== "social" && !el._sKey) return;
+    const key = posts.join(",");
+    if (el._sKey === key) return;
+    el._sKey = key;
+    el.innerHTML = "";
+    el.appendChild(this.igTrio(posts, { gap: 10, inset: 14 }));
   };
 
   // descripción real del vídeo en Vimeo (oEmbed)
@@ -435,13 +1614,18 @@ class Component extends DCLogic {
       cell.style.cssText = "height:calc(100% - " + (o.inset || 18) + "px);aspect-ratio:9/16;flex:none;position:relative;overflow:hidden;background:#131313;border:.5px solid rgba(255,255,255,.85)";
       const f = this.igFrame(code, cell);
       if (k === 0 && o.onFirstLoad) f.addEventListener("load", o.onFirstLoad);
-      const link = document.createElement("a");
-      link.href = "https://www.instagram.com/reel/" + code + "/";
-      link.target = "_blank"; link.rel = "noopener";
-      link.style.cssText = "position:absolute;inset:0;z-index:2";
-      cell.appendChild(f); cell.appendChild(link);
+      cell.appendChild(f);
+      // en las miniaturas del listado el clic debe abrir la ficha, no Instagram
+      if (!o.inert) {
+        const link = document.createElement("a");
+        link.href = "https://www.instagram.com/reel/" + code + "/";
+        link.target = "_blank"; link.rel = "noopener";
+        link.style.cssText = "position:absolute;inset:0;z-index:2";
+        cell.appendChild(link);
+      }
       wrap.appendChild(cell);
     });
+    if (o.inert) wrap.style.pointerEvents = "none";
     return wrap;
   };
 
@@ -559,17 +1743,35 @@ class Component extends DCLogic {
     }
     this.initYT();
   };
+  // fondo de vídeo: uno para velour y otro para velour pixels.
+  // PLACEHOLDER: pixels apunta al mismo showreel hasta que subáis su vídeo —
+  // basta con cambiar id/h en BGV.pixels y el fondo entra solo al cargar.
+  BGV = { main: { id: "1212324961", h: "c216465273" }, pixels: { id: "1212324961", h: "c216465273" } };
+  bgSrc = () => {
+    const v = this.BGV.main;  // pixels usa solo el degradado por ahora
+    return "https://player.vimeo.com/video/" + v.id + "?h=" + v.h + "&background=1&autoplay=1&loop=1&muted=1&autopause=0";
+  };
   initYT = () => {
-    if (!this.ytHost || this.ytHost.querySelector("iframe")) return;
+    if (!this.ytHost || !this.embedsOk()) return;
+    const want = this.bgSrc();
+    const cur = this.ytHost.querySelector("iframe");
+    if (cur) {
+      if (cur.src === want) return;
+      if (this.player) { try { this.player.destroy(); } catch (e) {} this.player = null; }
+      cur.remove();
+    }
     const f = document.createElement("iframe");
-    f.src = "https://player.vimeo.com/video/1212324961?h=c216465273&background=1&autoplay=1&loop=1&muted=1&autopause=0";
+    f.src = want;
     f.allow = "autoplay; fullscreen";
     f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;pointer-events:none;border:0";
     this.ytHost.appendChild(f);
     const mk = () => {
       if (!f.isConnected) return;
-      if (window.Vimeo && window.Vimeo.Player) { this.player = new Vimeo.Player(f); this.player.setVolume(0); }
-      else setTimeout(mk, 120);
+      if (window.Vimeo && window.Vimeo.Player) {
+        this.player = new Vimeo.Player(f);
+        this.player.setVolume(0);
+        this.player.on("timeupdate", (d) => { if (d && d.seconds > 0.25) this.videoReady(); });
+      } else setTimeout(mk, 120);
     };
     mk();
   };
@@ -581,7 +1783,10 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
+    this.setState({ cookies: this.readCookies() }, this.loadYT);
+    this.guardEmbeds();
     this.applyVars();
+    this.lockScroll();
     this._pm = (e) => { this.mx = e.clientX; this.my = e.clientY; };
     window.addEventListener("pointermove", this._pm);
     // scroll fuera de los proyectos = escala del logo + palabras
@@ -599,6 +1804,21 @@ class Component extends DCLogic {
     this.loadYT();
     this.logoImg = new Image();
     this.logoImg.src = "uploads/Workdmark_Blanca.svg";
+    this.pxLogoImg = new Image();
+    this.pxLogoImg.src = "uploads/pixels-logo.png";
+    // la tipografía puede llegar después del primer ráster: al cargarla se invalida la caché
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (this.pxCv) this.pxCv._key = null; });
+    this._pd = (e) => {
+      if (this.state.bg !== "fluid" || !this.fluidEl || !this.fluidEl.isConnected) return;
+      const cr = this.fluidEl.getBoundingClientRect();
+      if (!cr.width) return;
+      this._rip = (this._rip || []).concat([{
+        x: (e.clientX - cr.left) / cr.width,
+        y: (e.clientY - cr.top) / (cr.height || 1),
+        t: performance.now(),
+      }]).slice(-6);
+    };
+    window.addEventListener("pointerdown", this._pd);
     this.isoImg = new Image();
     this.isoImg.src = "uploads/Isotipio_Blanco.svg";
     this.off = document.createElement("canvas");
@@ -618,20 +1838,35 @@ class Component extends DCLogic {
       if (this.dead) return;
       if (performance.now() - (this.lastTick || 0) > 400) this.raf = requestAnimationFrame(this.tick);
       // si el player perdió su iframe (remontaje), lo reinicia
-      if (this.ytHost && this.ytHost.isConnected) {
+      if (!this.isPx() && this.embedsOk() && this.ytHost && this.ytHost.isConnected) {
         const fr = this.ytHost.querySelector("iframe");
-        if (fr && fr.src.indexOf("player.vimeo.com") === -1) { fr.remove(); this.player = null; }
+        if (fr && fr.src !== this.bgSrc()) { fr.remove(); this.player = null; }
         if (!this.ytHost.querySelector("iframe")) { this.player = null; this.initYT(); }
       }
     }, 500);
   }
   componentWillUnmount() {
     this.dead = true;
+    if (this._pd) window.removeEventListener("pointerdown", this._pd);
+    if (this._bgCyc) clearInterval(this._bgCyc);
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.watch) clearInterval(this.watch);
     if (this.fCycle) clearInterval(this.fCycle);
   }
-  componentDidUpdate() { this.applyVars(); }
+  componentDidUpdate() { this.applyVars(); this.syncLogoSrc(); this.syncSnd(); this.syncPlayback(); this.lockScroll(); this.syncOverlay(); }
+  // sin contenido que desborde la página no debe moverse (ni rebotar)
+  lockScroll = () => {
+    const lock = this.state.view === "home";
+    const de = document.documentElement, bd = document.body;
+    if (!de || !bd || this._locked === lock) return;
+    this._locked = lock;
+    de.style.overflow = lock ? "hidden" : "";
+    de.style.height = lock ? "100%" : "";
+    bd.style.overflow = lock ? "hidden" : "";
+    bd.style.height = lock ? "100%" : "";
+    bd.style.position = lock ? "fixed" : "";
+    bd.style.width = lock ? "100%" : "";
+  };
 
   tick = (t) => {
     if (this.dead) return;
@@ -639,7 +1874,13 @@ class Component extends DCLogic {
     this.raf = requestAnimationFrame(this.tick);
     // escala suave del logo + palabras con el scroll
     this._uiS = (this._uiS || 1) + ((this._uiT || 1) - (this._uiS || 1)) * 0.06;
-    const baseLogo = this.props.heroLogoSize ?? 200;
+    const baseLogo = (this.props.heroLogoSize ?? 200) * (this.isPx() ? 0.88 : 1);
+    if (this.state.bg === "fluid" || this.state.vidHold || this.isPx() || !this.embedsOk()) this.drawFluid(t);
+    this.clearPxBox();
+    this.driftStrip();
+    this.drawWorldDot(t);
+    this._pxF = ((this._pxF || 0) + 1) % 4;
+    if (!this._pxF && this.pxCv) this.drawPxWord();
     document.documentElement.style.setProperty("--uis", this._uiS.toFixed(3));
     document.documentElement.style.setProperty("--logo", (baseLogo * this._uiS).toFixed(1) + "px");
     // el isotipo se aparta suavemente del ratón y vuelve a su sitio
@@ -775,8 +2016,9 @@ class Component extends DCLogic {
       const F = { x: fr.left - cr.left, y: fr.top - cr.top, w: fr.width, h: fr.height };
       const INTRO = 1800;
       const p = Math.min(1, (t - this.introT) / INTRO);
-      // la imagen real solo aparece cuando los píxeles ya han cuajado
-      fe.style.opacity = p < 0.94 ? "0" : "1";
+      // relevo suave: los píxeles se apagan mientras entra la imagen real
+      const iFade = Math.max(0, Math.min(1, (p - 0.76) / 0.24));
+      fe.style.opacity = iFade.toFixed(3);
       const bl = this.introBlocks;
       const bw2 = F.w / (this._introCols || 84), bh2 = F.h / (this._introRows || 84);
       ctx.fillStyle = "#f3f3f3";
@@ -785,15 +2027,15 @@ class Component extends DCLogic {
         // escalonado por una diagonal suave: la forma cuaja por zonas, no de golpe
         const stag = Math.min(0.7, q.fx * 0.34 + q.fy * 0.2 + q.h3 * 0.26);
         const pk = Math.min(1, Math.max(0, (p - stag) / (1 - stag)));
-        const e = 1 - Math.pow(1 - pk, 4);
+        const e = pk * pk * pk * (pk * (pk * 6 - 15) + 10);
         const ang = q.h1 * 6.283;
         const rad = (60 + q.h2 * 190) * (1 - e);
         const swirl = (1 - e) * Math.sin(t * 0.0008 + q.ph) * 22;
         const tx = F.x + q.fx * F.w, ty = F.y + q.fy * F.h;
-        const jitter = (1 - e) * 1.6;
-        const bx = tx + Math.cos(ang + (1 - e) * 1.2) * rad + swirl + (Math.random() - 0.5) * jitter;
-        const by = ty + Math.sin(ang + (1 - e) * 1.2) * rad * 0.66 + Math.cos(t * 0.001 + q.ph) * (1 - e) * 14 + (Math.random() - 0.5) * jitter;
-        ctx.globalAlpha = q.a * Math.pow(pk, 0.8) * (0.62 + 0.38 * pk);
+        const jitter = (1 - e) * 1.1;
+        const bx = tx + Math.cos(ang + (1 - e) * 1.2) * rad + swirl + Math.sin(t * 0.0018 + q.ph * 2.1) * jitter;
+        const by = ty + Math.sin(ang + (1 - e) * 1.2) * rad * 0.66 + Math.cos(t * 0.001 + q.ph) * (1 - e) * 14 + Math.cos(t * 0.0021 + q.ph * 1.6) * jitter;
+        ctx.globalAlpha = q.a * Math.pow(pk, 0.7) * (0.6 + 0.4 * pk) * (1 - iFade);
         ctx.fillRect(bx, by, bw2 + 0.7, bh2 + 0.7);
       }
       ctx.globalAlpha = 1;
@@ -802,7 +2044,7 @@ class Component extends DCLogic {
       return;
     }
     if (!this.state.revealed || this.state.view !== "home") { this.hideRectEls(); return; }
-    const img = this.logoImg;
+    const img = (this.isPx() && this.pxLogoImg && this.pxLogoImg.complete && this.pxLogoImg.naturalWidth) ? this.pxLogoImg : this.logoImg;
     if (!img || !img.complete || !img.naturalWidth || !this.logoEl) { this.hideRectEls(); return; }
     const lr = this.logoEl.getBoundingClientRect();
     const L = { x: lr.left - cr.left, y: lr.top - cr.top, w: lr.width, h: lr.height };
@@ -832,12 +2074,12 @@ class Component extends DCLogic {
     // glitch por rafagas: mas agresivo e impredecible
     if (this.gi === undefined) { this.gi = 0.12; this.gTarget = 0.12; this.gNext = 0; this.gEase = 0.3; }
     if (t > this.gNext) {
-      const burst = Math.random() < 0.55;
-      this.gTarget = burst ? (0.75 + Math.random() * 0.65) : (0.02 + Math.random() * 0.2);
-      this.gNext = t + (burst ? (40 + Math.random() * 150) : (180 + Math.random() * 1700));
-      this.gEase = burst ? 0.6 : 0.16;
+      const burst = Math.random() < 0.3;
+      this.gTarget = burst ? (0.3 + Math.random() * 0.24) : (0.015 + Math.random() * 0.1);
+      this.gNext = t + (burst ? (300 + Math.random() * 480) : (700 + Math.random() * 2400));
+      this.gEase = burst ? 0.055 : 0.03;
     }
-    if (Math.random() < 0.012) { this.gi = 1.1 + Math.random() * 0.5; }
+    if (Math.random() < 0.002) { this.gTarget = 0.46 + Math.random() * 0.2; }
     this.gi += (this.gTarget - this.gi) * this.gEase;
     const gi = this.gi;
     // morph isotipo → wordmark (glitch pixelizado)
@@ -846,24 +2088,24 @@ class Component extends DCLogic {
       m = Math.min(1, (t - this.morphT) / 950);
       if (m >= 1) this.morphT = undefined;
     }
-    const easeM = 1 - Math.pow(1 - m, 3);
-    const morphBoost = m < 1 ? Math.sin(m * Math.PI) * 9 : 0;
+    const easeM = m * m * m * (m * (m * 6 - 15) + 10);
+    const morphBoost = m < 1 ? Math.sin(m * Math.PI) * 3.6 : 0;
     const isoB = this.isoBlocks, isoS = this.isoStart;
     // bandas de desgarro (la palabra se quiebra una fracci\u00f3n de segundo)
     const tears = [];
-    if (gi > 0.45 && Math.random() < gi) {
+    if (gi > 0.6 && Math.random() < gi * 0.22) {
       const n = 1 + Math.floor(Math.random() * 3);
-      for (let i = 0; i < n; i++) { const y0 = Math.random() * sh; tears.push({ y0, y1: y0 + sh * (0.03 + Math.random() * 0.12), dx: (Math.random() - 0.5) * L.w * 0.6 * gi }); }
+      for (let i = 0; i < n; i++) { const y0 = Math.random() * sh; tears.push({ y0, y1: y0 + sh * (0.03 + Math.random() * 0.12), dx: (Math.random() - 0.5) * L.w * 0.18 * gi }); }
     }
     const bw = L.w / sw, bh = L.h / sh;
-    const amp = 0.5 + gi * 8 + morphBoost;      // amplitud por p\u00edxel (px)
+    const amp = 0.3 + gi * 2.8 + morphBoost;      // amplitud por p\u00edxel (px)
     const blocks = this.blocks || [];
     ctx.fillStyle = "#f3f3f3";
     for (let k = 0; k < blocks.length; k++) {
       const p = blocks[k];
       const drift = amp * (0.35 + gi);
-      let jx = Math.sin(t * 0.006 * p.fx + p.ph) * drift + (Math.random() - 0.5) * amp * 1.1;
-      let jy = Math.cos(t * 0.007 * p.fy + p.ph) * drift * 0.7 + (Math.random() - 0.5) * amp * 0.8;
+      let jx = Math.sin(t * 0.0024 * p.fx + p.ph) * drift + Math.sin(t * 0.0043 + p.ph * 2.3) * amp * 0.3;
+      let jy = Math.cos(t * 0.0029 * p.fy + p.ph) * drift * 0.7 + Math.cos(t * 0.0038 + p.ph * 1.7) * amp * 0.22;
       // empuje suave de los píxeles al paso del ratón
       if (this.mx !== undefined) {
         const mxc = this.mx - cr.left, myc = this.my - cr.top;
@@ -916,36 +2158,49 @@ class Component extends DCLogic {
         { x0: 0.72, x1: 0.93, y0: 0.34, y1: 0.60 },
         { x0: 0.10, x1: 0.34, y0: 0.66, y1: 0.88 },
         { x0: 0.62, x1: 0.90, y0: 0.70, y1: 0.88 },
+        { x0: 0.68, x1: 0.92, y0: 0.08, y1: 0.24 },
       ],
       work: [   // panel izq ocupado → zonas centro-derecha
         { x0: 0.42, x1: 0.68, y0: 0.07, y1: 0.24 },
         { x0: 0.70, x1: 0.92, y0: 0.32, y1: 0.56 },
         { x0: 0.44, x1: 0.74, y0: 0.68, y1: 0.86 },
         { x0: 0.46, x1: 0.68, y0: 0.34, y1: 0.52 },
+        { x0: 0.72, x1: 0.94, y0: 0.60, y1: 0.78 },
       ],
-      about: [  // panel der ocupado → zonas izquierda
-        { x0: 0.27, x1: 0.45, y0: 0.07, y1: 0.24 },
-        { x0: 0.06, x1: 0.25, y0: 0.32, y1: 0.56 },
-        { x0: 0.20, x1: 0.44, y0: 0.68, y1: 0.86 },
-        { x0: 0.28, x1: 0.46, y0: 0.42, y1: 0.60 },
+      about: [  // texto a la derecha y fotos abajo → zonas arriba a la izquierda
+        { x0: 0.05, x1: 0.23, y0: 0.07, y1: 0.24 },
+        { x0: 0.27, x1: 0.45, y0: 0.05, y1: 0.20 },
+        { x0: 0.04, x1: 0.22, y0: 0.32, y1: 0.50 },
+        { x0: 0.26, x1: 0.44, y0: 0.36, y1: 0.54 },
       ],
       contact: [ // info abajo-centro → zonas superiores y laterales
         { x0: 0.06, x1: 0.26, y0: 0.08, y1: 0.32 },
         { x0: 0.74, x1: 0.94, y0: 0.08, y1: 0.32 },
         { x0: 0.06, x1: 0.24, y0: 0.52, y1: 0.78 },
         { x0: 0.76, x1: 0.94, y0: 0.52, y1: 0.78 },
+        { x0: 0.40, x1: 0.62, y0: 0.06, y1: 0.20 },
       ],
       us: [ // equipo arriba → zonas en la mitad inferior
         { x0: 0.06, x1: 0.28, y0: 0.50, y1: 0.68 },
         { x0: 0.72, x1: 0.93, y0: 0.54, y1: 0.72 },
         { x0: 0.10, x1: 0.34, y0: 0.78, y1: 0.92 },
         { x0: 0.60, x1: 0.88, y0: 0.80, y1: 0.92 },
+        { x0: 0.38, x1: 0.60, y0: 0.62, y1: 0.76 },
       ],
     };
-    let boxes = this.state.navMode === "work" ? catZones : (zones[this.state.panel || "none"] || zones.none);
+    // pixels: los paneles llegan hasta ~0.63vw en pantallas estrechas,
+    // así que las palabras se quedan siempre a la derecha de ese borde
+    const pixZones = [
+      { x0: 0.68, x1: 0.92, y0: 0.09, y1: 0.24 },
+      { x0: 0.70, x1: 0.93, y0: 0.62, y1: 0.80 },
+      { x0: 0.76, x1: 0.95, y0: 0.36, y1: 0.50 },
+    ];
+    let boxes = this.state.navMode === "work" ? catZones
+      : this.isPx() ? pixZones
+      : (zones[this.state.panel || "none"] || zones.none);
     // distribución distinta en cada carga y en cada entrada a un submenú:
     // se baraja el reparto de zonas y se desplazan ligeramente
-    const zKey = this.state.navMode + "|" + (this.state.panel || "none");
+    const zKey = this.state.navMode + "|" + (this.state.panel || "none") + "|" + (this.state.sub || "-");
     if (this._zKey !== zKey) {
       this._zKey = zKey;
       const n = boxes.length;
@@ -967,7 +2222,7 @@ class Component extends DCLogic {
       const el = this.w[i];
       if (!el || !el.isConnected) continue;
       // autocorrección: fuera del glitch, la etiqueta siempre refleja el estado actual
-      if (!this.state.wGlitch && el.textContent !== navLbls[i]) el.textContent = navLbls[i];
+      if (!this.state.wGlitch && el.textContent !== navLbls[i]) this.lbl(el).textContent = navLbls[i];
       if (!el._dp) el._dp = {
         ax: Math.random() * 6.28, ay: Math.random() * 6.28,
         fx: 0.00008 + Math.random() * 0.00013, fy: 0.00007 + Math.random() * 0.00012,
@@ -987,9 +2242,17 @@ class Component extends DCLogic {
     // separación: ninguna palabra puede solaparse con el logo ni entre ellas
     const PADL = 18, PADW = 14;
     const placed = [];
+    // el interruptor de home ocupa el centro alto: las palabras lo esquivan
+    if (this.wswEl && this.wswEl.isConnected && this.wswEl.classList.contains("on")) {
+      const wr = this.wswEl.getBoundingClientRect();
+      if (wr.width) placed.push({ x: wr.left - cr.left, y: wr.top - cr.top, w: wr.width, h: wr.height });
+    }
+    const pxPrev = this._pxRect;   // trayectoria de PIXELS del fotograma anterior
+    let pxEl = null;
     for (let i = 0; i < boxes.length; i++) {
       const el = this.w[i];
       if (!el || !el.isConnected || !el._dp) continue;
+      if (el.classList.contains("pxw")) { pxEl = el; continue; }
       const d = el._dp;
       const ww = d._w || 80, wh = d._h || 24;
       for (let pass = 0; pass < 3; pass++) {
@@ -1003,9 +2266,10 @@ class Component extends DCLogic {
           if (ox < oy) d.px += (cxw < cxl ? -ox : ox);
           else d.py += (cyw < cyl ? -oy : oy);
         }
-        // 2) expulsión mutua entre palabras ya colocadas
-        for (let k = 0; k < placed.length; k++) {
-          const q = placed[k];
+        // 2) expulsión mutua entre palabras ya colocadas + PIXELS, que tiene prioridad
+        const rivals = pxPrev ? placed.concat([pxPrev]) : placed;
+        for (let k = 0; k < rivals.length; k++) {
+          const q = rivals[k];
           const ox2 = Math.min(d.px + ww, q.x + q.w + PADW) - Math.max(d.px, q.x - PADW);
           const oy2 = Math.min(d.py + wh, q.y + q.h + PADW) - Math.max(d.py, q.y - PADW);
           if (ox2 > 0 && oy2 > 0) {
@@ -1023,6 +2287,55 @@ class Component extends DCLogic {
       el.style.top = d.py.toFixed(1) + "px";
     }
 
+    // PIXELS: rebota por toda la pantalla como un salvapantallas y esquiva
+    // el logo y las demás palabras; al acercar el ratón frena para poder pulsarla
+    if (pxEl) {
+      const ww = pxEl.offsetWidth || 157, wh = pxEl.offsetHeight || 43;
+      const W = cr.width, H = cr.height, SPD = 11;
+      const TOP = 64, LOW = Math.max(TOP, H - wh - 82);   // libre: barra superior e inferior
+      let s = this._dvd;
+      if (!s || !isFinite(s.x)) {
+        const a = (0.22 + Math.random() * 0.2) * Math.PI * (Math.random() < 0.5 ? 1 : -1);
+        s = this._dvd = { x: W * 0.1, y: TOP + Math.random() * Math.max(1, LOW - TOP), vx: Math.cos(a), vy: Math.sin(a) };
+      }
+      const dt = Math.min(0.05, Math.max(0.004, (t - (this._dvdT || t - 16)) / 1000));
+      this._dvdT = t;
+      let f = 1;
+      if (this.mx !== undefined) {
+        const dx = (this.mx - cr.left) - (s.x + ww / 2), dy = (this.my - cr.top) - (s.y + wh / 2);
+        const dd = Math.sqrt(dx * dx + dy * dy);
+        if (dd < 230) f = Math.max(0.07, (dd - 70) / 160);
+      }
+      const nv = Math.sqrt(s.vx * s.vx + s.vy * s.vy) || 1;
+      s.vx /= nv; s.vy /= nv;
+      s.x += s.vx * SPD * f * dt;
+      s.y += s.vy * SPD * f * dt;
+      if (s.x < 6) { s.x = 6; s.vx = Math.abs(s.vx); }
+      if (s.x > W - ww - 6) { s.x = W - ww - 6; s.vx = -Math.abs(s.vx); }
+      if (s.y < TOP) { s.y = TOP; s.vy = Math.abs(s.vy); }
+      if (s.y > LOW) { s.y = LOW; s.vy = -Math.abs(s.vy); }
+      const obs = placed.map((q) => ({ x: q.x - 20, y: q.y - 18, w: q.w + 40, h: q.h + 36 }));
+      obs.push({ x: L.x - 26, y: L.y - 26, w: L.w + 52, h: L.h + 52 });
+      obs.forEach((o) => {
+        const ox = Math.min(s.x + ww, o.x + o.w) - Math.max(s.x, o.x);
+        const oy = Math.min(s.y + wh, o.y + o.h) - Math.max(s.y, o.y);
+        if (ox <= 0 || oy <= 0) return;
+        if (ox < oy) {
+          if (s.x + ww / 2 < o.x + o.w / 2) { s.x -= ox; s.vx = -Math.abs(s.vx); }
+          else { s.x += ox; s.vx = Math.abs(s.vx); }
+        } else {
+          if (s.y + wh / 2 < o.y + o.h / 2) { s.y -= oy; s.vy = -Math.abs(s.vy); }
+          else { s.y += oy; s.vy = Math.abs(s.vy); }
+        }
+      });
+      s.x = Math.max(6, Math.min(Math.max(6, W - ww - 6), s.x));
+      s.y = Math.max(TOP, Math.min(LOW, s.y));
+      pxEl.style.left = s.x.toFixed(1) + "px";
+      pxEl.style.top = s.y.toFixed(1) + "px";
+      this._pxRect = { x: s.x, y: s.y, w: ww, h: wh };
+      placed.push(this._pxRect);
+    }
+
     // ventanas que INVIERTEN el color de todo lo que queda dentro (backdrop-filter),
     // con leve movimiento natural (entran tras el morph)
     if (m < 0.65) { this.hideRectEls(); return; }
@@ -1030,6 +2343,8 @@ class Component extends DCLogic {
     const rAlpha = ctx.globalAlpha;
     const rects = this.rects || [];
     if (!this._rectEls) this._rectEls = [];
+    // autocuración: si el runtime se llevó los divs por delante, se vuelven a crear
+    this._rectEls = this._rectEls.filter((d) => d.isConnected);
     while (this._rectEls.length < rects.length) {
       const d = document.createElement("div");
       d.className = "invrect";
@@ -1073,6 +2388,7 @@ class Component extends DCLogic {
     rects.forEach((r, i) => {
       const el = this.w[i];
       if (!el || !el.isConnected) return;
+      if (el.classList.contains("pxw")) return;   // PIXELS va libre: sin hilo al núcleo
       const wr = el.getBoundingClientRect();
       // punto de anclaje: el borde de la palabra MÁS CERCANO al origen de la línea
       const wl = wr.left - cr.left, wt = wr.top - cr.top, wR = wl + wr.width, wB = wt + wr.height;
@@ -1195,15 +2511,18 @@ class Component extends DCLogic {
         cat: cdef.id,
         frameRef: (el) => {
           if (!el) return;
+          // los reproductores nacen solo cuando WORK está abierto: la home no arranca 8 vídeos.
+          // Una vez creados se conservan, así reabrir el panel es instantáneo.
+          if (this.state.panel !== "work" && !el._vkey) return;
           // los tiles se reutilizan al cambiar de categoría: si cambia el vídeo asignado,
           // se limpia por completo el contenido anterior (tarjeta IG, iframe o miniatura)
           const vkey = vid ? (vid.igPosts ? "igx:" + vid.id : vid.ig ? "ig:" + vid.id : vid.yt ? "yt:" + vid.yt : "vm:" + vid.id) : "none";
           if (el._vkey !== vkey) {
             el._vkey = vkey;
             el.innerHTML = "";
-            el._igKey = null; el._lastThumb = null; el._ro = null;
+            el._igKey = null; el._lastThumb = null; el._ro = null; el._vmPoster = null;
           }
-          el.style.backgroundImage = "";
+          if (!el._vmPoster) el.style.backgroundImage = "";
           if (vid && vid.yt) {
             // podcast largo: miniatura oficial de YouTube como preview (cover)
             el.querySelectorAll("iframe,canvas.graincv").forEach((x) => x.remove());
@@ -1236,7 +2555,7 @@ class Component extends DCLogic {
               el.innerHTML = "";
               this.addLoader(el);
               el.appendChild(this.igTrio(vid.igPosts, {
-                gap: 8, inset: 12,
+                gap: 8, inset: 12, inert: true,
                 onFirstLoad: () => setTimeout(() => this.revealTile(el), 220),
               }));
               setTimeout(() => this.revealTile(el), 1600);
@@ -1332,11 +2651,12 @@ class Component extends DCLogic {
             if (f && f.src !== want) { f.remove(); f = null; }
             if (!f) {
               this.addLoader(el);
+              this.vmPoster(el, vid.id, vid.h);
               f = document.createElement("iframe");
               f.src = want; f.allow = "autoplay";
               f.addEventListener("load", () => setTimeout(() => this.revealTile(el), 180));
               // sobredimensionado + cover: nunca deja barras, sea cual sea el formato del vídeo
-              f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:178%;height:178%;pointer-events:none;border:0;z-index:1";
+              f.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:178%;height:178%;pointer-events:none;border:0;z-index:1;opacity:0;transition:opacity .8s ease";
               el.appendChild(f);
               // ajuste fino: escala exacta según la relación de aspecto real del vídeo.
               // El player letterboxea DENTRO del iframe, así que hay que dar al iframe la
@@ -1393,7 +2713,13 @@ class Component extends DCLogic {
               const probe = () => {
                 if (!f.isConnected || tries++ > 40) return;
                 if (!(window.Vimeo && window.Vimeo.Player)) { setTimeout(probe, 250); return; }
-                if (!f._vp) f._vp = new Vimeo.Player(f);
+                if (!f._vp) {
+                  f._vp = new Vimeo.Player(f);
+                  // el player releva al póster solo cuando hay imagen real en movimiento
+                  const show = () => { if (f.style.opacity !== "1") f.style.opacity = "1"; };
+                  f._vp.on("play", show);
+                  f._vp.on("timeupdate", show);
+                }
                 // nombre real del vídeo en el hover (vía estado para sobrevivir re-renders)
                 if (!f._titled) {
                   f._titled = true;
@@ -1442,31 +2768,255 @@ class Component extends DCLogic {
       projects = curCat.videos.map((_, k) => mkProj(curCat, k, k));
     } else {
       // sin categoría: todos los vídeos reales, mezclados (orden estable en la sesión)
-      const pool = catDefs.flatMap((c) => c.videos.map((_, k) => ({ c, k })));
+      const pool = catDefs.filter((c) => c.id !== "podcast").flatMap((c) => c.videos.map((_, k) => ({ c, k })));
       if (!this.mixOrder || this.mixOrder.length !== pool.length)
         this.mixOrder = pool.map((_, i) => i).sort(() => Math.random() - 0.5);
       projects = this.mixOrder.map((idx, i) => mkProj(pool[idx].c, pool[idx].k, i));
     }
+    const chipLabels = lang === "es"
+      ? ["Producción 360º", "Campaña integral", "Spot & anuncio", "Estrategia de comunicación e imagen", "Branded content", "Social & reels", "Fashion film", "Videoclip", "Documental de marca", "Dirección creativa", "Cobertura de evento", "Otro · sorpréndenos"]
+      : ["360º production", "Integrated campaign", "Spot & advertising", "Comms & image strategy", "Branded content", "Social & reels", "Fashion film", "Music video", "Brand documentary", "Creative direction", "Event coverage", "Other · surprise us"];
+    const fmChips = chipLabels.map((l) => ({ label: l, on: (this.state.fmTags || []).indexOf(l) >= 0 ? "on" : "", tap: this.tapChip(l) }));
+    const fmBudgets = lang === "es"
+      ? ["Menos de 5.000 €", "5.000 – 10.000 €", "10.000 – 40.000 €", "40.000 – 100.000 €", "Más de 100.000 €"]
+      : ["Under €5,000", "€5,000 – 10,000", "€10,000 – 40,000", "€40,000 – 100,000", "Over €100,000"];
     const mainWords = [
-      { label: "work", click: this.openWorkMenu, selClass: this.state.navMode === "work" ? "sel" : "", wref: this.wref(0) },
-      { label: "contact", click: () => this.openPanel("contact"), selClass: "", wref: this.wref(1) },
-      { label: "about", click: () => this.openPanel("about"), selClass: "", wref: this.wref(2) },
-      { label: "us", click: () => this.openPanel("us"), selClass: "", wref: this.wref(3) },
+      { label: "projects", click: this.openWorkMenu, selClass: this.state.navMode === "work" ? "sel" : "", wref: this.wref(0) },
+      { label: "contact", click: () => this.openPanel("contact"), selClass: this.state.panel === "contact" ? "sel" : "", lure: this.state.panel === "about" ? "lure" : "", wref: this.wref(1) },
+      { label: "about", click: () => this.openPanel("about"), selClass: this.state.panel === "about" ? "sel" : "", wref: this.wref(2) },
     ];
-    const team = [
-      { name: "Javi Laguna", role: { es: "CO-Founder · Executive Producer", en: "CO-Founder · Executive Producer" }, img: "uploads/team/javi.png" },
-      { name: "Matías A. Varas", role: { es: "CO-Founder · Creative Director", en: "CO-Founder · Creative Director" }, img: "uploads/team/matias.png" },
-      { name: "José R. San Martín", role: { es: "Creative Lead · Project Manager", en: "Creative Lead · Project Manager" }, img: "uploads/team/jose.png" },
-      { name: "Almudena Román", role: { es: "Head of Production · Assistant Director", en: "Head of Production · Assistant Director" }, img: "uploads/team/almudena.png" },
-      { name: "Pau Fabrellax", role: { es: "Head of Design · Art Director", en: "Head of Design · Art Director" }, img: "uploads/team/pau.png" },
-      { name: "Julia Jerez", role: { es: "Head of Marketing · Stylist", en: "Head of Marketing · Stylist" }, img: "uploads/team/julia.png" },
-      { name: "Nico Salinas", role: { es: "Director of Photography · Photographer", en: "Director of Photography · Photographer" }, img: "uploads/team/nico.png" },
-    ].map((tm, i) => ({ name: tm.name, role: tm.role[lang], ref: this.teamRef(i, tm.img), w: i < 2 ? "180px" : "148px" }));
-    const catWords = catDefs.map((c, i) => ({
+    const pixWords = [
+      { label: "rental", click: this.openRental, selClass: "", wref: this.wref(0) },
+      { label: "campaigns", click: this.openPxWork, selClass: this.state.navMode === "pxwork" ? "sel" : "", wref: this.wref(1) },
+    ];
+    const pxSubWords = [
+      { label: "social media", click: () => this.selectSub("social"), selClass: this.state.sub === "social" ? "sel" : "", wref: this.wref(0) },
+      { label: "podcast", click: this.selectPodcast, selClass: this.state.sub === "podcast" ? "sel" : "", wref: this.wref(1) },
+    ];
+    // kit real de la ARRI ALEXA MINI PL
+    const rentalKit = [
+      { qty: "—", name: "4:3, RAW & Look Library Viewfinder" },
+      { qty: "—", name: "Viewfinder Cable 0.75 m" },
+      { qty: "2×", name: "MAP-2" },
+      { qty: "2×", name: "MSB-1" },
+      { qty: "1×", name: "CCH-2 Handle" },
+      { qty: "1×", name: "BPA-4" },
+      { qty: "1×", name: "MVB-1" },
+      { qty: "1×", name: "KC-50 Powercable" },
+      { qty: "1×", name: lang === "es" ? "RMB-3 (sin insert)" : "RMB-3 (no insert)" },
+      { qty: "1×", name: "EXT-RS-Adapt" },
+      { qty: "4×", name: "SanDisk CFast 2.0 256 GB" },
+      { qty: "2×", name: lang === "es" ? "Barra 15 mm" : "15 mm rod" },
+      { qty: "1×", name: lang === "es" ? "Bebob Hotswap (soporte V-lock)" : "Bebob Hotswap (V-lock plate)" },
+      { qty: "1×", name: "Case" },
+    ];
+    // inventario real de almacén; se omite el material perdido, averiado y la logística
+    const RT = lang === "es"
+      ? { cam: "Videocámara", foto: "Cámara de fotos", opt: "Óptica", luz: "Iluminación", aud: "Audio", grip: "Trípode · grip", ene: "Energía", med: "Media", va: "Video assist" }
+      : { cam: "Camera", foto: "Photo camera", opt: "Lens", luz: "Lighting", aud: "Audio", grip: "Tripod · grip", ene: "Power", med: "Media", va: "Video assist" };
+    const RST = lang === "es"
+      ? { ok: "Disponible", ask: "Consultar", out: "En uso" }
+      : { ok: "Available", ask: "On request", out: "In use" };
+    const rentalCats = lang === "es"
+      ? [["camara", "Cámara"], ["opticas", "Ópticas"], ["luces", "Luces"], ["sonido", "Sonido"], ["grip", "Grip"], ["media", "Media"]]
+      : [["camara", "Camera"], ["opticas", "Lenses"], ["luces", "Lighting"], ["sonido", "Sound"], ["grip", "Grip"], ["media", "Media"]];
+    // [categoría, nombre, unidades, €/día, tipo, estado, descripción, kit, foto]
+    const gearAll = [
+      ["camara", "ARRI ALEXA MINI", 1, 300, "cam", "ok",
+        { es: "Sensor Super 35 ALEV III, ARRIRAW y ProRes hasta 200 fps, filtros ND internos motorizados y montura PL con Lens Data System. 2,3 kg de cuerpo: igual de cómoda al hombro que en grúa o en gimbal.", en: "Super 35 ALEV III sensor, ARRIRAW and ProRes up to 200 fps, internal motorised ND filters and a PL mount with Lens Data System. A 2.3 kg body: as happy on the shoulder as on a crane or a gimbal." },
+        rentalKit, "uploads/rental/arri-alexa-mini.jpg"],
+      ["camara", "Sony FX3", 3, 60, "cam", "ask",
+        { es: "Full frame Cinema Line con doble ISO base y S-Cinetone: la caballería ligera para cámara en mano, multicámara y espacios imposibles.",
+          en: "Full-frame Cinema Line with dual base ISO and S-Cinetone: the light cavalry for handheld, multicam and impossible spaces." }],
+      ["camara", "Blackmagic 6K", 1, 50, "cam", "ask",
+        { es: "Super 35 de 6K con BRAW y montura EF. La máxima información de color por euro invertido.",
+          en: "6K Super 35 with BRAW and EF mount. The most colour information per euro spent." }],
+      ["camara", "Sony A7R V", 1, 50, "foto", "ask"],
+      ["camara", "Sony A7 IV", 2, 30, "foto", "ask"],
+      ["opticas", "Sony G Master 24-70 f2.8 E", 2, 30, "opt", "ask"],
+      ["opticas", "Sony G Master 70-200 f2.8 E", 1, 30, "opt", "ask"],
+      ["opticas", "Zeiss 16-35 f4 E", 1, 20, "opt", "ask"],
+      ["opticas", "Leica 21-35 f4 E", 1, 40, "opt", "ask"],
+      ["opticas", "Leica 50 f4 E", 1, 40, "opt", "ask"],
+      ["opticas", "Leica 100 macro f4 E", 1, 40, "opt", "ask"],
+      ["opticas", "Sigma 10-20 f4 EF", 1, 15, "opt", "ok"],
+      ["opticas", "Sigma 24-70", 1, 20, "opt", "ok"],
+      ["opticas", "Canon 70-200 f2.8 EF", 1, 10, "opt", "ok"],
+      ["opticas", "Canon 50 f1.4 EF", 1, 10, "opt", "ok"],
+      ["opticas", "Canon 10-22 EF", 1, 20, "opt", "ok"],
+      ["opticas", "Laowa 12 mm", 1, 20, "opt", "ok"],
+      ["luces", "Neewer 660 PRO RGB", 2, 20, "luz", "ok",
+        { es: "Panel LED RGB con difusor y softbox: temperatura y color a la carta para interiores, entrevistas y set de podcast.",
+          en: "RGB LED panel with diffuser and softbox: colour and temperature to taste for interiors, interviews and podcast sets." }],
+      ["luces", "Neewer Bicolor", 3, 10, "luz", "ok"],
+      ["sonido", "Shure SM7B", 4, 20, "aud", "ok",
+        { es: "El dinámico de referencia para voz. Cuatro unidades: una mesa de podcast entera sin salir de casa.",
+          en: "The reference dynamic vocal mic. Four units: a whole podcast table in one go." }],
+      ["sonido", "RODE Rodecaster Pro II", 1, 30, "aud", "ok",
+        { es: "Cuatro canales, grabación multipista y procesado independiente por canal. El centro de cualquier podcast.",
+          en: "Four channels, multitrack recording and per-channel processing. The hub of any podcast." }],
+      ["sonido", "Pie de micro", 4, 10, "aud", "ok"],
+      ["grip", "Trípode Manfrotto grande", 1, 20, "grip", "ask"],
+      ["grip", "Trípode Manfrotto ligero", 2, 10, "grip", "ask"],
+      ["grip", "Trípode Sirui", 1, 25, "grip", "ok"],
+      ["grip", "Trípode ligero", 2, 10, "grip", "ok"],
+      ["grip", "Trípode de cámara", 1, 7, "grip", "ok"],
+      ["grip", "Brazo mágico easyrig", 2, 5, "grip", "ok"],
+      ["grip", "V-Lock 190 Wh", 1, 10, "ene", "ok"],
+      ["grip", "V-Lock 155 Wh", 2, 10, "ene", "ok"],
+      ["grip", "Batería Sony + adaptador", 1, 3, "ene", "ok"],
+      ["grip", "Dummy battery", 1, 3, "ene", "ok"],
+      ["media", "Atomos Ninja V+", 1, 25, "va", "ok",
+        { es: "Monitor-grabador de 5″ HDR con ProRes RAW: el visor fiable para decidir el color en el set.",
+          en: "5″ HDR monitor-recorder with ProRes RAW: the reliable viewer for deciding colour on set." }],
+      ["media", "Atomos Ninja V", 1, 20, "va", "ok"],
+      ["media", "Atomos ATOMX Cast", 1, 10, "va", "ok"],
+      ["media", "Philips 27″", 1, 20, "va", "ok"],
+      ["media", "Cineback", 1, 15, "va", "ok"],
+      ["media", "Sandisk CFast 2.0 256 GB", 4, 10, "med", "ok"],
+      ["media", "Samsung 980 PRO M.2 1 TB", 1, 8, "med", "out"],
+      ["media", "Samsung T5 500 GB", 3, 5, "med", "ok"],
+      ["media", "Sandisk SSD 2 TB", 1, 5, "med", "out"],
+      ["media", "Tarjeta SD 256 GB", 1, 8, "med", "ok"],
+      ["media", "Tarjeta SD 128 GB", 2, 5, "med", "ok"],
+    ];
+    const rcat = this.state.rcat || "camara";
+    const catLbl = {};
+    rentalCats.forEach((c) => { catLbl[c[0]] = c[1]; });
+    // el buscador entiende marca, tipo y genérico ("camara", "blackmagic", "microfono", "shure")
+    const KW = {
+      cam: "camara camera videocamara video cine cinema cuerpo body",
+      foto: "camara camera foto photo fotografia mirrorless",
+      opt: "optica lente lens objetivo zoom prime angular teleobjetivo",
+      luz: "luz luces light lights led panel iluminacion lighting foco softbox",
+      aud: "sonido audio sound microfono micro mic microphone grabadora recorder mesa",
+      grip: "grip tripode tripod soporte rotula brazo estabilizador",
+      ene: "energia power bateria battery vlock v-lock cargador",
+      med: "media tarjeta card memoria ssd disco duro almacenamiento storage",
+      va: "monitor monitores video assist referencia",
+    };
+    const rq0 = this.state.rq || {};
+    const query = this.rNorm(this.state.rsearch).trim();
+    const searching = query.length >= 2;
+    const hay = (g) => this.rNorm([g[1], RT[g[4]], catLbl[g[0]], KW[g[4]] || ""].join(" "));
+    // la categoría de luces está fuera de servicio: no se lista ni se puede seleccionar
+    const OFF = { luces: true };
+    const gearOn = gearAll.filter((g) => !OFF[g[0]]);
+    const gearList = searching
+      ? gearOn.filter((g) => query.split(/\s+/).every((w) => hay(g).indexOf(w) >= 0))
+      : gearOn.filter((g) => g[0] === rcat);
+    const rentalTabs = rentalCats.map((c) => ({
+      label: c[1] + (OFF[c[0]] ? (lang === "es" ? " · no disp." : " · n/a") : ""),
+      on: OFF[c[0]] ? "off" : (!searching && rcat === c[0] ? "on" : ""),
+      tap: OFF[c[0]] ? this.noop : this.setRcat(c[0]),
+    }));
+    const gid = (g) => g[0] + ":" + this.rSlug(g[1]);
+    // montura: define qué ópticas del catálogo acompañan a cada cuerpo
+    const mountOf = (name, kind) => {
+      const n = (name || "").toUpperCase();
+      if (kind === "cam" || kind === "foto") {
+        if (n.indexOf("ALEXA") >= 0) return "PL";
+        if (n.indexOf("BLACKMAGIC") >= 0) return "EF";
+        return "E";
+      }
+      if (kind !== "opt") return "";
+      if (/\bEF\b/.test(n) || n.indexOf("CANON") >= 0 || n.indexOf("SIGMA") >= 0 || n.indexOf("LAOWA") >= 0) return "EF";
+      return "E";
+    };
+    const rentalItems = gearList.map((g) => {
+      const id = gid(g);
+      const open = this.state.ritem === id;
+      const d = g[6];
+      const q = rq0[id] ? rq0[id].qty : 0;
+      const mnt = mountOf(g[1], g[4]);
+      const isCam = g[4] === "cam" || g[4] === "foto";
+      const lensRows = isCam
+        ? gearOn.filter((x) => x[0] === "opticas" && mountOf(x[1], x[4]) === mnt).map((x) => {
+            const lid = gid(x);
+            return { label: x[1], price: x[3] + " €/d", add: this.addGear(lid, x[2]), onCls: rq0[lid] ? "on" : "" };
+          })
+        : [];
+      return {
+        name: g[1], price: g[3] + " €", desc: d ? d[lang] : "", hasDesc: !!d,
+        sub: RT[g[4]] + (g[2] > 1 ? " · ×" + g[2] : "") + (searching ? " · " + catLbl[g[0]] : ""),
+        per: (lang === "es" ? "día · " : "day · ") + Math.round(g[3] * 1.21).toLocaleString("es-ES") + (lang === "es" ? " € c/ IVA" : " € incl. VAT"),
+        isCam, hasLens: isCam && lensRows.length > 0, noLens: isCam && lensRows.length === 0, lenses: lensRows,
+        lensQ: lang === "es" ? "¿Añades óptica? · montura " + mnt : "Add a lens? · " + mnt + " mount",
+        lensNone: lang === "es"
+          ? "No tenemos ópticas " + mnt + " en catálogo. Las conseguimos por ti: pídelas en las notas del pedido y te las presupuestamos con la cámara."
+          : "We don't stock " + mnt + " glass. We can source it: ask in the order notes and we'll quote it with the camera.",
+        specs: [
+          { k: lang === "es" ? "Unidades" : "Units", v: String(g[2]) },
+          { k: lang === "es" ? "Estado" : "Status", v: RST[g[5]] },
+        ],
+        kit: g[7] || [], hasKit: !!(g[7] && g[7].length), img: !!g[8], photo: g[8] || "",
+        open, onClass: open ? "on" : "", tap: this.tapGear(id),
+        stock: (lang === "es" ? "Disponibles: " : "Available: ") + g[2] + " · " + RST[g[5]],
+        inCart: q > 0, qty: q,
+        addLbl: q > 0 ? (lang === "es" ? "añadir otro +" : "add another +") : (lang === "es" ? "añadir +" : "add +"),
+        add: this.addGear(id, g[2]), sub1: this.subGear(id),
+        mail: "mailto:info@velourpixel.com?subject=" + encodeURIComponent("Rental · " + g[1]),
+      };
+    });
+    // ── carrito de reserva
+    const gearById = {};
+    gearAll.forEach((g) => { gearById[gid(g)] = g; });
+    const per = !!this.state.rper;
+    const gFrom = this.state.rfrom || "", gTo = this.state.rto || "";
+    const eur = (n) => Math.round(n).toLocaleString("es-ES") + " €";
+    const dayW = (n) => (lang === "es" ? (n === 1 ? "1 día" : n + " días") : (n === 1 ? "1 day" : n + " days"));
+    const fmtD = (s) => (s ? s.split("-").reverse().join("/") : (lang === "es" ? "sin fecha" : "no date"));
+    const rCart = Object.keys(rq0).filter((k) => gearById[k]).map((k) => {
+      const g = gearById[k], it = rq0[k];
+      const from = per ? (it.from || "") : gFrom, to = per ? (it.to || "") : gTo;
+      const days = this.rDays(from, to);
+      const amount = g[3] * it.qty * days;
+      return {
+        id: k, name: g[1], qty: it.qty, from: it.from || "", to: it.to || "", minTo: it.from || this.rMinDate(),
+        line: it.qty + " × " + g[3] + " € · " + dayW(days),
+        dates: (from ? fmtD(from) + (to && to !== from ? " → " + fmtD(to) : "") : fmtD("")) + " · " + dayW(days),
+        amount, amountLbl: eur(amount),
+        vatLbl: (lang === "es" ? "+ IVA 21% · " : "+ VAT 21% · ") + eur(amount * 0.21),
+        add: this.addGear(k, g[2]), sub1: this.subGear(k), del: this.delGear(k),
+        setFrom: this.setItemDate(k, "from"), setTo: this.setItemDate(k, "to"),
+      };
+    });
+    const rSubtotalN = rCart.reduce((a, c) => a + c.amount, 0);
+    const rFeeN = rSubtotalN * 0.1;
+    const rVatN = (rSubtotalN + rFeeN) * 0.21;
+    const rTotalN = rSubtotalN + rFeeN + rVatN;
+    const globalDays = this.rDays(gFrom, gTo);
+    // el pedido viaja al correo desde submitRental: se guarda ya calculado
+    this._cart = {
+      rows: rCart, subLbl: eur(rSubtotalN), feeLbl: eur(rFeeN), vatLbl: eur(rVatN), totalLbl: eur(rTotalN),
+      datesLbl: per
+        ? (lang === "es" ? "por artículo (ver lista)" : "per item (see list)")
+        : (gFrom ? fmtD(gFrom) + (gTo && gTo !== gFrom ? " → " + fmtD(gTo) : "") + " · " + dayW(globalDays) : ""),
+    };
+    const rStep = this.state.rstep || "browse";
+    const socialCards = [
+      { client: "Sublimotion Ibiza", handle: "@sublimotionibiza",
+        tags: lang === "es" ? ["reels", "activación"] : ["reels", "activation"],
+        posts: ["DJzb7XHoADk", "DKHbG5JIrjA", "DNxywCs0IKA"] },
+    ].map((s, i) => ({ client: s.client, handle: s.handle, tags: s.tags, ref: this.socialRef(i, s.posts) }));
+    const teamRoster = [
+      { name: "Javi Laguna", role: { es: "CO-Founder · Executive Producer", en: "CO-Founder · Executive Producer" }, img: "uploads/team/javi.jpg" },
+      { name: "Matías A. Varas", role: { es: "CO-Founder · Creative Director", en: "CO-Founder · Creative Director" }, img: "uploads/team/matias.jpg" },
+      { name: "José R. San Martín", role: { es: "Creative Lead · Project Manager", en: "Creative Lead · Project Manager" }, img: "uploads/team/jose.jpg" },
+      { name: "Almudena Román", role: { es: "Head of Production · Assistant Director", en: "Head of Production · Assistant Director" }, img: "uploads/team/almudena.jpg" },
+      { name: "Pau Fabrellax", role: { es: "Head of Design · Art Director", en: "Head of Design · Art Director" }, img: "uploads/team/pau.jpg" },
+      { name: "Julia Jerez", role: { es: "Head of Marketing · Stylist", en: "Head of Marketing · Stylist" }, img: "uploads/team/julia.jpg" },
+      { name: "Nico Salinas", role: { es: "Director of Photography · Photographer", en: "Director of Photography · Photographer" }, img: "uploads/team/nico.jpg" },
+    ];
+    const teamCard = (tm, i) => ({ name: tm.name, role: tm.role[lang], ref: this.teamRef(i, tm.img), w: i % teamRoster.length < 2 ? "180px" : "148px" });
+    const team = teamRoster.map(teamCard);
+    const catWords = catDefs.filter((c) => c.id !== "podcast").map((c, i) => ({
       label: c.label[lang], click: () => this.selectCat(c.id),
       selClass: this.state.cat === c.id ? "sel" : "", wref: this.wref(i),
     }));
-    const navWords = this.state.navMode === "work" ? catWords : mainWords;
+    const navWords = this.state.navMode === "work" ? catWords
+      : this.state.navMode === "pixels" ? pixWords
+      : this.state.navMode === "pxwork" ? pxSubWords : mainWords;
     this._projList = projects;
     const fichaFrames = Array.from({ length: 12 }, (_, i) => ({ ref: this.fRef(i) }));
     return {
@@ -1481,15 +3031,155 @@ class Component extends DCLogic {
       wGlitchClass: this.state.wGlitch ? "wglitch" : "",
       tenProjects: projects,
       onClass: this.state.revealed ? "on" : "",
+      pxinvClass: this.isPx() ? "pxinv" : "",
       shiftClass: this.state.revealed
-        ? ("grown" + (this.state.panel === "work" ? " push-right" : this.state.panel === "about" ? " push-left" : this.state.panel === "contact" ? " push-up" : this.state.panel === "us" ? " push-down" : ""))
+        ? ("grown" + (this.state.panel === "work" || this.state.panel === "rental" || this.state.panel === "social" ? " push-right" : this.state.panel === "about" ? " push-left" : this.state.panel === "contact" ? " push-up" : ""))
         : "",
-      team,
-      usClass: this.state.panel === "us" ? "on" : "",
+      team, stripRef: this.stripRef,
+      rentalTabs, rentalItems, rlistRef: this.rlistRef, socialCards, imgFail: this.imgFail,
+      rentalEmpty: rentalItems.length === 0,
+      isRental: this.state.view === "rental",
+      rentalBack: this.rentalBack,
+      rsearchRef: this.rsearchRef, onRSearch: this.onRSearch,
+      rnNameRef: this.rnNameRef, rnContactRef: this.rnContactRef, rnNotesRef: this.rnNotesRef,
+      rentalLead: lang === "es"
+        ? "Alquiler de material audiovisual para producciones o particulares. Elige el equipo, marca las fechas y te confirmamos la reserva."
+        : "Audiovisual gear rental for productions and individuals. Pick the kit, set the dates and we confirm your booking.",
+      rSearchPh: lang === "es" ? "Buscar por marca o tipo — cámara, blackmagic, micrófono, shure…" : "Search by brand or type — camera, blackmagic, mic, shure…",
+      rCount: rentalItems.length + (lang === "es" ? " artículos" : " items"),
+      rCart, rPerOn: per, rGlobalDates: !per,
+      rPerCls: per ? "on" : "", rMin: this.rMinDate(), rMinTo: gFrom || this.rMinDate(),
+      rFrom: gFrom, rTo: gTo,
+      setRFrom: this.setRFrom, setRTo: this.setRTo, toggleRPer: this.toggleRPer,
+      rGoReview: this.rGoReview, rGoCheckout: this.rGoCheckout, rGoBrowse: this.rGoBrowse,
+      submitRental: this.submitRental, rReset: this.rReset, toggleROk: this.toggleROk,
+      rOkCls: this.state.rOk ? "on" : "",
+      rBrowse: rStep === "browse", rReview: rStep === "review", rCheckout: rStep === "checkout", rSent: rStep === "sent",
+      rSending: this.state.rState === "sending",
+      rStepLbl: lang === "es"
+        ? (rStep === "browse" ? "Tu selección" : rStep === "review" ? "Resumen del pedido" : rStep === "checkout" ? "Datos de contacto" : "Solicitud enviada")
+        : (rStep === "browse" ? "Your selection" : rStep === "review" ? "Order summary" : rStep === "checkout" ? "Your details" : "Request sent"),
+      rCartCount: rCart.length === 0
+        ? (lang === "es" ? "vacío" : "empty")
+        : rCart.reduce((a, c) => a + c.qty, 0) + (lang === "es" ? " uds." : " units"),
+      rEmptyCart: rCart.length === 0,
+      rEmptyMsg: lang === "es"
+        ? "Añade material desde la lista. Puedes reservar con una fecha común o con fechas distintas para cada artículo."
+        : "Add gear from the list. Book with one shared date range or a different one per item.",
+      rDatesLbl: lang === "es" ? "Fechas" : "Dates",
+      rPerLbl: lang === "es" ? "por artículo" : "per item",
+      rFromLbl: lang === "es" ? "Recogida" : "Pick-up",
+      rToLbl: lang === "es" ? "Devolución" : "Return",
+      r24h: lang === "es"
+        ? "Reservas con 24 h de antelación mínima. Recogida y devolución en Moralzarzal (Madrid)."
+        : "Bookings need 24 h notice. Pick-up and return in Moralzarzal (Madrid).",
+      rSubLbl: lang === "es" ? "Subtotal" : "Subtotal",
+      rSubtotal: eur(rSubtotalN),
+      rFeeLbl: lang === "es" ? "Reserva y seguro (10%)" : "Booking & insurance (10%)",
+      rFee: eur(rFeeN),
+      rVatLbl: lang === "es" ? "IVA (21%)" : "VAT (21%)",
+      rVat: eur(rVatN),
+      rVatIncl: eur(rTotalN) + (lang === "es" ? " c/ IVA" : " incl. VAT"),
+      rCoverLbl: lang === "es" ? "ARRI ALEXA · montura PL" : "ARRI ALEXA · PL mount",
+      rTermsPre: lang === "es" ? "Al reservar aceptas las" : "By booking you accept the",
+      rTermsLink: lang === "es" ? "condiciones de alquiler" : "rental conditions",
+      openTerms: this.openTerms,
+      rShipLbl: lang === "es" ? "Transporte" : "Transport",
+      rShipVal: lang === "es" ? "a consultar" : "on request",
+      rTotalLbl: lang === "es" ? "Total aprox. (IVA incl.)" : "Approx. total (incl. VAT)",
+      rTotal: eur(rTotalN),
+      rTaxNote: lang === "es"
+        ? "Precio orientativo con IVA (21%) incluido. El transporte se presupuesta aparte según destino."
+        : "Indicative price including VAT (21%). Transport quoted separately depending on location.",
+      rContinue: lang === "es" ? "Continuar" : "Continue",
+      rContDisabled: rCart.length === 0,
+      rEdit: lang === "es" ? "Editar selección" : "Edit selection",
+      rBackStep: lang === "es" ? "Volver al resumen" : "Back to summary",
+      rNotesLbl: lang === "es" ? "Notas (opcional)" : "Notes (optional)",
+      rNotesPh: lang === "es" ? "Rodaje, lugar, horas de recogida…" : "Shoot, location, pick-up time…",
+      rSend: this.state.rState === "sending" ? (lang === "es" ? "Enviando…" : "Sending…") : (lang === "es" ? "Enviar solicitud" : "Send request"),
+      rMsg: this.state.rMsg || "",
+      rHasMsg: !!this.state.rMsg,
+      rSentTitle: lang === "es" ? "Solicitud recibida." : "Request received.",
+      rSentBody: lang === "es"
+        ? "Te contestamos lo antes posible con la disponibilidad confirmada y el presupuesto final, transporte incluido si lo necesitas."
+        : "We will get back to you as soon as possible with confirmed availability and the final quote, transport included if you need it.",
+      rNewOrder: lang === "es" ? "Nueva reserva" : "New booking",
+      imgSoon: lang === "es" ? "Imagen del equipo" : "Gear photo",
+      rentalSoon: lang === "es"
+        ? "Estamos subiendo el inventario de esta categoría. Escríbenos y te mandamos la lista completa con precios por día y por semana."
+        : "We are still uploading this category. Write to us and we will send you the full list with daily and weekly rates.",
+      rentalClass: this.state.panel === "rental" ? "on" : "",
+      socialClass: this.state.panel === "social" ? "on" : "",
+      rentalSub: lang === "es" ? "Cuerpo de cámara · kit completo" : "Camera body · full kit",
+      perDay: lang === "es" ? "por día · IVA no incl." : "per day · VAT excl.",
+      includes: lang === "es" ? "Incluye" : "Includes",
+      rentalNote: lang === "es"
+        ? "Precios orientativos. Consulta disponibilidad, ópticas y días de rodaje."
+        : "Indicative pricing. Ask about availability, lenses and shooting days.",
+      rentalCta: lang === "es" ? "Consultar" : "Enquire",
+      socialNote: lang === "es"
+        ? "Reels, fotografía, publicaciones y activaciones en redes."
+        : "Reels, photography, posts and social activations.",
+      usClass: this.state.panel === "about" ? "on" : "",
       florRef: this.florRef,
       pixClass: this.state.revealed ? "off" : "",
       workClass: this.state.panel === "work" ? "on" : "",
       contactClass: this.state.panel === "contact" ? "on" : "",
+      privLabel: lang === "es" ? "Privacidad" : "Privacy",
+      pxRef: this.pxRef,
+      fluidRef: this.fluidRef,
+      toggleBg: this.toggleBg,
+      fluidClass: (this.state.bg === "fluid" || this.state.vidHold || this.isPx() || !this.embedsOk()) ? "on" : "",
+      ytClass: (this.state.bg === "fluid" || this.state.vidHold || this.isPx() || !this.embedsOk()) ? "hid" : "",
+      sndRef: this.sndRef,
+      bgSwCls: this.state.bg === "fluid" ? "flu" : "vid",
+      bgLbl: this.state.bg === "fluid" ? "color" : (lang === "es" ? "vídeo" : "video"),
+      bgAria: lang === "es" ? "Fondo" : "Background",
+      formOpen: this.state.formOpen === true,
+      fmForm: this.state.fmState !== "sent",
+      fmSent: this.state.fmState === "sent",
+      fmChips, fmBudgets,
+      nameRef: (el) => { this.fmName = el; },
+      contactRef: (el) => { this.fmContact = el; },
+      descRef: (el) => { this.fmDesc = el; },
+      budgetRef: (el) => { this.fmBudget = el; },
+      okClass: this.state.fmOk ? "on" : "",
+      sendDisabled: this.state.fmState === "sending",
+      fmMsg: this.state.fmMsg || "",
+      openForm: this.openForm, closeForm: this.closeForm, stopClick: this.stopClick,
+      openPrivacy: this.openPrivacy,
+      cookieAsk: this.state.cookies === null,
+      ckAll: this.setCookies("all"), ckMin: this.setCookies("min"),
+      ckText: lang === "es"
+        ? "Usamos solo cookies técnicas. Los vídeos y reels que ves aquí los sirven Vimeo, YouTube e Instagram, que sí instalan sus propias cookies: si no las aceptas, no los cargamos. Más detalle en la"
+        : "We only use technical cookies. The videos and reels here are served by Vimeo, YouTube and Instagram, which do set their own cookies: if you decline, we don't load them. Details in our",
+      ckLink: lang === "es" ? "política de privacidad" : "privacy policy",
+      ckMinLbl: lang === "es" ? "Solo esenciales" : "Essential only",
+      ckAllLbl: lang === "es" ? "Aceptar" : "Accept",
+      toggleOk: this.toggleOk, submitForm: this.submitForm,
+      fmEyebrow: lang === "es" ? "Nuevo proyecto" : "New project",
+      fmTitle: lang === "es" ? "Cuéntanos qué hay que construir." : "Tell us what needs building.",
+      fmIntro: lang === "es"
+        ? "Producción 360º, campañas integrales, anuncios, estrategia de comunicación e imagen. Si se puede rodar, montar o publicar, lo hacemos."
+        : "360º production, integrated campaigns, advertising, comms and image strategy. If it can be shot, cut or published, we do it.",
+      fmName: lang === "es" ? "Tu nombre / empresa" : "Your name / company",
+      fmNamePh: lang === "es" ? "Nombre y marca" : "Name and brand",
+      fmContact: lang === "es" ? "Contacto" : "Contact",
+      fmContactPh: lang === "es" ? "Correo, móvil… lo que prefieras" : "Email, phone… whatever you prefer",
+      fmWhat: lang === "es" ? "Qué necesitas" : "What you need",
+      fmDesc: lang === "es" ? "Descripción del proyecto" : "Project description",
+      fmDescPh: lang === "es" ? "Formato, fechas, referencias y dónde se va a ver." : "Format, dates, references and where it will live.",
+      fmBudget: lang === "es" ? "Rango de presupuesto" : "Budget range",
+      fmPriv: lang === "es" ? "He leído y acepto la" : "I have read and accept the",
+      fmPrivLink: lang === "es" ? "política de privacidad" : "privacy policy",
+      fmCta: lang === "es" ? "Enviar proyecto" : "Send project",
+      fmWrite: lang === "es" ? "Escríbenos" : "Write us",
+      fmSentTitle: lang === "es" ? "Recibido." : "Received.",
+      fmSentBody: lang === "es"
+        ? "Te escribimos desde info@velourpixel.com en menos de 48 h. Si corre prisa, llama al +34 600 855 079."
+        : "We'll write from info@velourpixel.com within 48 h. If it's urgent, call +34 600 855 079.",
+      fmClose: lang === "es" ? "Cerrar" : "Close",
       aboutClass: this.state.panel === "about" ? "on" : "",
 
       aboutText: lang === "es"
@@ -1498,6 +3188,16 @@ class Component extends DCLogic {
       pixRef: this.pixRef,
       scrollRef: this.scrollRef,
       logoRef: this.logoRef,
+      toPixels: this.toPixels,
+      toVelour: this.toVelour,
+      wswClass: this.state.revealed ? "on" : "",
+      wswRef: this.wswRef,
+      wsRef: this.wsRef,
+      wsARef: this.wsARef,
+      wsBRef: this.wsBRef,
+      vlCls: this.isPx() ? "" : "on",
+      pxCls: this.isPx() ? "on" : "",
+      worldTip: "",
       w0Ref: this.w0Ref, w1Ref: this.w1Ref, w2Ref: this.w2Ref,
       tileOver: (e) => { this.hovTile = e.currentTarget; },
       tileOut: () => { this.hovTile = null; },
@@ -1551,6 +3251,8 @@ class Component extends DCLogic {
             const old = el.querySelector("a.ytfb");
             if (old) old.remove();
           }
+          // portada de Vimeo bajo el player, por el mismo motivo que la de YouTube
+          if (!v.yt && el._vmFicha !== v.id) { el._vmFicha = v.id; this.vmPoster(el, v.id, v.h); }
           if (!el.querySelector("iframe")) {
             const nf = document.createElement("iframe");
             nf.src = want; nf.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
@@ -1558,7 +3260,6 @@ class Component extends DCLogic {
             nf.referrerPolicy = "strict-origin-when-cross-origin";
             // 1px de sangrado: elimina la costura clara del reproductor por redondeo
             nf.style.cssText = "position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);border:0;z-index:1";
-            if (!v.yt) nf.style.background = "#000";
             el.appendChild(nf);
           }
           // la portada adopta la proporción REAL del vídeo: sin barras nunca
@@ -1602,6 +3303,7 @@ class Component extends DCLogic {
       ytRef: this.ytRef,
       overlayRef: this.setOverlay,
       revealOn: this.revealOn,
+      logoClick: this.logoClick,
       revealOff: this.revealOff,
       toggleSound: this.toggleSound,
       soundLabel: (this.state.muted
@@ -1615,7 +3317,7 @@ class Component extends DCLogic {
         if (this.mainVidEl) {
           this.mainVidEl.innerHTML = "";
           this.mainVidEl.style.backgroundImage = "";
-          this.mainVidEl._vkey = null; this.mainVidEl._ytPoster = null; this.mainVidEl._igxFicha = null;
+          this.mainVidEl._vkey = null; this.mainVidEl._ytPoster = null; this.mainVidEl._igxFicha = null; this.mainVidEl._vmFicha = null;
           this.mainVidEl._arKey = null;
         }
         this.fEls = [];
@@ -1625,7 +3327,7 @@ class Component extends DCLogic {
         this.setState({ view: "home", revealed: true, panel: cat ? "work" : null, navMode: cat ? "work" : "main", preSel: null }, () => {
           // tras el remontaje de la vista home: el velo es del nodo nuevo, no del de la ficha
           this.syncOverlay();
-          this.generateRects(4);
+          this.generateRects(5);
         });
       },
     };

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="uploads/ABCSchengenAVariable-Trial.ttf" as="font" type="font/ttf" crossorigin>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<style>
+@font-face{font-family:'Schengen';src:url('uploads/ABCSchengenAVariable-Trial.ttf') format('truetype');font-weight:100 900;font-display:swap}
+html,body{margin:0;background:#0a0a0a;font-family:'Schengen',sans-serif;font-weight:200;color:#ededed}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#ffffff}
+.ic path,.ic circle,.ic rect{fill:none;stroke:#e8e8e8;stroke-width:1.1;stroke-linecap:square;stroke-dasharray:1;animation:drawpath 5.2s cubic-bezier(.4,0,.2,1) infinite}
+.icbox{width:62px;height:62px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);transition:border-color .35s ease,background .35s ease}
+.sect:hover .icbox{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.03)}
+.rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.idx{font-size:9px;letter-spacing:.2em;line-height:1;white-space:nowrap;text-transform:uppercase;color:#7d7d7d;border:1px solid rgba(255,255,255,.14);padding:9px 11px;transition:color .25s,border-color .25s}
+.idx:hover{color:#f2f2f2;border-color:rgba(255,255,255,.5)}
+.ml a{border-bottom:1px solid rgba(255,255,255,.3);color:#e8e8e8}
+.ml a:hover{border-color:#fff}
+@keyframes drawpath{0%,9%{stroke-dashoffset:1}40%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ruledraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+</helmet>
+
+<div style="background:#0a0a0a;min-height:100vh;padding-bottom:10px">
+
+  <div style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,5vw,64px);background:rgba(10,10,10,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)">
+    <a href="desktop.dc.html" style="display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9a9a9a">← <img src="uploads/Workdmark_Blanca.svg" alt="Velour" style="height:13px;width:auto;opacity:.9"></a>
+    <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#6f6f6f">Legal</div>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(54px,9vh,110px) clamp(20px,5vw,64px) 0">
+    <div class="rise" style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8a8a8a">Actualizado · {{ updated }}</div>
+    <h1 class="rise" style="font-size:clamp(34px,6vw,68px);font-weight:300;letter-spacing:-.025em;line-height:1.02;color:#f6f6f6;margin:20px 0 0;animation-delay:.06s">Política<br>de privacidad</h1>
+    <div style="height:1px;background:rgba(255,255,255,.22);margin:34px 0 0;transform-origin:left;animation:ruledraw .9s cubic-bezier(.2,.8,.2,1) .12s both"></div>
+    <p class="rise ml" style="font-size:clamp(14px,1.5vw,17px);line-height:1.75;color:#b0b0b0;max-width:62ch;margin:26px 0 0;text-wrap:pretty;animation-delay:.14s">Somos una productora audiovisual, no una empresa de datos. Solo tratamos lo que nos escribes para hablar de tu proyecto: nada de perfilado, publicidad ni bases de datos compradas. Aquí está todo, en claro.</p>
+
+    <sc-if value="{{ showIndex }}" hint-placeholder-val="{{ true }}">
+    <div class="rise" style="display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 0;animation-delay:.2s">
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="10">
+        <a class="idx" href="{{ s.href }}">{{ s.n }} · {{ s.title }}</a>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(48px,7vh,88px) clamp(20px,5vw,64px) 0;display:flex;flex-direction:column;gap:0">
+    <sc-for list="{{ sections }}" as="s" hint-placeholder-count="10">
+      <section class="sect" id="{{ s.id }}" style="display:grid;grid-template-columns:62px 1fr;gap:clamp(18px,3vw,34px);padding:clamp(26px,4vh,40px) 0;border-top:1px solid rgba(255,255,255,.1)">
+        <div class="icbox">{{ s.icon }}</div>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:baseline;gap:14px">
+            <span style="font-size:9px;letter-spacing:.2em;color:#6a6a6a">{{ s.n }}</span>
+            <h2 style="font-size:clamp(17px,2vw,23px);font-weight:300;letter-spacing:-.01em;color:#f4f4f4;margin:0;line-height:1.2">{{ s.title }}</h2>
+          </div>
+          <p class="ml" style="font-size:clamp(13px,1.35vw,15px);line-height:1.78;color:#adadad;margin:0;max-width:70ch;text-wrap:pretty;white-space:pre-line">{{ s.body }}</p>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(40px,6vh,72px) clamp(20px,5vw,64px) clamp(48px,8vh,90px);border-top:1px solid rgba(255,255,255,.1);margin-top:8px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#7d7d7d">Responsable del tratamiento</div>
+      <a href="mailto:info@velourpixel.com" style="font-size:clamp(18px,2.2vw,26px);font-weight:300;color:#f4f4f4">info@velourpixel.com</a>
+      <div style="font-size:11.5px;line-height:1.7;color:#8f8f8f">Velour Pixels, S.L. · NIF B88982301 · Moralzarzal (28411), Madrid, España</div>
+    </div>
+    <a href="desktop.dc.html" style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#0e0e0e;background:#ededed;padding:13px 20px" style-hover="background:#ffffff">← Volver a Velour</a>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;updated&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Julio de 2026&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Fecha de actualización&quot;},&quot;showIndex&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Mostrar índice de secciones&quot;}}">
+class Component extends DCLogic {
+  icon = (paths, delay) => React.createElement(
+    "svg",
+    { className: "ic", viewBox: "0 0 24 24", width: 26, height: 26, "aria-hidden": "true", style: { display: "block", overflow: "visible" } },
+    paths.map((d, i) => React.createElement("path", { key: i, d, pathLength: 1, style: { animationDelay: (delay + i * 0.22).toFixed(2) + "s" } }))
+  );
+  renderVals() {
+    const defs = [
+      { id: "responsable", title: "Quién trata tus datos",
+        paths: ["M12 2.6 20 5.6v6.1c0 4.6-3.4 7.8-8 9.3-4.6-1.5-8-4.7-8-9.3V5.6z", "M8.8 12.1 11.3 14.6 15.6 9.9"],
+        body: "Responsable: Velour Pixels, S.L. — productora audiovisual.\nNIF: B88982301.\nDomicilio: Moralzarzal (28411), Madrid, España.\nCorreo de contacto y de privacidad: info@velourpixel.com · Teléfono: +34 600 855 079.\nNo tenemos obligación de nombrar Delegado de Protección de Datos; las solicitudes las atendemos directamente en ese correo.\nTratamiento conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 (LOPDGDD)." },
+      { id: "datos", title: "Qué datos recogemos",
+        paths: ["M6.5 3h8.2L18 6.3V21H6.5z", "M9.4 10h6.1", "M9.4 13.7h6.1", "M9.4 17.4h3.9"],
+        body: "Solo lo que escribes en el formulario de contacto: tu nombre o empresa, el medio de contacto que elijas (correo, móvil o el que prefieras), la descripción del proyecto, los servicios que marcas y el rango de presupuesto.\nNo pedimos datos sensibles, no hacemos perfilado y no compramos bases de datos." },
+      { id: "finalidad", title: "Para qué los usamos",
+        paths: ["M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6z", "M12 7.6a4.4 4.4 0 1 0 0 8.8 4.4 4.4 0 0 0 0-8.8z", "M12 11.4v1.2"],
+        body: "Para responderte, preparar una propuesta y un presupuesto, y mantener el hilo de la conversación mientras el proyecto esté vivo.\nNada más: no te añadimos a ninguna lista de correo sin que nos lo pidas." },
+      { id: "base-legal", title: "Con qué base legal",
+        paths: ["M12 4.2v15.6", "M5 8.4h14", "M5 8.4 2.2 14.4h5.6z", "M19 8.4 16.2 14.4h5.6z"],
+        body: "Tu consentimiento al enviar el formulario (art. 6.1.a RGPD) y nuestro interés legítimo en atender solicitudes comerciales (art. 6.1.f RGPD).\nPuedes retirar el consentimiento cuando quieras escribiéndonos." },
+      { id: "conservacion", title: "Cuánto tiempo los guardamos",
+        paths: ["M12 3.4a8.6 8.6 0 1 0 0 17.2 8.6 8.6 0 0 0 0-17.2z", "M12 7.5v4.9l3.9 2.2"],
+        body: "Mientras dure la conversación. Si acabamos trabajando juntos, durante los plazos fiscales y contables obligatorios.\nSi no hay proyecto, borramos la solicitud a los doce meses — o antes, si nos lo pides." },
+      { id: "destinatarios", title: "Quién más puede verlos",
+        paths: ["M4.4 5.2h5.2v5.2H4.4z", "M14.4 13.6h5.2v5.2h-5.2z", "M9.6 7.8h4.8v8"],
+        body: "Nuestro proveedor de correo y el servicio que transporta el formulario hasta nuestro buzón. Nada más.\nNo vendemos ni cedemos tus datos. La web se sirve desde Vercel, y los vídeos y reels se muestran con los reproductores de Vimeo, YouTube e Instagram." },
+      { id: "encargados", title: "Encargados del tratamiento y transferencias",
+        paths: ["M12 3.6a8.4 8.4 0 1 0 0 16.8 8.4 8.4 0 0 0 0-16.8z", "M3.6 12h16.8", "M12 3.6c2.4 2.3 3.7 5.2 3.7 8.4S14.4 18.1 12 20.4c-2.4-2.3-3.7-5.2-3.7-8.4S9.6 5.9 12 3.6z"],
+        body: "Solo acceden a tus datos los proveedores necesarios para que la web y el formulario funcionen, con contrato de encargo de tratamiento:\n· Vercel Inc. — alojamiento de la web.\n· FormSubmit — transporte del formulario hasta nuestro buzón.\n· Nuestro proveedor de correo electrónico — recepción y custodia del mensaje.\n· Vimeo, Google (YouTube) y Meta (Instagram) — reproducción de los vídeos y reels incrustados.\nAlgunos están en Estados Unidos, por lo que puede haber transferencia internacional amparada en el Data Privacy Framework UE-EE. UU. y/o en las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea. No cedemos tus datos a nadie más ni los vendemos." },
+      { id: "navegacion", title: "Datos de navegación",
+        paths: ["M4 18.6V9.4", "M9.3 18.6V5.4", "M14.6 18.6v-7.8", "M19.9 18.6V7.2"],
+        body: "El servidor que aloja la web registra datos técnicos mínimos (dirección IP, fecha, navegador y páginas servidas) para mantener el servicio y detectar incidencias de seguridad. Base legal: interés legítimo (art. 6.1.f RGPD). Estos registros se conservan por un plazo breve y no se cruzan con los datos del formulario." },
+      { id: "automatizado", title: "Sin perfilado ni decisiones automatizadas",
+        paths: ["M6.4 6.4h11.2v11.2H6.4z", "M9.8 9.8h4.4v4.4H9.8z", "M4 12h2.4", "M17.6 12H20"],
+        body: "No elaboramos perfiles, no puntuamos ni clasificamos a nadie de forma automática y no tomamos decisiones con efectos jurídicos basadas únicamente en algoritmos.\nLa web no está dirigida a menores de catorce años; si detectamos datos de un menor sin autorización de su tutor, los eliminamos." },
+      { id: "derechos", title: "Tus derechos",
+        paths: ["M9.4 15.4a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4z", "M12.6 12.2 20.4 4.4", "M17 6.8l2.4 2.4"],
+        body: "Tienes derecho de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, así como a retirar tu consentimiento en cualquier momento.\nEscribe a info@velourpixel.com indicando qué derecho ejerces; podemos pedirte que acredites tu identidad. Responderemos en el plazo máximo de un mes, ampliable a dos si la solicitud es compleja.\nSi no estás conforme con nuestra respuesta, puedes reclamar ante la Agencia Española de Protección de Datos — C/ Jorge Juan 6, 28001 Madrid · aepd.es." },
+      { id: "cookies", title: "Cookies y terceros",
+        paths: ["M12 3.4a8.6 8.6 0 1 0 0 17.2 8.6 8.6 0 0 0 0-17.2z", "M9 9.4h.1", "M14.4 11h.1", "M10.6 14.8h.1", "M15 15.6h.1"],
+        body: "Al entrar te pedimos consentimiento con un aviso: si eliges «solo esenciales» no cargamos ningún reproductor de terceros y no se instala ninguna cookie que no sea técnica. Tu elección se guarda en tu propio navegador y puedes cambiarla borrando los datos del sitio.\nNo usamos cookies de seguimiento, ni analítica publicitaria, ni píxeles de redes sociales.\nLos reproductores embebidos (Vimeo, YouTube, Instagram) pueden instalar sus propias cookies al cargar un vídeo. Puedes bloquearlas desde tu navegador sin que la web deje de funcionar." },
+      { id: "seguridad", title: "Cómo los protegemos",
+        paths: ["M5.8 10.8h12.4V21H5.8z", "M9 10.8V8.2a3 3 0 0 1 6 0v2.6", "M12 14.6v2.6"],
+        body: "Conexión cifrada (HTTPS) en toda la web, acceso limitado al buzón donde llegan los formularios y borrado cuando los datos dejan de ser necesarios.\nSi se produjera una brecha de seguridad que afecte a tus datos y suponga un riesgo para tus derechos, lo notificaremos a la AEPD en un plazo de 72 horas y te informaremos si fuera necesario." },
+      { id: "cambios", title: "Cambios en esta política",
+        paths: ["M20.2 12a8.4 8.4 0 1 1-3.2-6.6", "M20.4 3.8v5h-5"],
+        body: "Si cambiamos algo, actualizamos la fecha del encabezado. La versión vigente es siempre la que ves en esta página; te recomendamos revisarla antes de enviarnos datos.\nNormativa aplicable: Reglamento (UE) 2016/679 (RGPD), Ley Orgánica 3/2018 de Protección de Datos y garantía de los derechos digitales (LOPDGDD) y Ley 34/2002 de servicios de la sociedad de la información (LSSI)." },
+    ];
+    return {
+      updated: this.props.updated ?? "Julio de 2026",
+      showIndex: this.props.showIndex ?? true,
+      sections: defs.map((s, i) => ({
+        id: s.id, href: "#" + s.id, n: String(i + 1).padStart(2, "0"),
+        title: s.title, body: s.body, icon: this.icon(s.paths, i * 0.18),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

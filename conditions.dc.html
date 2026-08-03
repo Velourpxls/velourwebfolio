@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preload" href="uploads/ABCSchengenAVariable-Trial.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face{font-family:'Schengen';src:url('uploads/ABCSchengenAVariable-Trial.ttf') format('truetype');font-weight:100 900;font-display:swap}
+html,body{margin:0;background:#0a0a0a;font-family:'Schengen',sans-serif;font-weight:200;color:#ededed}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#ffffff}
+.ic path,.ic circle,.ic rect{fill:none;stroke:#e8e8e8;stroke-width:1.1;stroke-linecap:square;stroke-dasharray:1;animation:drawpath 5.2s cubic-bezier(.4,0,.2,1) infinite}
+.icbox{width:62px;height:62px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);transition:border-color .35s ease,background .35s ease}
+.sect:hover .icbox{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.03)}
+.rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.idx{font-size:9px;letter-spacing:.2em;line-height:1;white-space:nowrap;text-transform:uppercase;color:#7d7d7d;border:1px solid rgba(255,255,255,.14);padding:9px 11px;transition:color .25s,border-color .25s}
+.idx:hover{color:#f2f2f2;border-color:rgba(255,255,255,.5)}
+.ml a{border-bottom:1px solid rgba(255,255,255,.3);color:#e8e8e8}
+.ml a:hover{border-color:#fff}
+.flag{position:relative;display:flex;flex-direction:column;gap:13px;padding:22px 20px 24px;border:1px solid rgba(255,255,255,.16);background:rgba(14,14,14,.7);overflow:hidden;animation:rise .8s cubic-bezier(.2,.8,.2,1) both;transition:border-color .4s ease,background .4s ease,transform .4s cubic-bezier(.2,.8,.2,1)}
+.flag:hover{border-color:rgba(255,255,255,.5);background:rgba(19,19,19,.85);transform:translateY(-3px)}
+.flag:before{content:'';position:absolute;left:0;top:0;height:1px;width:100%;background:linear-gradient(90deg,rgba(255,255,255,.6),rgba(255,255,255,0));transform-origin:left;transform:scaleX(0);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.flag:hover:before{transform:scaleX(1)}
+.flag .fic{width:26px;height:26px}
+.flag:nth-child(2){animation-delay:.07s}
+.flag:nth-child(3){animation-delay:.14s}
+.flag:nth-child(4){animation-delay:.21s}
+@keyframes drawpath{0%,9%{stroke-dashoffset:1}40%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ruledraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+</helmet>
+
+<div style="background:#0a0a0a;min-height:100vh;padding-bottom:10px">
+
+  <div style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,5vw,64px);background:rgba(10,10,10,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)">
+    <a href="desktop.dc.html" style="display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9a9a9a">← <img src="uploads/pixels-logo.png" alt="Velour Pixels" style="height:14px;width:auto;opacity:.9"></a>
+    <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#6f6f6f">Rental</div>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(54px,9vh,110px) clamp(20px,5vw,64px) 0">
+    <div class="rise" style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8a8a8a">Actualizado · {{ updated }}</div>
+    <h1 class="rise" style="font-size:clamp(34px,6vw,68px);font-weight:300;letter-spacing:-.025em;line-height:1.02;color:#f6f6f6;margin:20px 0 0;animation-delay:.06s">Condiciones<br>de alquiler</h1>
+    <div style="height:1px;background:rgba(255,255,255,.22);margin:34px 0 0;transform-origin:left;animation:ruledraw .9s cubic-bezier(.2,.8,.2,1) .12s both"></div>
+    <p class="rise ml" style="font-size:clamp(14px,1.5vw,17px);line-height:1.75;color:#b0b0b0;max-width:64ch;margin:26px 0 0;text-wrap:pretty;animation-delay:.14s">{{ lead }}</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px;margin:40px 0 0">
+      <sc-for list="{{ flags }}" as="f" hint-placeholder-count="4">
+        <div class="flag">
+          <div class="fic">{{ f.icon }}</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8f8f8f">{{ f.kicker }}</div>
+          <div style="font-size:clamp(17px,2vw,21px);font-weight:300;line-height:1.15;color:#f4f4f4;letter-spacing:-.01em">{{ f.title }}</div>
+          <div style="font-size:11.5px;line-height:1.7;color:#a2a2a2;text-wrap:pretty">{{ f.body }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ showIndex }}" hint-placeholder-val="{{ true }}">
+    <div class="rise" style="display:flex;flex-wrap:wrap;gap:8px;margin:40px 0 0;animation-delay:.26s">
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="12">
+        <a class="idx" href="{{ s.href }}">{{ s.n }} · {{ s.title }}</a>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:clamp(48px,7vh,88px) clamp(20px,5vw,64px) 0;display:flex;flex-direction:column;gap:0">
+    <sc-for list="{{ sections }}" as="s" hint-placeholder-count="12">
+      <section class="sect" id="{{ s.id }}" style="display:grid;grid-template-columns:62px 1fr;gap:clamp(18px,3vw,34px);padding:clamp(26px,4vh,40px) 0;border-top:1px solid rgba(255,255,255,.1)">
+        <div class="icbox">{{ s.icon }}</div>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:baseline;gap:14px">
+            <span style="font-size:9px;letter-spacing:.2em;color:#6a6a6a">{{ s.n }}</span>
+            <h2 style="font-size:clamp(17px,2vw,23px);font-weight:300;letter-spacing:-.01em;color:#f4f4f4;margin:0;line-height:1.2">{{ s.title }}</h2>
+          </div>
+          <p class="ml" style="font-size:clamp(13px,1.35vw,15px);line-height:1.78;color:#adadad;margin:0;max-width:70ch;text-wrap:pretty;white-space:pre-line">{{ s.body }}</p>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+
+  <div style="max-width:1000px;margin:8px auto 0;padding:clamp(40px,6vh,72px) clamp(20px,5vw,64px) clamp(48px,8vh,90px);border-top:1px solid rgba(255,255,255,.1);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#7d7d7d">Reservas y dudas</div>
+      <a href="mailto:info@velourpixel.com?subject=Rental%20%C2%B7%20condiciones" style="font-size:clamp(18px,2.2vw,26px);font-weight:300;color:#f4f4f4">info@velourpixel.com</a>
+      <div style="font-size:11.5px;line-height:1.7;color:#8f8f8f">Velour Pixels, S.L. · NIF B88982301 · Moralzarzal (28411), Madrid, España</div>
+      <div class="ml" style="font-size:11px;line-height:1.7;color:#7d7d7d">Tratamiento de datos: <a href="privacy.dc.html" target="_blank" rel="noopener">política de privacidad</a>.</div>
+    </div>
+    <a href="desktop.dc.html" style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#0e0e0e;background:#ededed;padding:13px 20px" style-hover="background:#ffffff">← Volver a Velour</a>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1120,&quot;height&quot;:900},&quot;updated&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Agosto de 2026&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Fecha de actualización&quot;},&quot;showIndex&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Mostrar índice de secciones&quot;},&quot;lead&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Un resumen claro de cómo alquilamos el material: qué incluye la reserva, qué pasa si algo se rompe y en qué plazos nos movemos. Es un resumen de las condiciones habituales — el contrato que firmamos en cada alquiler es el que manda.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Entradilla&quot;}}">
+class Component extends DCLogic {
+  icon = (paths, delay, cls) => React.createElement(
+    "svg",
+    { className: "ic", viewBox: "0 0 24 24", width: 26, height: 26, "aria-hidden": "true", style: { display: "block", overflow: "visible" } },
+    paths.map((d, i) => React.createElement("path", { key: i, d, pathLength: 1, style: { animationDelay: (delay + i * 0.22).toFixed(2) + "s" } }))
+  );
+  renderVals() {
+    const flagDefs = [
+      { kicker: "Responsabilidad", title: "El equipo va bajo tu riesgo",
+        paths: ["M12 2.6 20 5.6v6.1c0 4.6-3.4 7.8-8 9.3-4.6-1.5-8-4.7-8-9.3V5.6z", "M12 8.4v4.4", "M12 15.4v1.1"],
+        body: "Desde que recoges el material hasta que lo verificamos de vuelta, respondes de cualquier daño, avería, pérdida o robo, incluso fortuito." },
+      { kicker: "Seguro", title: "Necesitas póliza propia",
+        paths: ["M12 3.4 19.4 6v6c0 4.3-3.2 7.3-7.4 8.6C7.8 19.3 4.6 16.3 4.6 12V6z", "M9.2 12.2l2.2 2.2 4-4.4"],
+        body: "Declaras tener seguro de equipos o de responsabilidad civil. Las franquicias, exclusiones e infraseguro corren de tu cuenta." },
+      { kicker: "Plazos", title: "Devolver tarde se paga",
+        paths: ["M12 3.4a8.6 8.6 0 1 0 0 17.2 8.6 8.6 0 0 0 0-17.2z", "M12 7.5v4.9l3.9 2.2"],
+        body: "El retraso no autorizado por escrito devenga el doble de la tarifa diaria por cada día o fracción." },
+    ];
+    const defs = [
+      { id: "reserva", title: "Solicitud, reserva y confirmación",
+        paths: ["M5.6 4.6h12.8v14.8H5.6z", "M9 9h6", "M9 12.6h6", "M9 16.2h3.4"],
+        body: "La solicitud que envías desde la web es una petición, no una reserva firme: nos llega con el material, las fechas y tus datos, y te contestamos lo antes posible.\nNecesitamos un mínimo de 24 horas de antelación. La reserva queda cerrada cuando confirmamos disponibilidad por correo y se firma el contrato de arrendamiento del equipo.\nLa disponibilidad que ves en la web es orientativa: manda tu solicitud y la confirmamos." },
+      { id: "precio", title: "Precio, IVA y forma de pago",
+        paths: ["M12 3.4a8.6 8.6 0 1 0 0 17.2 8.6 8.6 0 0 0 0-17.2z", "M9.2 9.4h5.6", "M9.2 13h5.6", "M13.2 6.8c-2.6 0-3.4 1.6-3.4 3.6 0 3 1.2 6.8 3.8 6.8"],
+        body: "Las tarifas son por día de alquiler y por unidad. Al importe se le suma el IVA (21 %), que ya aparece desglosado en el resumen del pedido.\nSobre el subtotal aplicamos un 10 % de reserva y seguro. El transporte se presupuesta aparte según destino.\nEl pago se hace por transferencia según la factura que emitimos, con el vencimiento que se indique en ella. El impago en plazo devenga el interés de demora y la indemnización por costes de cobro (mínimo 40 €) previstos en la Ley 3/2004." },
+      { id: "duracion", title: "Duración y prórrogas",
+        paths: ["M4.6 6.4h14.8v13H4.6z", "M4.6 10.4h14.8", "M8.4 3.6v3.4", "M15.6 3.6v3.4"],
+        body: "El alquiler se pacta con día y hora de recogida y de devolución. La jornada se cuenta de hora a hora.\nCualquier prórroga tiene que acordarse por escrito —el correo electrónico vale— y devenga la renta adicional que corresponda según la tarifa." },
+      { id: "entrega", title: "Entrega, verificación y devolución",
+        paths: ["M3.6 8.4 12 4.2l8.4 4.2v7.2L12 19.8 3.6 15.6z", "M3.6 8.4 12 12.6l8.4-4.2", "M12 12.6v7.2"],
+        body: "La entrega y la devolución se hacen en Moralzarzal (Madrid), salvo que acordemos otra cosa.\nEn los dos momentos levantamos checklist del estado del equipo y lo documentamos con fotos o vídeo: ambas partes lo aceptamos como prueba.\nTienes 24 horas desde la entrega para comunicarnos por escrito cualquier defecto no aparente; pasado ese plazo se entiende recibido completo y en perfecto estado.\nLa devolución no se considera hecha hasta que verificamos el equipo: disponemos de 48 horas desde la recepción para comunicar daños o faltas." },
+      { id: "uso", title: "Uso del equipo",
+        paths: ["M4.4 7.6h15.2v9.6H4.4z", "M9.4 7.6V5.4h5.2v2.2", "M12 10.2a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z"],
+        body: "El material se usa para actividad audiovisual y siempre por personal cualificado, con la diligencia debida.\nNo se puede ceder, subarrendar ni prestar a terceros, ni sacar del territorio español, sin nuestra autorización previa y por escrito.\nNo se manipula, repara, desmonta ni modifica, ni se retiran números de serie. En particular: no se toca ni limpia el sensor, ni se expone a líquidos, aerosoles, humo denso, arena, lluvia o condiciones fuera de las especificaciones del fabricante." },
+      { id: "custodia", title: "Custodia y transporte",
+        paths: ["M5.4 8.6h13.2v9.8H5.4z", "M9.6 8.6V6.2h4.8v2.4", "M5.4 13.4h13.2"],
+        body: "El equipo no se deja desatendido en ningún momento, ni dentro de vehículos sin vigilancia.\nSe transporta siempre en su maleta o embalaje adecuado. Cualquier avería, incidencia, pérdida o robo se nos comunica de inmediato." },
+      { id: "danos", title: "Daños: indemnizaciones pactadas",
+        paths: ["M12 3.8 21 19.4H3z", "M12 9.6v4.4", "M12 16.2v1.1"],
+        body: "Cada alquiler se formaliza en su propio contrato, y es ahí donde se fijan las indemnizaciones pactadas para el material concreto que sale de almacén: los importes dependen del equipo, de su valor y de la pieza afectada.\nEsas cantidades funcionan como cláusula penal (art. 1152 del Código Civil): son mínimas, líquidas y exigibles desde que se constata el daño, sin necesidad de probar el perjuicio.\nSon importes mínimos y no liberatorios: si el coste real de reparación más los perjuicios acreditados (incluidos los días que el equipo quede fuera de servicio, a razón de su tarifa diaria) los supera, reclamamos el exceso conforme al art. 1153 del Código Civil.\nLos importes son exigibles a los 10 días naturales de su comunicación por escrito." },
+      { id: "perdida", title: "Pérdida, robo o siniestro total",
+        paths: ["M4.6 4.6h14.8v14.8H4.6z", "M8.4 8.4l7.2 7.2", "M15.6 8.4l-7.2 7.2"],
+        body: "En caso de pérdida, robo o siniestro no reparable se abona el valor de reposición a nuevo declarado en el contrato para ese equipo, menos el valor residual de lo recuperado. El valor declarado se detalla en el contrato de cada alquiler.\nEn caso de robo o hurto hay que presentar denuncia ante las autoridades en un plazo máximo de 24 horas y facilitarnos copia.\nLas tarjetas de memoria, cables y accesorios no devueltos se abonan a precio de reposición a nuevo." },
+      { id: "seguro", title: "Seguro",
+        paths: ["M12 3.4 19.4 6v6c0 4.3-3.2 7.3-7.4 8.6C7.8 19.3 4.6 16.3 4.6 12V6z", "M12 8.6v3.6", "M12 14.6v1"],
+        body: "Al alquilar declaras disponer de un seguro de equipos o de responsabilidad civil que cubre el material durante todo el alquiler.\nTener seguro no limita ni sustituye tu responsabilidad frente a nosotros: respondes directamente de franquicias, exclusiones, infraseguro y de cualquier importe que la aseguradora no cubra." },
+      { id: "titularidad", title: "Titularidad del equipo",
+        paths: ["M4.6 19.4V9.4L12 4.6l7.4 4.8v10z", "M9.6 19.4v-6h4.8v6"],
+        body: "El material es propiedad exclusiva del arrendador y el alquiler no transmite ningún derecho real sobre él.\nSi un tercero pretende actuar sobre el equipo —administradores concursales, órganos judiciales, embargos— hay que informarle de nuestra titularidad y comunicárnoslo de inmediato." },
+      { id: "limite", title: "Límite de nuestra responsabilidad",
+        paths: ["M3.8 12h4.4", "M15.8 12h4.4", "M12 3.8v4.4", "M12 15.8v4.4", "M9.4 9.4h5.2v5.2H9.4z"],
+        body: "No respondemos de daños indirectos, lucro cesante, pérdida de producción ni pérdida de material grabado o de datos.\nSi hay una avería que no te es imputable, nuestra responsabilidad se limita —a nuestra elección— a sustituir el equipo por otro equivalente si lo tenemos, o a devolver la parte proporcional de la renta por los días no disfrutados, sin exceder nunca el importe cobrado por ese alquiler." },
+      { id: "anulaciones", title: "Cambios y anulaciones",
+        paths: ["M20.2 12a8.4 8.4 0 1 1-3.2-6.6", "M20.4 3.8v5h-5"],
+        body: "Si necesitas mover fechas o anular, avísanos por escrito cuanto antes: si podemos reubicar el material, no hay problema.\nLas condiciones concretas de cada anulación se fijan en el contrato de ese alquiler, en función de la antelación y de la preparación ya realizada." },
+      { id: "legal", title: "Firma, ley aplicable y datos",
+        paths: ["M4.6 18.6c3-1 4.6-2.6 6.4-5.4 1.6-2.6 2.2-5.2 1.4-6.6-.8-1.4-2.6-.6-2.4 1.8.2 2.8 2.4 6.2 4.6 7.6 1.6 1 3 .8 4.8-.4", "M4.6 20.8h14.8"],
+        body: "El contrato puede formalizarse con firma electrónica, con plena validez conforme al Reglamento (UE) 910/2014 (eIDAS) y a la Ley 6/2020.\nSe rige por la legislación española y, para cualquier controversia, las partes se someten a los Juzgados y Tribunales de Madrid.\nLos datos personales del contrato se tratan solo para gestionar el alquiler y cumplir las obligaciones legales, conforme al RGPD y a la Ley Orgánica 3/2018. Puedes ejercer tus derechos en info@velourpixel.com." },
+    ];
+    return {
+      updated: this.props.updated ?? "Agosto de 2026",
+      showIndex: this.props.showIndex ?? true,
+      lead: this.props.lead ?? "Un resumen claro de cómo alquilamos el material: qué incluye la reserva, qué pasa si algo se rompe y en qué plazos nos movemos. Es un resumen de las condiciones habituales — el contrato que firmamos en cada alquiler es el que manda.",
+      flags: flagDefs.map((f, i) => ({ kicker: f.kicker, title: f.title, body: f.body, icon: this.icon(f.paths, 0.1 + i * 0.2) })),
+      sections: defs.map((s, i) => ({
+        id: s.id, href: "#" + s.id, n: String(i + 1).padStart(2, "0"),
+        title: s.title, body: s.body, icon: this.icon(s.paths, i * 0.18),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

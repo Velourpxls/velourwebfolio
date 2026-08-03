@@ -13,7 +13,9 @@
     },
     { "source": "/", "destination": "/desktop.dc.html" },
     { "source": "/escritorio", "destination": "/desktop.dc.html" },
-    { "source": "/movil", "destination": "/movil.dc.html" }
+    { "source": "/movil", "destination": "/movil.dc.html" },
+    { "source": "/privacidad", "destination": "/privacy.dc.html" },
+    { "source": "/privacy", "destination": "/privacy.dc.html" }
   ],
   "redirects": [
     { "source": "/desktop.dc.html", "destination": "/", "permanent": false },
