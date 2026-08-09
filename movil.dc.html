@@ -1498,6 +1498,7 @@ class Component extends DCLogic {
       if (top && top.closest(".rv.on") && !top.closest(".herologo")) return;
     }
     if (!this.state.revealed) { this.revealOn(); return; }
+    if (!this.PXON) return;
     // transición: el logo se deshace en bloques y se vuelve a formar con el otro rótulo
     this.blocksKey = null;
     this.gTarget = 0.55; this.gEase = 0.5; this.gNext = performance.now() + 560;
@@ -1505,9 +1506,13 @@ class Component extends DCLogic {
     if (this.isPx()) this.glitchSwap({ navMode: "main", panel: null, sub: null, cat: null, preSel: null });
     else this.glitchSwap({ navMode: "pixels", panel: "pixels", sub: null, cat: null, preSel: null });
   };
+  // ── velour / pixels DESACTIVADO por ahora.
+  // Para reactivarlo: PXON = true (vuelven el selector y el salto desde el logo).
+  PXON = false;
   // interruptor explícito: el logo sigue alternando, pero además se ve que hay dos homes
   toWorld = (px, e) => {
     if (e && e.stopPropagation) e.stopPropagation();
+    if (!this.PXON) return;
     if (!this.state.revealed || this.isPx() === px) return;
     this.blocksKey = null;
     this.gTarget = 0.55; this.gEase = 0.5; this.gNext = performance.now() + 560;
@@ -3044,7 +3049,7 @@ class Component extends DCLogic {
       logoClick: this.logoClick,
       toPixels: this.toPixels,
       toVelour: this.toVelour,
-      wswClass: this.state.revealed && (!this.state.panel || this.state.panel === "pixels") ? "on" : "",
+      wswClass: this.PXON && this.state.revealed && (!this.state.panel || this.state.panel === "pixels") ? "on" : "",
       wswRef: this.wswRef,
       wsRef: this.wsRef,
       wsARef: this.wsARef,
